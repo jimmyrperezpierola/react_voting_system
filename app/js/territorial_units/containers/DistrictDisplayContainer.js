@@ -1,4 +1,5 @@
 var React = require('react');
+var axios = require('axios');
 var DistrictDisplayComponent = require('../components/DistrictDisplayComponent');
 var CountyDisplayComponent = require('../components/CountyDisplayComponent');
 var NewCountyInlineForm = require('../components/tiny_components/NewCountyInlineForm');
@@ -6,7 +7,12 @@ var NewCountyInlineFormButton = require('../components/tiny_components/NewCounty
 
 var DistrictDisplayContainer = React.createClass({
     getInitialState: function() {
-        return ({ showCounties: false, showInlineForm: false, countyName: "", votersCount: undefined, counties: [] });
+        return ({ showCounties: false,
+                  showInlineForm: false,
+                  countyName: "",
+                  voterCount: undefined,
+                  counties: [],
+                  hoverState: false });
     },
     componentDidMount: function() {
         this.setState({ counties: this.props.district.counties });
@@ -41,12 +47,12 @@ var DistrictDisplayContainer = React.createClass({
         var _this = this;
         var body = {
             name: this.state.countyName,
-            votersCount: this.state.votersCount,
+            voterCount: this.state.voterCount,
             districtId: this.props.district.id
         };
-        axios.post('api/counties', body)
+        axios.post('http://localhost:8080/api/county/', body)
             .then(function(resp) {
-                _this.setState({ showInlineForm: false, countyName: "", votersCount: undefined });
+                _this.setState({ showInlineForm: false, countyName: "", voterCount: undefined });
                 _this.addCountyToState(resp.data);
             })
             .catch(function(err) {
@@ -56,16 +62,14 @@ var DistrictDisplayContainer = React.createClass({
     handleNameChange: function(e) {
         this.setState({ countyName: e.target.value })
     },
-    handleVotersCount: function(e) {
-        this.setState({ votersCount: e.target.value })
+    handleVoterCount: function(e) {
+        this.setState({ voterCount: e.target.value })
     },
     handleDistrictDestroy(idx) {
         var _this = this;
-        var deletePath = "api/districts/" + this.props.district.id + "";
+        var deletePath = "http://localhost:8080/api/district/" + this.props.district.id + "";
         axios.delete(deletePath)
             .then(function(resp) {
-                console.log("DELETED");
-                console.log(idx);
                 _this.props.delete(idx);
             })
             .catch(function(err) {
@@ -78,15 +82,18 @@ var DistrictDisplayContainer = React.createClass({
                 cancel={this.toggleShowInlineState}
                 submit={this.handleCountyCreate}
                 changeName={this.handleNameChange}
-                changeVotersCount={this.handleVotersCount}
+                changeVoterCount={this.handleVoterCount}
                 name={this.state.countyName}
-                count={this.state.votersCount}
+                count={this.state.voterCount}
             />
         } else {
             return <NewCountyInlineFormButton
                 renderCountyForm={this.toggleShowInlineState}
             />
         }
+    },
+    toggleHoverState: function() {
+        this.setState({ hoverState: !this.state.hoverState });
     },
     render: function() {
         return <DistrictDisplayComponent
@@ -96,6 +103,9 @@ var DistrictDisplayContainer = React.createClass({
                     show={this.state.showCounties}
                     delete={this.handleDistrictDestroy}
                     index={this.props.index}
+                    showActions={this.state.hoverState}
+                    onMouseOver={this.toggleHoverState}
+                    onMouseOut={this.toggleHoverState}
                />
     }
 });

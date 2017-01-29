@@ -1,3 +1,5 @@
+var React = require('react');
+
 function NoMatch() {
 	return (
 		<div className="error-404">

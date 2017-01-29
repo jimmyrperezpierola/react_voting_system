@@ -1,4 +1,5 @@
 var React = require('react');
+var HomePageComponent = require('../components/HomePageComponent');
 
 var HomePageContainer = React.createClass({
     getInitialState: function () {
@@ -17,4 +18,4 @@ var HomePageContainer = React.createClass({
     }
 });
 
-window.HomePageContainer = HomePageContainer;
+module.exports = HomePageContainer;

@@ -1,3 +1,5 @@
+var React = require('react');
+
 function AddedCountyDisplayComponent(props) {
     var remove = function() {
         props.remove((props.index));

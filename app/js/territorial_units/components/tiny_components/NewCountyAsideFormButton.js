@@ -1,3 +1,5 @@
+var React = require('react');
+
 function NewCountyAsideFormButton(props) {
     return (
         <div id="add-county">

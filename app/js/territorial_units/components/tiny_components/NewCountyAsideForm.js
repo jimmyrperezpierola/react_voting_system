@@ -1,3 +1,5 @@
+var React = require('react');
+
 function NewCountyAsideForm(props) {
     return (
         <form>

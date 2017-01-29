@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
-var DistrictDisplayComponent = require('./DistrictDisplayContainer');
+var axios = require('axios');
+var DistrictDisplayContainer = require('./DistrictDisplayContainer');
 var TerritorialBreakdownComponent = require('../components/TerritorialBreakdownComponent');
 var AddedCountyDisplayComponent = require('../components/tiny_components/AddedCountyDisplayComponent');
 
@@ -10,7 +11,7 @@ var TerritorialBreakdownContainer = React.createClass({
     },
     componentDidMount: function() {
         var _this = this;
-        axios.get('api/districts/')
+        axios.get('http://localhost:8080/api/district/')
             .then(function(resp) {
                 _this.setState({ districts: resp.data });
                 console.log(resp);
@@ -55,7 +56,7 @@ var TerritorialBreakdownContainer = React.createClass({
             counties: this.state.counties
         }
         var districts = this.state.districts;
-        axios.post('api/districts', body)
+        axios.post('http://localhost:8080/api/district/', body)
             .then(function(resp) {
                 console.log(resp);
                 districts.push(resp.data);

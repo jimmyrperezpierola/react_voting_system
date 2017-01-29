@@ -1,3 +1,5 @@
+var React = require('react');
+
 function NewDistrictAsideForm(props) {
     return (
         <form>

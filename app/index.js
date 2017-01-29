@@ -10,6 +10,7 @@ var HomePageContainer = require('./js/containers/HomePageContainer');
 var AdminPanelComponent = require('./js/components/AdminPanelComponent');
 var TerritorialBreakdownContainer = require('./js/territorial_units/containers/TerritorialBreakdownContainer');
 var PoliticalUnitsContainer = require('./js/political_units/containers/PoliticalUnitsContainer');
+var SingleCandidatesContainer = require('./js/single_m_candidates/containers/SingleCandidatesContainer');
 var NoMatch = require('./js/config/NoMatch');
 
 ReactDOM.render((
@@ -18,8 +19,9 @@ ReactDOM.render((
         <IndexRoute component={HomePageContainer}/>
         <Route path="administravimas" component={AdminPanelComponent}>
             <Route path="teritorinis-suskirstymas" component={TerritorialBreakdownContainer}/>
-			<Route path="apylinkiu-atstovai" component={NoMatch}/>
-			<Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
+            <Route path="apygardu-kandidatai" component={SingleCandidatesContainer}/>
+			      <Route path="apylinkiu-atstovai" component={NoMatch}/>
+			      <Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
         </Route>
         <Route path="*" component={NoMatch} />
     </Route>

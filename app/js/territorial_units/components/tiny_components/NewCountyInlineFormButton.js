@@ -1,3 +1,5 @@
+var React = require('react');
+
 function NewCountyInlineFormButton(props) {
     return (
         <div className="party-actions">
