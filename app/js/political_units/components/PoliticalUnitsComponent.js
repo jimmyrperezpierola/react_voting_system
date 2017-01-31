@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var NewPartyAsideForm = require('./tiny_components/NewPartyAsideForm');
-var InlineCsvUploadForm = require('../../components/tiny_components/InlineCsvUploadForm');
+//var InlineCsvUploadForm = require('../../components/tiny_components/InlineCsvUploadForm');
 
 function PoliticalUnitsComponent(props) {
     var candidates = [];

@@ -2,12 +2,9 @@ var React = require('react');
 
 function SingleCandidatesComponent(props) {
     var candidates = [];
-    if (props.activeDistrictId != undefined) {
-        if (props.activeCandidates.length > 0 && props.show) {
-            candidates = props.activeCandidates;
-        }
+    if (props.activeDistrictId != undefined && props.show) {
+        candidates = props.activeCandidates;
     }
-
     return (
         <div className="container">
             <div className="row">

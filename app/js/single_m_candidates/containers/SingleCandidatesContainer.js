@@ -2,6 +2,7 @@ var React = require('react');
 var axios = require('axios');
 var SingleMandateDistrictDisplayContainer = require('./SingleMandateDistrictDisplayContainer');
 var SingleCandidatesComponent = require('../components/SingleCandidatesComponent');
+var CandidateCardComponent = require('../../components/CandidateCardComponent');
 
 var SingleCandidatesContainer = React.createClass({
     getInitialState: function() {
@@ -12,13 +13,14 @@ var SingleCandidatesContainer = React.createClass({
         axios.get('http://localhost:8080/api/district/')
             .then(function(resp) {
                 _this.setState({ districts: resp.data });
-                console.log(resp);
             })
             .catch(function(err) {
                 console.log(err);
             });
     },
     prepareDistricts() {
+      console.log("this.state candidates");
+      console.log(this.state.activeCandidates);
         var districts = [];
         this.state.districts.forEach((d, index) => {
             districts.push(<SingleMandateDistrictDisplayContainer
@@ -27,20 +29,42 @@ var SingleCandidatesContainer = React.createClass({
                                 district={d}
                                 prepareCandidates={this.setActiveCandidates}
                                 upload={this.handleCandidatesUpload}
+                                deleteCandidates={this.deleteActiveCandidates}
                            />)
         });
         return districts;
     },
     setActiveCandidates: function(candidates, showBoolean, activeDistrictId) {
-        this.setState({ activeCandidates: candidates, showCandidates: showBoolean, activeDistrictId: activeDistrictId });
+      var cand = []
+      if (showBoolean) {
+          candidates.forEach((c, index) => {
+              cand.push(
+                  <CandidateCardComponent
+                    key={index}
+                    candidate={c}
+                  />
+              )
+          });
+      }
+      this.setState({ activeCandidates: cand, showCandidates: showBoolean, activeDistrictId: activeDistrictId });
+    },
+    deleteActiveCandidates: function(district_id) {
+        var _this = this;
+        var deletePath = "http://localhost:8080/api/district/" + district_id + "/candidates"
+        axios.delete(deletePath)
+            .then(function(resp) {
+                _this.setActiveCandidates([], false, district_id);
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
     },
     handleCandidatesUpload: function(fd, districtId) {
         var _this = this;
         var uploadPath = "http://localhost:8080/api/district/" + districtId + "/candidates";
         axios.post(uploadPath, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
-                _this.setState({ activeCandidates: [], showCandidates: false, activeDistrictId: districtId });
-                console.log(resp);
+              _this.setActiveCandidates(resp.data.candidates, true, resp.data.id);
             })
             .catch(function(err) {
                 console.log(err);

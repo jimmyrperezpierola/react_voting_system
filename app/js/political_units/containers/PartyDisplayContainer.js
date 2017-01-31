@@ -7,31 +7,33 @@ var PartyDisplayContainer = React.createClass({
     getInitialState: function() {
         return ({ showCandidates: false });
     },
-    prepareCandidates(showBoolean) {
-        var candidates = [];
-        if (showBoolean) {
-            this.props.partyInfo.candidates.forEach((c, index) => {
-                candidates.push(
-                    <CandidateCardComponent
-                        key={index}
-                        candidate={c}
-                    />
-                )
-            });
-        }
-        this.props.prepareCandidates(candidates, showBoolean, this.props.partyInfo.id);
+    // prepareCandidates(showBoolean) {
+    //     var candidates = [];
+    //     if (showBoolean) {
+    //         this.props.partyInfo.candidates.forEach((c, index) => {
+    //             candidates.push(
+    //                 <CandidateCardComponent
+    //                     key={index}
+    //                     candidate={c}
+    //                 />
+    //             )
+    //         });
+    //     }
+    //     this.props.prepareCandidates(candidates, showBoolean, this.props.partyInfo.id);
+    // },
+    prepareCandidates: function(showBoolean) {
+        this.props.prepareCandidates(this.props.partyInfo.candidates, showBoolean, this.props.partyInfo.id);
     },
     toggleShowCandidates: function() {
         this.setState({ showCandidates: !this.state.showCandidates });
         this.prepareCandidates(!this.state.showCandidates);
     },
-    deleteActiveCandidates: function(party_id) {
+    handleCandidatesDelete: function() {
         var _this = this;
-        var deletePath = "http://localhost:8080/api/party/" + party_id + "/candidates";
+        var deletePath = "http://localhost:8080/api/party/" + this.props.partyInfo.id + "/candidates";
         axios.delete(deletePath)
             .then(function(resp) {
-                _this.props.prepareCandidates([], false, undefined);
-                _this.setState({ showCandidates: false });
+                _this.props.prepareCandidates([], false, _this.props.partyInfo.id);
             })
             .catch(function(err) {
                console.log(err);
@@ -56,9 +58,10 @@ var PartyDisplayContainer = React.createClass({
                 show={this.state.showCandidates}
                 toggleShow={this.toggleShowCandidates}
                 delete={this.props.delete}
-                deleteCandidates={this.deleteActiveCandidates}
+                deleteCandidates={this.handleCandidatesDelete}
                 partyInfo={this.props.partyInfo}
                 upload={this.props.upload}
+                candCount={this.props.candCount}
             />
         );
     }

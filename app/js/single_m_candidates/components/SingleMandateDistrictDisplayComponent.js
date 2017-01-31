@@ -9,7 +9,7 @@ function SingleMandateDistrictDisplayComponent(props) {
     } else {
         actions = <InlineCsvUploadForm
                       upload={props.upload}
-                      districtId={props.districtInfo.id}
+                      associationId={props.districtInfo.id}
                   />
     }
     return (
@@ -19,7 +19,7 @@ function SingleMandateDistrictDisplayComponent(props) {
                     {props.districtInfo.name}
                 </div>
             </div>
-            <div className="list-group-item remove-units" style={ display }>
+            <div className="list-group-item" style={ display }>
                 {actions}
             </div>
         </div>
