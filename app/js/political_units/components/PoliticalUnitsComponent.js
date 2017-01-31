@@ -23,7 +23,7 @@ function PoliticalUnitsComponent(props) {
                     </div>
                     <div className="list-group-item">
                         <div className="card-group">
-                            PARTIJOS NARIAI:
+                            <div>PARTIJOS NARIAI:</div>
                             {candidates}
                         </div>
                     </div>

@@ -20,7 +20,7 @@ function SingleCandidatesComponent(props) {
                     </div>
                     <div className="list-group-item">
                         <div className="card-group">
-                            VIENMANDAČIAI KANDIDATAI:
+                            <div>VIENMANDAČIAI KANDIDATAI:</div>
                             {candidates}
                         </div>
                     </div>

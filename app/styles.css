@@ -81,6 +81,12 @@ body {
     padding: 5px 0;
 }
 
+.candidate.card {
+    height: auto;
+    width: 33%;
+    display: inline-block;
+}
+
 .glyphicon glyphicon-edit {
     float: right;
 }
