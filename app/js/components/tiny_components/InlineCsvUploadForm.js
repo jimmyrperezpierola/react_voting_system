@@ -9,13 +9,13 @@ var InlineCsvUploadForm = React.createClass({
     },
     render: function() {
         return (
-            <div className="inline-add-county-form">
-                <form>
-                    <div className="form-group">
+            <div>
+                <form id="inline-csv-form">
+                    <div className="form-group browse-button-area">
                         <input type="file" ref="fileCSV" id="inputFile"/>
                     </div>
-                    <div className="county-form-actions">
-                        <button type="submit" onClick={this.upload} className="btn btn-primary btn-lg">Siūsti</button>
+                    <div className="form-group upload-button-area">
+                        <button type="submit" onClick={this.upload} className="btn btn-primary btn-sm">Siūsti</button>
                     </div>
                 </form>
             </div>

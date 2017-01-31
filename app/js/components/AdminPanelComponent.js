@@ -12,7 +12,7 @@ var AdminPanelComponent = React.createClass({
 						<li className="tab"><Link to="administravimas/apygardu-kandidatai">Apygardu kandidatai</Link></li>
 						<li className="tab"><Link to="administravimas/apylinkiu-atstovai">Apylinkių atstovai</Link></li>
 						<li className="tab"><Link to="administravimas/politinis-suskirstymas">Politiniai vienetai</Link></li>
-						<li className="tab"><Link to="/">Apylinkių rezultatai</Link></li>
+						<li className="tab"><Link to="administravimas/apylinkiu-rezultatai">Apylinkių rezultatai</Link></li>
 					</ul>
 				</div>
 				<div className="main-layout">

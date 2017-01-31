@@ -9,76 +9,52 @@ body {
     color: #5875db;
     background-color: #f1eeeb;
     width: 100%;
-    height: 12vh;
+    height: auto;
 }
 
 #bootstrap-overrides-nav-tabs .tab {
-    width: 25%;
+    width: 20%;
     height: 100%;
     text-align: center;
     display: table;
+    padding: 15px;
+    background-color: #CDEBF7;
 }
 
 #bootstrap-overrides-nav-tabs .tab a {
     font-weight: bold;
-    font-size: 2em;
+    font-size: 1.5em;
     display: table-cell;
     vertical-align: middle;
-
 }
 
 .main-layout {
     color: #5875db;
     background-color: #f1eeeb;
     width: 100%;
-    height: 88vh;
+    height: auto;
 }
 
-/* admin panel - territorial brakedown view */
+/* admin panel - units view */
 
-.territorial-list-area {
-    padding-top: 2vh;
-    background-color: #db1754;
+.row {
+    margin: 0;
     height: 100vh;
+    background-color: #CDEBF7;
 }
 
-.territorial-list-area .list-group .list-group-item:not(.active)  {
-    padding-left: 1.5vw;
+.container {
+    padding: 0;
 }
 
-.territorial-list-area .list-group .list-group-item  {
-    height: 7vh;
+.units-list-area {
+    padding-top: 2vh;
+    min-height: 100%;
 }
 
-.territorial-list-area .list-group .list-group-item #tall-list-group-item {
-    height: 20vh;
-    background-color: yellow;
-}
-
-
-.territorial-list-area .list-group .list-group-item .party-link {
-    width: 80%;
-    height: 100%;
-    float: left;
-}
-
-.territorial-list-area .list-group .list-group-item .party-link a {
-    color: #5875db;
-}
-
-.territorial-list-area .list-group .active .party-link a {
-    color: azure;
-}
-
-.territorial-list-area .list-group .list-group-item .party-actions {
-    width: 20%;
-    height: 100%;
-    float: right;
-}
-
-.territorial-list-area .list-group .list-group-item .party-actions p {
-    display: inline-block;
-    color: #dbc02f;
+.units-create-area {
+    padding-top: 2vh;
+    min-height: 100%;
 }
 
 .inline-add-county-form {
@@ -87,45 +63,71 @@ body {
 
 .inline-add-county-form .form-group {
     display: table-cell;
-    width: 35%;
+    width: 30%;
+    float: left;
+    margin-bottom: 0;
 }
 
 .inline-add-county-form .form-group:last-child {
-    display: inline-block;
-    width: 20%;
-    float: right;
+    display: table-cell;
 }
 
-.territorial-create-area {
-    padding-top: 2vh;
-    background-color: #99d242;
-    height: 100vh;
+.inline-add-county-form .form-group:last-child button.btn.btn-sm {
+    display: table-cell;
+    margin-left: 10px
+}
+
+.unit {
+    padding: 5px 0;
 }
 
 .glyphicon glyphicon-edit {
     float: right;
 }
 
-.county-form-actions button {
-    float: right;
-    padding: 0 1vw;
-    text-align: center;
+.county-form-actions {
+    padding-bottom: 15px;
 }
 
-#add-county {
-    margin: 7vh 0;
+.county-add-button {
+    float: left;
 }
 
-/* Political parties table */
+.county-cancel-button {
+    margin-left: 10px;
+}
 
-#party_table {
+form div.form-group.browse-button-area, form div.form-group.upload-button-area {
+    display: table-cell;
+}
+
+#inline-csv-form {
+    display: table;
+    width: auto;
+}
+
+div.list-group-item.remove-units {
+    display: table;
     width: 100%;
 }
 
-#party_table tr td {
-    width: 33%;
-    text-align: center;
-    padding: 2vh 0;
+.remove-units-element {
+    display: table-cell;
+}
+
+#unit-header {
+    display: table;
+    width: 100%;
+}
+
+.unit-actions-area {
+    display: table-cell;
+    float: right;
+}
+
+.unit-name-area {
+  display: table-cell;
+  float: left;
 }
 
 /* OSVALDO */
@@ -262,6 +264,7 @@ body {
     font-weight: 400;
     background-color: #006b96;
     padding: 10px;
+    margin-bottom: 0;
     border: 0px;
     border-radius: 0px;
 }

@@ -18,8 +18,8 @@ var NewPartyAsideForm = React.createClass({
                     <label htmlFor="exampleInputFile">Įkelti partijos sąrašą</label>
                     <input ref="fileCSV" type="file" id="inputFile"/>
                 </div>
-                <div className="county-form-actions">
-                    <button type="submit" onClick={this.create} className="btn btn-primary btn-lg">Sukurti</button>
+                <div className="form-group">
+                    <button type="submit" onClick={this.create} className="btn btn-primary btn-md">Sukurti</button>
                 </div>
             </form>
         )

@@ -3,7 +3,7 @@ var axios = require('axios');
 var DistrictDisplayComponent = require('../components/DistrictDisplayComponent');
 var CountyDisplayComponent = require('../components/CountyDisplayComponent');
 var NewCountyInlineForm = require('../components/tiny_components/NewCountyInlineForm');
-var NewCountyInlineFormButton = require('../components/tiny_components/NewCountyInlineFormButton');
+var NewCountyFormButton = require('../components/tiny_components/NewCountyFormButton');
 
 var DistrictDisplayContainer = React.createClass({
     getInitialState: function() {
@@ -87,7 +87,7 @@ var DistrictDisplayContainer = React.createClass({
                 count={this.state.voterCount}
             />
         } else {
-            return <NewCountyInlineFormButton
+            return <NewCountyFormButton
                 renderCountyForm={this.toggleShowInlineState}
             />
         }

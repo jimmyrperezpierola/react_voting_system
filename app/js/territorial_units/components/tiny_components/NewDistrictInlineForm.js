@@ -1,6 +1,6 @@
 var React = require('react');
 var NewCountyAsideForm = require('./NewCountyAsideForm');
-var NewCountyInlineFormButton = require('./NewCountyInlineFormButton');
+var NewCountyFormButton = require('./NewCountyFormButton');
 
 var  NewDistrictInlineForm = React.createClass({
     getInitialState: function() {
@@ -9,7 +9,7 @@ var  NewDistrictInlineForm = React.createClass({
     handleSwitchState() {
         this.setState({ showAsideForm: !this.state.showAsideForm });
     },
-    handleCountyAdd(e) {
+    handleCountyAdd() {
         var body = {
             name: this.state.countyName,
             voterCount: this.state.voterCount
@@ -34,7 +34,7 @@ var  NewDistrictInlineForm = React.createClass({
                 count={this.state.voterCount}
             />
         } else {
-            return <NewCountyInlineFormButton
+            return <NewCountyFormButton
                 renderCountyForm={this.handleSwitchState}
             />
         }

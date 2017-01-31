@@ -12,7 +12,6 @@ var PoliticalUnitsContainer = React.createClass({
         axios.get('http://localhost:8080/api/party')
             .then(function(resp) {
                 _this.setState({ parties: resp.data });
-                console.log(resp);
             })
             .catch(function(err) {
                 console.log(err);
@@ -49,7 +48,6 @@ var PoliticalUnitsContainer = React.createClass({
         var parties = this.state.parties;
         axios.post('http://localhost:8080/api/party', body, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
-                console.log(resp);
                 parties.push(resp.data);
                 _this.setState({ parties: parties, partyName: "" });
 
@@ -74,7 +72,6 @@ var PoliticalUnitsContainer = React.createClass({
         axios.post(uploadPath, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
                 _this.setState({ activeCandidates: [], showCandidates: false, activePartyId: partyID });
-                console.log(resp);
             })
             .catch(function(err) {
                 console.log(err);
@@ -103,7 +100,6 @@ var PoliticalUnitsContainer = React.createClass({
         axios.delete(deleteURL)
             .then(function(resp) {
                 _this.setState({ activeCandidates: [], showCandidates: false, activePartyId: undefined });
-                console.log("DELETED");
             })
             .catch(function(err) {
                console.log(err);

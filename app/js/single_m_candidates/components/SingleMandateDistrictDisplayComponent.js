@@ -5,7 +5,7 @@ function SingleMandateDistrictDisplayComponent(props) {
     var display; var actions;
     if (!props.show) display = {display: 'none'};
     if (props.districtInfo.candidates.length > 0) {
-        actions = <p onClick={props.deleteCandidates}><span className="glyphicon glyphicon-remove-sign"></span> ištrinti kandidatus</p>
+        actions = <p onClick={props.deleteCandidates} className="remove-units-element" style={{ cursor: 'pointer' }}><span className="glyphicon glyphicon-remove-sign"></span> šalinti kandidatus</p>
     } else {
         actions = <InlineCsvUploadForm
                       upload={props.upload}
@@ -13,13 +13,13 @@ function SingleMandateDistrictDisplayComponent(props) {
                   />
     }
     return (
-        <div>
+        <div className="unit">
             <div className="list-group-item active">
-                <div onClick={props.toggleShow} className="party-link">
+                <div onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
                     {props.districtInfo.name}
                 </div>
             </div>
-            <div className="list-group-item" style={ display }>
+            <div className="list-group-item remove-units" style={ display }>
                 {actions}
             </div>
         </div>
