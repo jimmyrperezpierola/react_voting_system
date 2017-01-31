@@ -6,9 +6,12 @@ var CandidateCardComponent = require('../../components/CandidateCardComponent');
 
 var PoliticalUnitsContainer = React.createClass({
     getInitialState: function() {
-        return ({ parties: [], partyName: "", activeCandidates: [], showCandidates: false, activePartyId: undefined });
+        return ({ parties: [], partyName: "" });
     },
     componentDidMount: function() {
+        this.partiesAxiosGet();
+    },
+    partiesAxiosGet: function() {
         var _this = this;
         axios.get('http://localhost:8080/api/party')
             .then(function(resp) {
@@ -19,23 +22,31 @@ var PoliticalUnitsContainer = React.createClass({
             });
     },
     prepareParties() {
-        var parties = this.state.parties;
-        var preparedParties = [];
-        parties.forEach((p, idx) => {
-            preparedParties.push(
+        var parties = [];
+        this.state.parties.forEach((p, idx) => {
+            parties.push(
                 <PartyDisplayContainer
                     key={idx}
                     index={idx}
-                    partyInfo={p}
-                    prepareCandidates={this.setActiveCandidates}
-                    delete={this.handlePartyDestroy}
-                    deleteActiveCandidates={this.deleteActiveCandidates}
-                    upload={this.handleCandidatesUpload}
-                    candCount={this.state.activeCandidates.length}
+                    party={p}
+                    delete={this.deleteParty}
+                    deleteCandidates={this.deleteCandidates}
+                    upload={this.uploadCandidates}
                 />
             );
         });
-        return preparedParties;
+        return parties;
+    },
+    deleteCandidates: function(party_id) {
+        var _this = this;
+        var deleteUrl = "http://localhost:8080/api/party/" + party_id + "/candidates"
+        axios.delete(deleteUrl)
+            .then(function(resp) {
+                _this.partiesAxiosGet();
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
     },
     handleNameChange: function(e) {
         this.setState({ partyName: e.target.value });
@@ -55,51 +66,36 @@ var PoliticalUnitsContainer = React.createClass({
                 console.log(err);
             });
     },
-    handleCandidatesUpload: function(fd, partyID) {
+    uploadCandidates: function(fd, partyID) {
         var _this = this;
-        var uploadPath = "http://localhost:8080/api/party/" + partyID + "/candidates";
-        axios.post(uploadPath, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+        var uploadUrl = "http://localhost:8080/api/party/" + partyID + "/candidates";
+        axios.post(uploadUrl, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
-                _this.setActiveCandidates(resp.data.candidates, true, resp.data.id);
+                _this.partiesAxiosGet();
             })
             .catch(function(err) {
                 console.log(err);
             });
     },
-    handlePartyDestroy(idx, party_id) {
+    deleteParty(idx, party_id) {
         var _this = this;
         var deleteURL = "http://localhost:8080/api/party/" + party_id + "";
         axios.delete(deleteURL)
             .then(function(resp) {
                 var parties = _this.state.parties;
                 parties.splice(idx, 1);
-                _this.setState({ parties: parties, activeCandidates: [], showCandidates: false });
             })
             .catch(function(err) {
                console.log(err);
             });
 
     },
-    setActiveCandidates: function(candidates, showBoolean, activePartyId) {
-        var cand = []
-        if (showBoolean) {
-            candidates.forEach((c, index) => {
-                cand.push(
-                    <CandidateCardComponent
-                      key={index}
-                      candidate={c}
-                    />
-                )
-            });
-        }
-        this.setState({ activeCandidates: cand, showCandidates: showBoolean, activePartyId: activePartyId });
-    },
-    deleteActiveCandidates: function(party_id) {
+    deleteCandidates: function(party_id) {
         var _this = this;
         var deleteURL = "http://localhost:8080/api/party/" + party_id + "/candidates";
         axios.delete(deleteURL)
             .then(function(resp) {
-                _this.setState({ activeCandidates: [], showCandidates: false, activePartyId: undefined });
+                _this.partiesAxiosGet();
             })
             .catch(function(err) {
                console.log(err);
@@ -111,10 +107,7 @@ var PoliticalUnitsContainer = React.createClass({
                   changeName={this.handleNameChange}
                   name={this.state.partyName}
                   create={this.handlePartySubmit}
-                  activeCandidates={this.state.activeCandidates}
-                  show={this.state.showCandidates}
                   //upload={this.uploadStandaloneCsv}
-                  activePartyId={this.state.activePartyId}
                />
     }
 });

@@ -15,12 +15,6 @@ function SingleCandidatesComponent(props) {
                     <div className="list-group-item" style={{ height: 'auto' }}>
                         {props.districts}
                     </div>
-                    <div className="list-group-item">
-                        <div className="card-group">
-                            <div>VIENMANDAČIAI KANDIDATAI:</div>
-                            {candidates}
-                        </div>
-                    </div>
                 </div>
 
                 <div className="col-md-4 units-create-area"></div>

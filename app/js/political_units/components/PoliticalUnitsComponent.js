@@ -21,12 +21,6 @@ function PoliticalUnitsComponent(props) {
                     <div className="list-group-item" style={{ height: 'auto' }}>
                         {props.parties}
                     </div>
-                    <div className="list-group-item">
-                        <div className="card-group">
-                            <div>PARTIJOS NARIAI:</div>
-                            {candidates}
-                        </div>
-                    </div>
                 </div>
                 <div className="col-md-4 units-create-area">
                     <div className="col-md-11">
