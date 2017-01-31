@@ -5,13 +5,13 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var ReactDOM = require('react-dom');
 
-var Application = require('./js/Application');
-var HomePageContainer = require('./js/containers/HomePageContainer');
-var AdminPanelComponent = require('./js/components/AdminPanelComponent');
-var TerritorialBreakdownContainer = require('./js/territorial_units/containers/TerritorialBreakdownContainer');
-var PoliticalUnitsContainer = require('./js/political_units/containers/PoliticalUnitsContainer');
-var SingleCandidatesContainer = require('./js/single_m_candidates/containers/SingleCandidatesContainer');
-var NoMatch = require('./js/config/NoMatch');
+var Application = require('./Application');
+var HomePageContainer = require('./containers/HomePageContainer');
+var AdminPanelComponent = require('./components/AdminPanelComponent');
+var TerritorialBreakdownContainer = require('./territorial_units/containers/TerritorialBreakdownContainer');
+var PoliticalUnitsContainer = require('./political_units/containers/PoliticalUnitsContainer');
+var SingleCandidatesContainer = require('./single_m_candidates/containers/SingleCandidatesContainer');
+var NoMatch = require('./config/NoMatch');
 
 ReactDOM.render((
   <Router history={ReactRouter.hashHistory}>
