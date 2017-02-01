@@ -146,6 +146,20 @@ div.list-group-item.remove-units {
   float: left;
 }
 
+/* validations */
+
+#inline-form-errors {
+    disdplay: block;
+    width: 40%;
+}
+
+.alert.alert-danger.boostrap-custom {
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
 /* OSVALDO */
 
 .firstDivAfterHeader{
