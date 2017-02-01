@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var NewPartyAsideForm = require('./tiny_components/NewPartyAsideForm');
-var InlineCsvUploadForm = require('../../components/tiny_components/InlineCsvUploadForm');
+//var InlineCsvUploadForm = require('../../components/tiny_components/InlineCsvUploadForm');
 
 function PoliticalUnitsComponent(props) {
     var candidates = [];
@@ -20,12 +20,6 @@ function PoliticalUnitsComponent(props) {
                     </div>
                     <div className="list-group-item" style={{ height: 'auto' }}>
                         {props.parties}
-                    </div>
-                    <div className="list-group-item">
-                        <div className="card-group">
-                            <div>PARTIJOS NARIAI:</div>
-                            {candidates}
-                        </div>
                     </div>
                 </div>
                 <div className="col-md-4 units-create-area">

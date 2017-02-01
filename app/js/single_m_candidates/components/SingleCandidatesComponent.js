@@ -2,12 +2,9 @@ var React = require('react');
 
 function SingleCandidatesComponent(props) {
     var candidates = [];
-    if (props.activeDistrictId != undefined) {
-        if (props.activeCandidates.length > 0 && props.show) {
-            candidates = props.activeCandidates;
-        }
+    if (props.activeDistrictId != undefined && props.show) {
+        candidates = props.activeCandidates;
     }
-
     return (
         <div className="container">
             <div className="row">
@@ -17,12 +14,6 @@ function SingleCandidatesComponent(props) {
                     </div>
                     <div className="list-group-item" style={{ height: 'auto' }}>
                         {props.districts}
-                    </div>
-                    <div className="list-group-item">
-                        <div className="card-group">
-                            <div>VIENMANDAČIAI KANDIDATAI:</div>
-                            {candidates}
-                        </div>
                     </div>
                 </div>
 

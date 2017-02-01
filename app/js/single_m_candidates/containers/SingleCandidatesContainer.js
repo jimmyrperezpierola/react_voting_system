@@ -5,14 +5,16 @@ var SingleCandidatesComponent = require('../components/SingleCandidatesComponent
 
 var SingleCandidatesContainer = React.createClass({
     getInitialState: function() {
-        return ({ districts: [], activeCandidates: [], showCandidates: false, activeDistrictId: undefined });
+        return ({ districts: [] });
     },
     componentDidMount: function() {
+        this.districtsAxiosGet();
+    },
+    districtsAxiosGet: function() {
         var _this = this;
         axios.get('http://localhost:8080/api/district/')
             .then(function(resp) {
                 _this.setState({ districts: resp.data });
-                console.log(resp);
             })
             .catch(function(err) {
                 console.log(err);
@@ -25,22 +27,29 @@ var SingleCandidatesContainer = React.createClass({
                                 key={index}
                                 index={index}
                                 district={d}
-                                prepareCandidates={this.setActiveCandidates}
                                 upload={this.handleCandidatesUpload}
+                                deleteCandidates={this.deleteCandidates}
                            />)
         });
         return districts;
     },
-    setActiveCandidates: function(candidates, showBoolean, activeDistrictId) {
-        this.setState({ activeCandidates: candidates, showCandidates: showBoolean, activeDistrictId: activeDistrictId });
+    deleteCandidates: function(district_id) {
+        var _this = this;
+        var deleteUrl = "http://localhost:8080/api/district/" + district_id + "/candidates"
+        axios.delete(deleteUrl)
+            .then(function(resp) {
+                _this.districtsAxiosGet();
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
     },
     handleCandidatesUpload: function(fd, districtId) {
         var _this = this;
         var uploadPath = "http://localhost:8080/api/district/" + districtId + "/candidates";
         axios.post(uploadPath, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
-                _this.setState({ activeCandidates: [], showCandidates: false, activeDistrictId: districtId });
-                console.log(resp);
+                _this.districtsAxiosGet();
             })
             .catch(function(err) {
                 console.log(err);
@@ -49,9 +58,6 @@ var SingleCandidatesContainer = React.createClass({
     render: function() {
         return <SingleCandidatesComponent
                   districts={this.prepareDistricts()}
-                  activeCandidates={this.state.activeCandidates}
-                  show={this.state.showCandidates}
-                  activeDistrictId={this.state.activeDistrictId}
                />
     }
 });
