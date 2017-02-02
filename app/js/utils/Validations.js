@@ -4,48 +4,45 @@ var ErrorWrapper = require('../components/tiny_components/ErrorWrapper');
 var Validations = {
     checkErrorsPartyAsideForm: function(name, file) {
         var errors = [];
-        var nameRegex = new RegExp(/^[a-zA-Z]*$/);
 
-        if (name.length < 3) errors.push("Pavadinime ne mažiau 3 raidžių");
-        if (name.length > 40) errors.push("Pavadinime ne daugiau 40 raidžių");
-        if (!nameRegex.test(name)) errors.push("Pavadinime tik raidės");
+        if (name.length < Vars.min) errors.push(Errors.nameToShort);
+        if (name.length > Vars.max) errors.push(Errors.nameToLong);
+        if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         if (file == undefined) {
-            errors.push("Butina ikelti nariu sarasa");
+            errors.push(Errors.noFileError);
         } else {
             var extension = file.name.split(".").pop().toLowerCase();
-            if (extension.localeCompare("csv") != 0) errors.push("Failas turi buti .csv");
+            if (extension.localeCompare("csv") != 0) errors.push(Errors.csvOnly);
         }
 
         return errors;
     },
     checkErrorsDistrictAsideForm: function(name) {
         var errors = [];
-        var nameRegex = new RegExp(/^[a-zA-Z]*$/);
 
-        if (name.length < 3) errors.push("Pavadinime ne mažiau 3 raidžių");
-        if (name.length > 40) errors.push("Pavadinime ne daugiau 40 raidžių");
-        if (!nameRegex.test(name)) errors.push("Pavadinime tik raidės");
+        if (name.length < Vars.min) errors.push(Errors.nameToShort);
+        if (name.length > Vars.max) errors.push(Errors.nameToLong);
+        if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         return errors;
     },
     checkErrorsCountyForm: function(name, count) {
         var errors = [];
-        var nameRegex = new RegExp(/^[a-zA-Z]*$/);
 
-        if (name.length < 3) errors.push("Pavadinime ne mažiau 3 raidžių");
-        if (name.length > 40) errors.push("Pavadinime ne daugiau 40 raidžių");
-        if (!nameRegex.test(name)) errors.push("Pavadinime tik raidės");
+        if (name.length < Vars.min) errors.push(Errors.nameToShort);
+        if (name.length > Vars.max) errors.push(Errors.nameToLong);
+        if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         switch (true) {
             case (count == undefined):
-              errors.push("Nerealiai mažai gyventojų - 0");
+              errors.push(Errors.popToLow + 0);
               break;
             case (count < 100):
-              errors.push("Nerealiai mažai gyventojų - " + count);
+              errors.push(Errors.popToLow + count);
               break;
             case (count > 3000000):
-              errors.push("Nerealiai daug gyventojų - " + count);
+              errors.push(Errors.popToHigh + count);
               break;
         }
 
@@ -55,10 +52,10 @@ var Validations = {
       var errors = [];
 
       if (file == undefined) {
-          errors.push("Butina ikelti nariu sarasa");
+          errors.push(Errors.noFileError);
       } else {
           var extension = file.name.split(".").pop().toLowerCase();
-          if (extension.localeCompare("csv") != 0) errors.push("Failas turi buti .csv");
+          if (extension.localeCompare("csv") != 0) errors.push(Errors.csvOnly);
       }
 
       return errors;
@@ -70,6 +67,22 @@ var Validations = {
         });
         return preparedErrors;
     },
+};
+
+var Vars = {
+    nameRegex: new RegExp(/^[a-zA-Z]*$/),
+    min: 3,
+    max: 40
+};
+
+var Errors = {
+    nameToShort: "Pavadinime ne mažiau " + Vars.min + " raidžių",
+    nameToLong: "Pavadinime ne daugiau " + Vars.max + " raidžių",
+    onlyAlphas: "Pavadinime tik raidės",
+    popToLow: "Nerealiai mažai gyventojų - ",
+    popToHigh: "Nerealiai daug gyventojų - ",
+    noFileError: "Butina ikelti nariu sarasa",
+    csvOnly: "Failas turi buti .csv"
 };
 
 module.exports = Validations;
