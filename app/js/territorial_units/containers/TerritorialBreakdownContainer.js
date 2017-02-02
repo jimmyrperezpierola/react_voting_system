@@ -49,7 +49,7 @@ var TerritorialBreakdownContainer = React.createClass({
     handleNameChange: function(e) {
         this.setState({ districtName: e.target.value });
     },
-    handleDistrictSubmit: function(e) {
+    handleDistrictSubmit: function() {
         var _this = this;
         var body = {
             name: this.state.districtName,

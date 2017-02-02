@@ -1,7 +1,6 @@
 var React = require('react');
-
 var ReactRouter = require('react-router');
-var NewDistrictAsideForm = require('./tiny_components/NewDistrictAsideForm');
+var NewDistrictAsideForm = require('./NewDistrictAsideForm');
 
 function TerritorialBreakdownComponent(props) {
     return (

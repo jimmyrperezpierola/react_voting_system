@@ -19,24 +19,32 @@ var Validations = {
 
         return errors;
     },
-    checkErrorsCountyInlineForm: function(name, count) {
+    checkErrorsDistrictAsideForm: function(name) {
         var errors = [];
         var nameRegex = new RegExp(/^[a-zA-Z]*$/);
 
         if (name.length < 3) errors.push("Pavadinime ne mažiau 3 raidžių");
         if (name.length > 40) errors.push("Pavadinime ne daugiau 40 raidžių");
         if (!nameRegex.test(name)) errors.push("Pavadinime tik raidės");
-        
+
+        return errors;
+    },
+    checkErrorsCountyForm: function(name, count) {
+        var errors = [];
+        var nameRegex = new RegExp(/^[a-zA-Z]*$/);
+
+        if (name.length < 3) errors.push("Pavadinime ne mažiau 3 raidžių");
+        if (name.length > 40) errors.push("Pavadinime ne daugiau 40 raidžių");
+        if (!nameRegex.test(name)) errors.push("Pavadinime tik raidės");
+
         switch (true) {
             case (count == undefined):
               errors.push("Nerealiai mažai gyventojų - 0");
               break;
             case (count < 100):
-              console.log("not enough");
               errors.push("Nerealiai mažai gyventojų - " + count);
               break;
             case (count > 3000000):
-              console.log("to many");
               errors.push("Nerealiai daug gyventojų - " + count);
               break;
         }

@@ -40,8 +40,12 @@ var DistrictDisplayContainer = React.createClass({
         counties.push(nCounty);
         this.setState({ counties: counties });
     },
-    toggleShowInlineState() {
-        this.setState({ showInlineForm: !this.state.showInlineForm });
+    toggleShowInlineState: function() {
+        this.setState({
+            showInlineForm: !this.state.showInlineForm,
+            countyName: "",
+            voterCount: undefined
+        });
     },
     handleCountyCreate() {
         var _this = this;
@@ -58,6 +62,9 @@ var DistrictDisplayContainer = React.createClass({
             .catch(function(err) {
                 console.log(err);
             });
+    },
+    handleCountyCancel: function() {
+        this.setState({ showInlineForm: !this.state.showInlineForm });
     },
     handleNameChange: function(e) {
         this.setState({ countyName: e.target.value })
@@ -79,13 +86,13 @@ var DistrictDisplayContainer = React.createClass({
     toggleInlineForm() {
         if (this.state.showInlineForm) {
             return <NewCountyInlineForm
-                cancel={this.toggleShowInlineState}
-                submit={this.handleCountyCreate}
-                changeName={this.handleNameChange}
-                changeVoterCount={this.handleVoterCount}
-                name={this.state.countyName}
-                count={this.state.voterCount}
-            />
+                      cancel={this.handleCountyCancel}
+                      submit={this.handleCountyCreate}
+                      changeName={this.handleNameChange}
+                      changeVoterCount={this.handleVoterCount}
+                      name={this.state.countyName}
+                      count={this.state.voterCount}
+                   />
         } else {
             return <NewCountyFormButton
                 renderCountyForm={this.toggleShowInlineState}

@@ -8,7 +8,7 @@ function NewCountyAsideForm(props) {
                 <input type="text" className="form-control" value={props.name} onChange={props.changeName}/>
             </div>
             <div className="form-group">
-                <label htmlFor="inputCountyPopulation">Gyventojų skaičius</label>
+                <label>Gyventojų skaičius</label>
                 <input type="number" className="form-control" min={1} value={props.count} onChange={props.changeCount}/>
             </div>
             <div className="county-form-actions">
