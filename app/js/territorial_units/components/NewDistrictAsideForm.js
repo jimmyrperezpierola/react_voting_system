@@ -23,6 +23,9 @@ var NewDistrictAsideForm = React.createClass({
             this.props.create();
         }
     },
+    backendErrors: function() {
+        return Validations.prepareErrors(this.props.rawBackendErrors);
+    },
     render: function() {
         return (
             <div>
@@ -40,6 +43,7 @@ var NewDistrictAsideForm = React.createClass({
                 </form>
                 <div className="form-group errors-area">
                     {this.state.jsErrors}
+                    {this.backendErrors()}
                 </div>
             </div>
         )

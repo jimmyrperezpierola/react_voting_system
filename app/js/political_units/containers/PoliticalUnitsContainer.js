@@ -6,7 +6,9 @@ var CandidateCardComponent = require('../../components/CandidateCardComponent');
 
 var PoliticalUnitsContainer = React.createClass({
     getInitialState: function() {
-        return ({ parties: [], partyName: "" });
+        return ({ parties: [],
+                  partyName: "",
+                  springErrors: [] });
     },
     componentDidMount: function() {
         this.partiesAxiosGet();
@@ -64,6 +66,7 @@ var PoliticalUnitsContainer = React.createClass({
             })
             .catch(function(err) {
                 console.log(err);
+                _this.setState({ springErrors: err.response.data.errorsMessages });
             });
     },
     uploadCandidates: function(fd, partyID) {
@@ -84,6 +87,7 @@ var PoliticalUnitsContainer = React.createClass({
             .then(function(resp) {
                 var parties = _this.state.parties;
                 parties.splice(idx, 1);
+                _this.setState({ parties: parties });
             })
             .catch(function(err) {
                console.log(err);
@@ -107,7 +111,7 @@ var PoliticalUnitsContainer = React.createClass({
                   changeName={this.handleNameChange}
                   name={this.state.partyName}
                   create={this.handlePartySubmit}
-                  //upload={this.uploadStandaloneCsv}
+                  springErrors={this.state.springErrors}
                />
     }
 });

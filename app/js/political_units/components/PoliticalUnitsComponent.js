@@ -28,6 +28,7 @@ function PoliticalUnitsComponent(props) {
                           create={props.create}
                           changeName={props.changeName}
                           name={props.name}
+                          springErrors={props.springErrors}
                         />
                     </div>
                 </div>

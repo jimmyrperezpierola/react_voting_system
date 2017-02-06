@@ -13,8 +13,13 @@ var NewPartyAsideForm = React.createClass({
         } else {
             var fd = new FormData();
             fd.append('file',file);
+            this.refs.fileCSV.value = "";
+            this.setState({ jsErrors: [] });
             this.props.create(fd);
         }
+    },
+    springErrors: function() {
+        return Validations.prepareErrors(this.props.springErrors);
     },
     render: function() {
         return (
@@ -34,6 +39,7 @@ var NewPartyAsideForm = React.createClass({
                 </form>
                 <div className="form-group errors-area">
                     {this.state.jsErrors}
+                    {this.springErrors()}
                 </div>
             </div>
         )

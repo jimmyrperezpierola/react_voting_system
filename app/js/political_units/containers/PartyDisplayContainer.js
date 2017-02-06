@@ -22,6 +22,10 @@ var PartyDisplayContainer = React.createClass({
     deleteCandidates: function() {
         this.props.deleteCandidates(this.props.party.id);
     },
+    deleteParty: function(index, party_id) {
+        this.toggleShowCandidates();
+        this.props.delete(index, party_id);
+    },
     toggleShowCandidates: function() {
         this.setState({ showCandidates: !this.state.showCandidates });
     },
@@ -31,7 +35,7 @@ var PartyDisplayContainer = React.createClass({
                 index={this.props.index}
                 show={this.state.showCandidates}
                 toggleShow={this.toggleShowCandidates}
-                delete={this.props.delete}
+                delete={this.deleteParty}
                 deleteCandidates={this.deleteCandidates}
                 party={this.props.party}
                 upload={this.props.upload}

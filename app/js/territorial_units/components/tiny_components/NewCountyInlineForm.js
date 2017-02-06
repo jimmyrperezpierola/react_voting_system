@@ -11,8 +11,11 @@ var NewCountyInlineForm = React.createClass({
             var style={ marginTop: 10 };
             this.setState({ jsErrors: Validations.prepareErrors(errors, style) });
         } else {
-            this.props.submit;
+            this.props.submit();
         }
+    },
+    backendErrors: function() {
+        return Validations.prepareErrors(this.props.rawBackendErrors);
     },
     render: function() {
         return (
@@ -31,6 +34,7 @@ var NewCountyInlineForm = React.createClass({
                 </form>
                 <div id="inline-form-errors">
                     {this.state.jsErrors}
+                    {this.backendErrors()}
                 </div>
             </div>
         )

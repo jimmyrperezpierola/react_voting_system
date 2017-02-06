@@ -7,7 +7,10 @@ var AddedCountyDisplayComponent = require('../components/tiny_components/AddedCo
 
 var TerritorialBreakdownContainer = React.createClass({
     getInitialState: function() {
-        return ({ districts: [], districtName: "", counties: [] });
+        return ({ districts: [],
+                  districtName: "",
+                  counties: [],
+                  districtBackendErrorsRaw: [] });
     },
     componentDidMount: function() {
         var _this = this;
@@ -60,10 +63,14 @@ var TerritorialBreakdownContainer = React.createClass({
             .then(function(resp) {
                 console.log(resp);
                 districts.push(resp.data);
-                _this.setState({ districts: districts, districtName: "", counties: [] });
+                _this.setState({ districts: districts,
+                                 districtName: "",
+                                 counties: [],
+                                 districtBackendErrorsRaw: [] });
             })
             .catch(function(err) {
                 console.log(err);
+                _this.setState({ districtBackendErrorsRaw: err.response.data.errorsMessages })
             });
     },
     handleDistrictDestroy(idx) {
@@ -90,6 +97,7 @@ var TerritorialBreakdownContainer = React.createClass({
                   create={this.handleDistrictSubmit}
                   addCounty={this.handleAddCounty}
                   counties={this.prepareCounties()}
+                  rawBackendErrors={this.state.districtBackendErrorsRaw}
                />
     }
 });

@@ -12,7 +12,8 @@ var DistrictDisplayContainer = React.createClass({
                   countyName: "",
                   voterCount: undefined,
                   counties: [],
-                  hoverState: false });
+                  hoverState: false,
+                  countyBackendErrorsRaw: [] });
     },
     componentDidMount: function() {
         this.setState({ counties: this.props.district.counties });
@@ -56,11 +57,12 @@ var DistrictDisplayContainer = React.createClass({
         };
         axios.post('http://localhost:8080/api/county/', body)
             .then(function(resp) {
-                _this.setState({ showInlineForm: false, countyName: "", voterCount: undefined });
+                _this.setState({ showInlineForm: false, countyName: "", voterCount: undefined, countyBackendErrors: [] });
                 _this.addCountyToState(resp.data);
+                _this.setState({ countyBackendErrorsRaw: [] })
             })
             .catch(function(err) {
-                console.log(err);
+                _this.setState({ countyBackendErrorsRaw: err.response.data.errorsMessages })
             });
     },
     handleCountyCancel: function() {
@@ -92,6 +94,7 @@ var DistrictDisplayContainer = React.createClass({
                       changeVoterCount={this.handleVoterCount}
                       name={this.state.countyName}
                       count={this.state.voterCount}
+                      rawBackendErrors={this.state.countyBackendErrorsRaw}
                    />
         } else {
             return <NewCountyFormButton

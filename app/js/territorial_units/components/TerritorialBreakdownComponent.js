@@ -23,6 +23,7 @@ function TerritorialBreakdownComponent(props) {
                             changeName={props.changeName}
                             name={props.name}
                             create={props.create}
+                            rawBackendErrors={props.rawBackendErrors}
                         />
                     </div>
                 </div>

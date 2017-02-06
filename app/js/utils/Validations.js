@@ -1,13 +1,20 @@
 var React = require('react');
 var ErrorWrapper = require('../components/tiny_components/ErrorWrapper');
 
+var Vars = {
+    nameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ0-9\s][^qQwWxX]*)$/),
+    partyNameRegex: new RegExp(/^([a-zA-Z][^qQwWxX]*)$/),
+    min: 3,
+    max: 40
+};
+
 var Validations = {
     checkErrorsPartyAsideForm: function(name, file) {
         var errors = [];
 
         if (name.length < Vars.min) errors.push(Errors.nameToShort);
         if (name.length > Vars.max) errors.push(Errors.nameToLong);
-        if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
+        if (!Vars.partyNameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         if (file == undefined) {
             errors.push(Errors.noFileError);
@@ -69,16 +76,10 @@ var Validations = {
     },
 };
 
-var Vars = {
-    nameRegex: new RegExp(/^[a-zA-Z]*$/),
-    min: 3,
-    max: 40
-};
-
 var Errors = {
     nameToShort: "Pavadinime ne mažiau " + Vars.min + " raidžių",
     nameToLong: "Pavadinime ne daugiau " + Vars.max + " raidžių",
-    onlyAlphas: "Pavadinime tik raidės",
+    onlyAlphas: "Pavadinimas neatitinka formato",
     popToLow: "Nerealiai mažai gyventojų - ",
     popToHigh: "Nerealiai daug gyventojų - ",
     noFileError: "Butina ikelti nariu sarasa",
