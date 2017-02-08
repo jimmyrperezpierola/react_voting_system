@@ -9,14 +9,14 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
                   springErrors: [],
                   district: this.props.district });
     },
-    // componentWillReceiveProps: function(newProps) {
-    //     if (newProps.district != this.state.district) {
-    //         this.setState({ district: newProps.district })
-    //     }
-    // },
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.district != this.state.district) {
+            this.setState({ district: newProps.district })
+        }
+    },
     prepareCandidates: function() {
         var cand = [];
-        this.props.district.candidates.forEach((c, index) => {
+        this.state.district.candidates.forEach((c, index) => {
             cand.push(
                   <CandidateCardComponent
                       key={index}
@@ -45,6 +45,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
         this.setState({ showCandidates: !this.state.showCandidates });
     },
     render: function() {
+        console.log(this.state.district);
         return (
             <SingleMandateDistrictDisplayComponent
                 index={this.props.index}
