@@ -13,9 +13,9 @@ function SingleMandateDistrictDisplayComponent(props) {
         actions = <InlineCsvUploadForm
                       upload={props.upload}
                       associationId={props.district.id}
+                      springErrors={props.springErrors}
                   />
     }
-
     return (
         <div className="unit">
             <div className="list-group-item active">

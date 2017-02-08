@@ -3,23 +3,30 @@ var Validations = require('../../../utils/Validations');
 
 var NewPartyAsideForm = React.createClass({
     getInitialState: function() {
-        return ({ jsErrors: [] });
+        return ({ jsErrors: [], springErrors: [] });
+    },
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.springErrors != this.state.springErrors) {
+            this.setState({ springErrors: newProps.springErrors })
+        }
     },
     create: function() {
         var file = this.refs.fileCSV.files[0];
         var errors = Validations.checkErrorsPartyAsideForm(this.props.name, file);
+
         if (errors.length > 0) {
-            this.setState({ jsErrors: Validations.prepareErrors(errors) });
+            var style={ marginTop: 10 };
+            this.setState({ jsErrors: Validations.prepareErrors(errors, style), springErrors: [] });
         } else {
             var fd = new FormData();
             fd.append('file',file);
-            this.refs.fileCSV.value = "";
+            if (this.state.springErrors == []) this.refs.fileCSV.value = "";
             this.setState({ jsErrors: [] });
             this.props.create(fd);
         }
     },
     springErrors: function() {
-        return Validations.prepareErrors(this.props.springErrors);
+        return Validations.prepareErrors(this.state.springErrors);
     },
     render: function() {
         return (

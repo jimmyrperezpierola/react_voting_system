@@ -33,7 +33,7 @@ var PoliticalUnitsContainer = React.createClass({
                     party={p}
                     delete={this.deleteParty}
                     deleteCandidates={this.deleteCandidates}
-                    upload={this.uploadCandidates}
+                    partiesAxiosGet={this.partiesAxiosGet}
                 />
             );
         });
@@ -67,17 +67,6 @@ var PoliticalUnitsContainer = React.createClass({
             .catch(function(err) {
                 console.log(err);
                 _this.setState({ springErrors: err.response.data.errorsMessages });
-            });
-    },
-    uploadCandidates: function(fd, partyID) {
-        var _this = this;
-        var uploadUrl = "http://localhost:8080/api/party/" + partyID + "/candidates";
-        axios.post(uploadUrl, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
-            .then(function(resp) {
-                _this.partiesAxiosGet();
-            })
-            .catch(function(err) {
-                console.log(err);
             });
     },
     deleteParty(idx, party_id) {

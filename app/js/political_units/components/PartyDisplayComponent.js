@@ -13,6 +13,7 @@ function PartyDisplayComponent(props) {
       actions = <InlineCsvUploadForm
                     upload={props.upload}
                     associationId={props.party.id}
+                    springErrors={props.springErrors}
                 />
     }
 

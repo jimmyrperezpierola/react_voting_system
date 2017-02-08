@@ -77,13 +77,13 @@ var Validations = {
 };
 
 var Errors = {
-    nameToShort: "Pavadinime ne mažiau " + Vars.min + " raidžių",
-    nameToLong: "Pavadinime ne daugiau " + Vars.max + " raidžių",
-    onlyAlphas: "Pavadinimas neatitinka formato",
-    popToLow: "Nerealiai mažai gyventojų - ",
-    popToHigh: "Nerealiai daug gyventojų - ",
-    noFileError: "Butina ikelti nariu sarasa",
-    csvOnly: "Failas turi buti .csv"
+    nameToShort: "REACT - Pavadinime ne mažiau " + Vars.min + " raidžių",
+    nameToLong: "REACT - Pavadinime ne daugiau " + Vars.max + " raidžių",
+    onlyAlphas: "REACT - Pavadinimas neatitinka formato",
+    popToLow: "REACT - Nerealiai mažai gyventojų - ",
+    popToHigh: "REACT - Nerealiai daug gyventojų - ",
+    noFileError: "REACT - Butina ikelti nariu sarasa",
+    csvOnly: "REACT - Failas turi buti .csv"
 };
 
 module.exports = Validations;

@@ -3,20 +3,30 @@ var Validations = require('../../utils/Validations');
 
 var InlineCsvUploadForm = React.createClass({
     getInitialState: function() {
-        return ({ jsErrors: [] });
+        return ({ jsErrors: [], springErrors: [] });
+    },
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.springErrors != this.state.springErrors) {
+            this.setState({ springErrors: newProps.springErrors })
+        }
     },
     upload: function() {
         var file = this.refs.fileCSV.files[0];
-
         var errors = Validations.validateCsv(file);
+
         if (errors.length > 0) {
             var style={ marginTop: 10 };
-            this.setState({ jsErrors: Validations.prepareErrors(errors, style) });
+            this.setState({ jsErrors: Validations.prepareErrors(errors, style), springErrors: [] });
         } else {
             var fd = new FormData();
             fd.append('file',file);
+            if (this.state.springErrors == []) this.refs.fileCSV.value = "";
+            this.setState({ jsErrors: [] });
             this.props.upload(fd, this.props.associationId);
         }
+    },
+    springErrors: function() {
+        return Validations.prepareErrors(this.props.springErrors, {});
     },
     render: function() {
         return (
@@ -31,6 +41,7 @@ var InlineCsvUploadForm = React.createClass({
                 </form>
                 <div id="inline-form-errors">
                     {this.state.jsErrors}
+                    {this.springErrors()}
                 </div>
             </div>
         )
