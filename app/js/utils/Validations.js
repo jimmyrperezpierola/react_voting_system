@@ -55,6 +55,39 @@ var Validations = {
 
         return errors;
     },
+    checkErrorsSMform: function(dictionary, spoiled) {
+        var errors = [];
+        var emptyFields = 0;
+
+        if (spoiled == undefined) emptyFields += 1;
+        if (isNaN(spoiled)) errors.push(spoiled + " " + Errors.NaNerror);
+        if (parseInt(spoiled) < 0) errors.push(spoiled + " " + Errors.negativeNumError);
+        dictionary.forEach(function(value) {
+            if (value == undefined) {
+                emptyFields += 1;
+            } else if (isNaN(value)) {
+                errors.push(value + " " + Errors.NaNerror);
+            } else if (parseInt(value) < 0) {
+                errors.push(value + " " + Errors.negativeNumError);
+            } else if (parseInt(value) > 50000) {
+                errors.push(value + " " + Errors.positiveInfiniteNumError);
+            }
+        });
+        if (emptyFields > 0) errors.push(Errors.emptyFieldsError + "(" + emptyFields + ")");
+        if (emptyFields == dictionary.size + 1) {
+            var emptyForm = new Array();
+            emptyForm.push(Errors.emptyFormError);
+            errors = emptyForm;
+        }
+
+        return errors;
+    },
+    checkErrorsMMform: function() {
+        // CODE NEEDED
+        console.log("checkErrorsMMform");
+        var errors = [];
+        return errors;
+    },
     validateCsv: function(file) {
       var errors = [];
 
@@ -83,7 +116,13 @@ var Errors = {
     popToLow: "REACT - Nerealiai mažai gyventojų - ",
     popToHigh: "REACT - Nerealiai daug gyventojų - ",
     noFileError: "REACT - Butina ikelti nariu sarasa",
-    csvOnly: "REACT - Failas turi buti .csv"
+    csvOnly: "REACT - Failas turi buti .csv",
+    NaNerror: "yra ne skaičius - REACT",
+    negativeNumError: "yra mažiau 0 - REACT",
+    emptyValueError: "REACT - balsų įvedimo laukas liko tuščias",
+    emptyFieldsError: "REACT - formoje liko tuščių laukų ",
+    positiveInfiniteNumError: "nu kur tau matytas toks skaičius...",
+    emptyFormError: "React - forma tuščia"
 };
 
 module.exports = Validations;

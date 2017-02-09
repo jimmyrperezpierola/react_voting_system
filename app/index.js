@@ -11,6 +11,7 @@ var AdminPanelComponent = require('./js/components/AdminPanelComponent');
 var TerritorialBreakdownContainer = require('./js/territorial_units/containers/TerritorialBreakdownContainer');
 var PoliticalUnitsContainer = require('./js/political_units/containers/PoliticalUnitsContainer');
 var SingleCandidatesContainer = require('./js/single_m_candidates/containers/SingleCandidatesContainer');
+var CountiesResultsContainer = require('./js/counties_results/containers/CountiesResultsContainer');
 var NoMatch = require('./js/config/NoMatch');
 
 ReactDOM.render((
@@ -22,27 +23,9 @@ ReactDOM.render((
             <Route path="apygardu-kandidatai" component={SingleCandidatesContainer}/>
 			      <Route path="apylinkiu-atstovai" component={NoMatch}/>
 			      <Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
+            <Route path="res" component={CountiesResultsContainer} />
         </Route>
         <Route path="*" component={NoMatch} />
     </Route>
   </Router>
 ), document.getElementById('root'));
-
-/*
-ReactDOM.render((
-	<Router history={ReactRouter.hashHistory}>
-		<Route path="/" component={Application}>
-			<IndexRoute components={{pageName: HomePageComponent, content: ProductsListContainer}} />
-			<Route path="products">
-				<IndexRoute components={{pageName: ProductsPageComponent, content: ProductsListContainer}} />
-				<Route path=":id" components={{pageName: ProductsPageComponent, content: ProductDetailsContainer}} />
-			</Route>
-			<Route path="admin">
-				<IndexRoute components={{pageName: AdminPageComponent, content: AdminPanelContainer}} />
-				<Route path="products/:id/edit" components={{pageName: AdminPageComponent, content: AdminProductEditContainer}} />
-				<Route path="products/new" components={{pageName: AdminPageComponent, content: AdminProductNewContainer}} />
-			</Route>
-		</Route>
-		<Route path="*" component={NoMatch} />
-	</Router>
-), document.getElementById('root'));*/

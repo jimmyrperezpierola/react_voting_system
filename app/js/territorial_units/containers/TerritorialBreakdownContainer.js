@@ -10,7 +10,7 @@ var TerritorialBreakdownContainer = React.createClass({
         return ({ districts: [],
                   districtName: "",
                   counties: [],
-                  districtBackendErrorsRaw: [] });
+                  springErrors: [] });
     },
     componentDidMount: function() {
         var _this = this;
@@ -66,11 +66,11 @@ var TerritorialBreakdownContainer = React.createClass({
                 _this.setState({ districts: districts,
                                  districtName: "",
                                  counties: [],
-                                 districtBackendErrorsRaw: [] });
+                                 springErrors: [] });
             })
             .catch(function(err) {
                 console.log(err);
-                _this.setState({ districtBackendErrorsRaw: err.response.data.errorsMessages })
+                _this.setState({ springErrors: err.response.data.errorsMessages })
             });
     },
     handleDistrictDestroy(idx) {
@@ -97,7 +97,7 @@ var TerritorialBreakdownContainer = React.createClass({
                   create={this.handleDistrictSubmit}
                   addCounty={this.handleAddCounty}
                   counties={this.prepareCounties()}
-                  rawBackendErrors={this.state.districtBackendErrorsRaw}
+                  springErrors={this.state.springErrors}
                />
     }
 });

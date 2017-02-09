@@ -160,6 +160,18 @@ div.list-group-item.remove-units {
     font-weight: bold;
 }
 
+/* COUNTY RESULTS */
+.county-results {
+    margin-bottom: 0;
+}
+
+.county-results .form-control.county-results-input {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    margin-left: 10px;
+}
+
 /* OSVALDO */
 
 .firstDivAfterHeader{
