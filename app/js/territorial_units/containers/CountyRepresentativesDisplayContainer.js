@@ -37,6 +37,9 @@ var CountyRepresentativesDisplayContainer = React.createClass({
             .then(function (response){
                 self.setState({districts: response.data});
             })
+            .catch(function(error){
+                console.log(error);
+            });
     },
 
     handleDeleteRepresentative: function (repId) {
