@@ -24,7 +24,9 @@ ReactDOM.render((
             <Route path="apygardu-kandidatai" component={SingleCandidatesContainer}/>
 			      <Route path="apylinkiu-atstovai" component={CountyRepresentativesDisplayContainer}/>
 			      <Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
-            <Route path="res" component={CountiesResultsContainer} />
+        </Route>
+        <Route path="atstovui" component={AdminPanelComponent}>
+            <Route path="vienmandaciai" component={TerritorialBreakdownContainer}/>
         </Route>
         <Route path="*" component={NoMatch} />
     </Route>

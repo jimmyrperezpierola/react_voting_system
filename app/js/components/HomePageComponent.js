@@ -15,12 +15,12 @@ var HomePageComponent = React.createClass({
 
                 <div className="homePageButtonsRow">
                     <div className="col-sm-4">
-                        <Link to="resultatai" className="NoUnderlineLink" href="#" title="title">
+                        <Link to="rezultatai" className="NoUnderlineLink" href="#" title="title">
                             <button className="frontPageButton" id="buttonElectionResults"><span className="glyphicon glyphicon-search"></span><div className="innerButtonDiv">{this.props.results}</div></button>
                         </Link>
                     </div>
                     <div className="col-sm-4">
-                        <Link to="atstovai" className="NoUnderlineLink" href="#" title="title">
+                        <Link to="atstovui" className="NoUnderlineLink" href="#" title="title">
                             <button className="frontPageButton" id="buttonCountyRepresentatives"><span className="glyphicon glyphicon-user"></span><div className="innerButtonDiv">{this.props.representatives}</div></button>
                         </Link>
                     </div>
