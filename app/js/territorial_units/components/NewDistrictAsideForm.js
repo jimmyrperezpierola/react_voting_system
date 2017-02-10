@@ -24,7 +24,7 @@ var NewDistrictAsideForm = React.createClass({
         }
     },
     backendErrors: function() {
-        return Validations.prepareErrors(this.props.rawBackendErrors);
+        return Validations.prepareErrors(this.props.springErrors);
     },
     render: function() {
         return (

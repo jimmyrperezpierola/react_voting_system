@@ -54,9 +54,9 @@ var NavigationBarComponent = React.createClass ({
 
 
 
-                        <button className="navBarButton" style={b1}> {this.props.mainMenu}</button>
+                        {/*<button className="navBarButton" style={b1}> {this.props.mainMenu}</button>
                         <button className="navBarButton" style={b2}> {this.props.secondMenu}</button>
-                        <button className="navBarButton" style={b3}> {this.props.thirdMenu}</button>
+                        <button className="navBarButton" style={b3}> {this.props.thirdMenu}</button>*/}
 
                         {/*<span className="navbar-brand" >{this.props.mainMenu}</span>*/}
                         {/*<span className="navbar-brand" >{this.props.secondMenu}</span>*/}

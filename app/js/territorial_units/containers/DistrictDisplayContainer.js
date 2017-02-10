@@ -13,7 +13,7 @@ var DistrictDisplayContainer = React.createClass({
                   voterCount: undefined,
                   counties: [],
                   hoverState: false,
-                  countyBackendErrorsRaw: [] });
+                  springErrors: [] });
     },
     componentDidMount: function() {
         this.setState({ counties: this.props.district.counties });
@@ -59,10 +59,10 @@ var DistrictDisplayContainer = React.createClass({
             .then(function(resp) {
                 _this.setState({ showInlineForm: false, countyName: "", voterCount: undefined, countyBackendErrors: [] });
                 _this.addCountyToState(resp.data);
-                _this.setState({ countyBackendErrorsRaw: [] })
+                _this.setState({ springErrors: [] })
             })
             .catch(function(err) {
-                _this.setState({ countyBackendErrorsRaw: err.response.data.errorsMessages })
+                _this.setState({ springErrors: err.response.data.errorsMessages })
             });
     },
     handleCountyCancel: function() {
@@ -94,7 +94,7 @@ var DistrictDisplayContainer = React.createClass({
                       changeVoterCount={this.handleVoterCount}
                       name={this.state.countyName}
                       count={this.state.voterCount}
-                      rawBackendErrors={this.state.countyBackendErrorsRaw}
+                      springErrors={this.state.springErrors}
                    />
         } else {
             return <NewCountyFormButton

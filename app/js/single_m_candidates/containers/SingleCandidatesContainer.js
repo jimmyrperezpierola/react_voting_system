@@ -5,7 +5,9 @@ var SingleCandidatesComponent = require('../components/SingleCandidatesComponent
 
 var SingleCandidatesContainer = React.createClass({
     getInitialState: function() {
-        return ({ districts: [] });
+        return ({ districts: []
+                //  springErrors: []
+                });
     },
     componentDidMount: function() {
         this.districtsAxiosGet();
@@ -27,8 +29,9 @@ var SingleCandidatesContainer = React.createClass({
                                 key={index}
                                 index={index}
                                 district={d}
-                                upload={this.handleCandidatesUpload}
+                                //upload={this.handleCandidatesUpload}
                                 deleteCandidates={this.deleteCandidates}
+                                //springErrors={this.state.springErrors}
                            />)
         });
         return districts;
@@ -44,17 +47,19 @@ var SingleCandidatesContainer = React.createClass({
                 console.log(err);
             });
     },
-    handleCandidatesUpload: function(fd, districtId) {
-        var _this = this;
-        var uploadPath = "http://localhost:8080/api/district/" + districtId + "/candidates";
-        axios.post(uploadPath, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
-            .then(function(resp) {
-                _this.districtsAxiosGet();
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
-    },
+    // handleCandidatesUpload: function(fd, districtId) {
+    //     var _this = this;
+    //     var uploadPath = "http://localhost:8080/api/district/" + districtId + "/candidates";
+    //     axios.post(uploadPath, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+    //         .then(function(resp) {
+    //             _this.districtsAxiosGet();
+    //             // setstate springErrors: []
+    //         })
+    //         .catch(function(err) {
+    //             console.log(err);
+    //             _this.setState({ springErrors: err.response.data.errorsMessages })
+    //         });
+    // },
     render: function() {
         return <SingleCandidatesComponent
                   districts={this.prepareDistricts()}
