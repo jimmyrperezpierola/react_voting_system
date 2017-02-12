@@ -1,18 +1,17 @@
 var React = require('react');
 var axios = require('axios');
-var CountiesResultsComponent = require('../components/CountiesResultsComponent');
-var CandidateDisplayComponent = require('../components/CandidateDisplayComponent');
-var Validations = require('../../utils/Validations');
+var SM_CountyResultsComponent = require('../components/SM_CountyResultsComponent');
+var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent');
+var Validations = require('../../../utils/Validations');
 
-var CountiesResultsContainer = React.createClass({
+var SM_CountyResultsContainer = React.createClass({
     getInitialState: function() {
         return ({ candidates: [],
                   activeCountyId: undefined,
                   countiesReps: [],
                   dictionary: new Map(),
                   spoiled: undefined,
-                  springErrors: [],
-                  singleMandateEnv: undefined,
+                  springErrors: []
                 });
     },
     componentDidMount: function() {
@@ -84,7 +83,11 @@ var CountiesResultsContainer = React.createClass({
         }
         return (
             <select>
-                <option value={undefined} onClick={this.clearActiveCounty}>PASIRINKTI APYLINKĖS ATSTOVĄ</option>
+                <option
+                    value={undefined}
+                    onClick={this.clearActiveCounty} >
+                    PASIRINKTI APYLINKĖS ATSTOVĄ
+                </option>
                 {representatives}
             </select>
         );
@@ -121,36 +124,22 @@ var CountiesResultsContainer = React.createClass({
                 _this.setState({ springErrors: err.response.data.errorsMessages });
             });
     },
-    handleSubmitMMresults: function() {
-        // CODE NEEDED
-        console.log("SUBMITTING MM RESULTS");
-    },
     prepareSpringErrors: function() {
         var style={"marginTop": 10}
         return Validations.prepareErrors(this.state.springErrors, style);
     },
-    showSM: function() {
-        this.setState({ singleMandateEnv: true });
-    },
-    showMM: function() {
-        this.setState({ singleMandateEnv: false });
-    },
     render: function() {
-        return <CountiesResultsComponent
+        return <SM_CountyResultsComponent
                   repsSelection={this.prepareRepresentativesSelection()}
                   candidates={this.prepareCandidates()}
                   spoiled={this.state.spoiled}
                   dictionary={this.state.dictionary}
                   changeSpoiled={this.handleChangeSpoiled}
                   submitSMresults={this.handleSubmitSMresults}
-                  submitMMresults={this.handleSubmitMMresults}
                   springErrors={this.prepareSpringErrors()}
                   activeCountyId={this.state.activeCountyId}
-                  singleMandateEnv={this.state.singleMandateEnv}
-                  showSM={this.showSM}
-                  showMM={this.showMM}
                />
     }
 });
 
-module.exports = CountiesResultsContainer;
+module.exports = SM_CountyResultsContainer;

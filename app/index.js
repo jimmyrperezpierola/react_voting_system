@@ -12,9 +12,10 @@ var RepresentativePanelComponent = require('./js/components/RepresentativePanelC
 var TerritorialBreakdownContainer = require('./js/territorial_units/containers/TerritorialBreakdownContainer');
 var PoliticalUnitsContainer = require('./js/political_units/containers/PoliticalUnitsContainer');
 var SingleCandidatesContainer = require('./js/single_m_candidates/containers/SingleCandidatesContainer');
-//var CountiesResultsContainer = require('./js/counties_results/containers/CountiesResultsContainer');
 var NoMatch = require('./js/config/NoMatch');
 var CountyRepresentativesDisplayContainer = require('./js/territorial_units/containers/CountyRepresentativesDisplayContainer');
+var SM_CountyResultsContainer = require('./js/counties_results/singlemandate/containers/SM_CountyResultsContainer');
+var MM_CountyResultsContainer = require('./js/counties_results/multimandate/containers/MM_CountyResultsContainer');
 
 ReactDOM.render((
   <Router history={ReactRouter.hashHistory}>
@@ -27,9 +28,11 @@ ReactDOM.render((
 			      <Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
         </Route>
         <Route path="atstovui" component={RepresentativePanelComponent}>
-            <Route path="vienmandaciai-rezultatai" component={}/>
-            <Route path="daugiamandaciai-rezultatai" component={}/>
-            <Route path="profilis" component={}/>
+            <Route path="rezultatai">
+                <Route path="vienmandaciai" component={SM_CountyResultsContainer}/>
+                <Route path="daugiamandaciai" component={MM_CountyResultsContainer}/>
+            </Route>
+            {/*<Route path="profilis" component={}/>*/}
         </Route>
         <Route path="*" component={NoMatch} />
     </Route>

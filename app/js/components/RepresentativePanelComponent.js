@@ -44,21 +44,12 @@ var RepresentativesPanelComponent = React.createClass({
 		    if (nextProps.location.pathname === '/atstovui') {
 						this.resetButtonBackgrounds();
 		    }
-				if (nextProps.location.pathname === '/atstovui/apylinkes-rezultatai') {
+				if (nextProps.location.pathname === '/atstovui/rezultatai/vienmandaciai') {
 						this.setBackgrounds(location1);
 		    }
-		    // if (nextProps.location.pathname === '/administravimas/apygardu-kandidatai') {
-				// 		this.setBackgrounds(location2);
-				// }
-				// if (nextProps.location.pathname === '/administravimas/apylinkiu-atstovai') {
-				// 		this.setBackgrounds(location3);
-				// }
-		    // if (nextProps.location.pathname === '/administravimas/politinis-suskirstymas') {
-				// 		this.setBackgrounds(location4);
-		    // }
-		    // if (nextProps.location.pathname === '/administravimas/apylinkiu-rezultatai') {
-				// 		this.setBackgrounds(location5);
-		    // }
+				if (nextProps.location.pathname === '/atstovui/rezultatai/daugiamandaciai') {
+						this.setBackgrounds(location2);
+		    }
 	  },
 	  render: function() {
 	  		return (
@@ -67,20 +58,20 @@ var RepresentativesPanelComponent = React.createClass({
 										<ul className="nav nav-tabs" id="bootstrap-overrides-nav-tabs">
 												<li className="tab">
 														<Link
-																to="atstovui/apylinkes-rezultatai"
+																to="atstovui/rezultatai/vienmandaciai"
 																className="adminPanelButton"
 																id="location1"
 																style={this.state.tagIds.location1}>
-																Apylinkes rezultatai
+																Apylinkės rezultatai (1M)
 														</Link>
 												</li>
 												<li className="tab">
 														<Link
-
+																to="atstovui/rezultatai/daugiamandaciai"
 																className="adminPanelButton"
 																id="location2"
 																style={this.state.tagIds.location2}>
-																NO TITLE &nbsp; NO TITLE
+																Apylinkės rezultatai (MM)
 														</Link>
 												</li>
 												<li className="tab">

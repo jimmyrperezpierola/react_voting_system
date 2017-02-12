@@ -1,7 +1,7 @@
 var React = require('react');
-var SpoiledBallotsInputComponent = require('../tiny_components/SpoiledBallotsInputComponent');
+var SpoiledBallotsInputComponent = require('../../shared/SpoiledBallotsInputComponent');
 
-function SM_ResultsFormComponent(props) {
+function MM_ResultsFormComponent(props) {
     return (
         <form>
             <SpoiledBallotsInputComponent
@@ -9,13 +9,14 @@ function SM_ResultsFormComponent(props) {
                 changeSpoiled={props.changeSpoiled}
             />
             <div className="list-group-item active">
-                <span>Apylinkės kandidatų sąrašas (VIENMANDAČIAI)</span>
+                <span>Apylinkės kandidatų sąrašas (DAUGIAMANDAČIAI)</span>
             </div>
             <div className="list-group-item" style={{ height: 'auto' }}>
-                {props.candidates}
+                //{props.candidates}
+                REIKIA NUSTATYTI KAIP ATRODYS MM FORMA
             </div>
         </form>
     );
 }
 
-module.exports = SM_ResultsFormComponent;
+module.exports = MM_ResultsFormComponent;
