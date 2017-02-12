@@ -4,6 +4,10 @@ var SpoiledBallotsInputComponent = require('../tiny_components/SpoiledBallotsInp
 function MM_ResultsFormComponent(props) {
     return (
         <form>
+            <SpoiledBallotsInputComponent
+                spoiled={props.spoiled}
+                changeSpoiled={props.changeSpoiled}
+            />
             <div className="list-group-item active">
                 <span>Apylinkės kandidatų sąrašas (DAUGIAMANDAČIAI)</span>
             </div>

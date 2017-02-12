@@ -7,7 +7,7 @@ var styles = {
 		"passive": {backgroundColor: '#CDEBF7', color:"#006B96"}
 }
 
-var AdminPanelComponent = React.createClass({
+var RepresentativesPanelComponent = React.createClass({
 		getInitialState: function () {
 				return ({
 						tagIds: {
@@ -41,24 +41,24 @@ var AdminPanelComponent = React.createClass({
 				this.setState({ tagIds: newState });
 		},
 	  componentWillReceiveProps: function(nextProps) {
-		    if (nextProps.location.pathname === '/administravimas') {
+		    if (nextProps.location.pathname === '/atstovui') {
 						this.resetButtonBackgrounds();
 		    }
-				if (nextProps.location.pathname === '/administravimas/teritorinis-suskirstymas') {
+				if (nextProps.location.pathname === '/atstovui/apylinkes-rezultatai') {
 						this.setBackgrounds(location1);
 		    }
-		    if (nextProps.location.pathname === '/administravimas/apygardu-kandidatai') {
-						this.setBackgrounds(location2);
-				}
-				if (nextProps.location.pathname === '/administravimas/apylinkiu-atstovai') {
-						this.setBackgrounds(location3);
-				}
-		    if (nextProps.location.pathname === '/administravimas/politinis-suskirstymas') {
-						this.setBackgrounds(location4);
-		    }
-		    if (nextProps.location.pathname === '/administravimas/apylinkiu-rezultatai') {
-						this.setBackgrounds(location5);
-		    }
+		    // if (nextProps.location.pathname === '/administravimas/apygardu-kandidatai') {
+				// 		this.setBackgrounds(location2);
+				// }
+				// if (nextProps.location.pathname === '/administravimas/apylinkiu-atstovai') {
+				// 		this.setBackgrounds(location3);
+				// }
+		    // if (nextProps.location.pathname === '/administravimas/politinis-suskirstymas') {
+				// 		this.setBackgrounds(location4);
+		    // }
+		    // if (nextProps.location.pathname === '/administravimas/apylinkiu-rezultatai') {
+				// 		this.setBackgrounds(location5);
+		    // }
 	  },
 	  render: function() {
 	  		return (
@@ -67,47 +67,47 @@ var AdminPanelComponent = React.createClass({
 										<ul className="nav nav-tabs" id="bootstrap-overrides-nav-tabs">
 												<li className="tab">
 														<Link
-																to="administravimas/teritorinis-suskirstymas"
+																to="atstovui/apylinkes-rezultatai"
 																className="adminPanelButton"
 																id="location1"
 																style={this.state.tagIds.location1}>
-																Teritoriniai vienetai
+																Apylinkes rezultatai
 														</Link>
 												</li>
 												<li className="tab">
 														<Link
-																to="administravimas/apygardu-kandidatai"
+
 																className="adminPanelButton"
 																id="location2"
 																style={this.state.tagIds.location2}>
-																Apygardų kandidatai
+																NO TITLE &nbsp; NO TITLE
 														</Link>
 												</li>
 												<li className="tab">
 														<Link
-																to="administravimas/apylinkiu-atstovai"
+
 																className="adminPanelButton"
 																id="location3"
 																style={this.state.tagIds.location3}>
-																Apylinkių atstovai
+																NO TITLE &nbsp; NO TITLE
 														</Link>
 												</li>
 												<li className="tab">
 														<Link
-																to="administravimas/politinis-suskirstymas"
+
 																className="adminPanelButton"
 																id="location4"
 																style={this.state.tagIds.location4}>
-																Politiniai vienetai
+																NO TITLE &nbsp; NO TITLE
 														</Link>
 												</li>
 												<li className="tab">
 														<Link
-																to="administravimas/apylinkiu-rezultatai"
+																to="atstovui/profilis"
 																className="adminPanelButton"
 																id="location5"
 																style={this.state.tagIds.location5}>
-																Apylinkių rezultatai
+																Atstovo profilis
 														</Link>
 												</li>
 										</ul>
@@ -120,4 +120,4 @@ var AdminPanelComponent = React.createClass({
 	  }
 });
 
-module.exports = AdminPanelComponent;
+module.exports = RepresentativesPanelComponent;
