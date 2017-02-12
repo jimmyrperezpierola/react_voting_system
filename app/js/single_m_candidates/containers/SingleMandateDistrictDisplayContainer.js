@@ -45,7 +45,6 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
         this.setState({ showCandidates: !this.state.showCandidates });
     },
     render: function() {
-        console.log(this.state.district);
         return (
             <SingleMandateDistrictDisplayComponent
                 index={this.props.index}

@@ -17,7 +17,6 @@ var TerritorialBreakdownContainer = React.createClass({
         axios.get('http://localhost:8080/api/district/')
             .then(function(resp) {
                 _this.setState({ districts: resp.data });
-                console.log(resp);
             })
             .catch(function(err) {
                 console.log(err);
