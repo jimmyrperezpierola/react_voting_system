@@ -3,13 +3,14 @@ body {
     overflow-x: hidden;
 }
 
-/* admin panel */
+/* dashboards */
 
 #bootstrap-overrides-nav-tabs {
     color: #5875db;
     background-color: #f1eeeb;
     width: 100%;
     height: auto;
+    text-align: center;
 }
 
 #bootstrap-overrides-nav-tabs .tab {

@@ -1,13 +1,13 @@
 var React = require('react');
 
-var MM_CountyResultsDisplayComponent = React.createClass({
+var SM_CountyResultsDisplayComponent = React.createClass({
     render: function() {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 units-list-area">
                         <div className="list-group-item active">
-                            <span>Apylinkės kandidatų rezultatai (DAUGIAMANDAČIAI)</span>
+                            <span>Apylinkės kandidatų rezultatai (VIENMANDAČIAI)</span>
                         </div>
                         <div className="list-group-item">
                             <p className="county-results">
@@ -15,7 +15,7 @@ var MM_CountyResultsDisplayComponent = React.createClass({
                             </p>
                         </div>
                         <div className="list-group-item" style={{ height: 'auto' }}>
-                            {this.props.parties}
+                            {this.props.candidates}
                         </div>
                     </div>
                     <div className="col-md-4 units-create-area">
@@ -30,4 +30,4 @@ var MM_CountyResultsDisplayComponent = React.createClass({
     }
 });
 
-module.exports = MM_CountyResultsDisplayComponent;
+module.exports = SM_CountyResultsDisplayComponent;

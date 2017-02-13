@@ -2,9 +2,6 @@ var React = require('react');
 var partyName;
 
 var CandidateWithResultsDisplayComponent = React.createClass({
-    changeVotes: function(e) {
-        this.props.changeVotes(this.props.candidate.id, e.target.value);
-    },
     render: function() {
         partyName = (this.props.candidate.partyName == undefined) ? "Išsikėlęs pats" : this.props.candidate.partyName;
         return (

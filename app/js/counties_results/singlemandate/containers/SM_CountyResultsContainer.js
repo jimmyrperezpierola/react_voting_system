@@ -1,42 +1,58 @@
 var React = require('react');
 var axios = require('axios');
 var SM_CountyResultsComponent = require('../components/SM_CountyResultsComponent');
+var SM_CountyResultsDisplayComponent = require('../components/SM_CountyResultsDisplayComponent');
 var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent');
+var CandidateWithResultsDisplayComponent = require('../../multimandate/components/CandidateWithResultsDisplayComponent');
 var Validations = require('../../../utils/Validations');
 
 var SM_CountyResultsContainer = React.createClass({
     getInitialState: function() {
         return ({ candidates: [],
                   activeCountyId: undefined,
-                  countiesReps: [],
+                  representative: [],
                   dictionary: new Map(),
                   spoiled: undefined,
-                  springErrors: []
+                  springErrors: [],
+                  SMresults: {}
                 });
     },
     componentDidMount: function() {
+
+        // refactor when login will be implemented
+
         var _this = this;
-        axios.get('http://localhost:8080/api/county-rep/')
+        var getUrl = "http://localhost:8080/api/county-rep/" + this.props.params.id + "";
+        axios.get(getUrl)
             .then(function(resp) {
-                _this.setState({ countiesReps: resp.data });
+                var results = _this.getSMresults(resp.data.county);
+                _this.setState({ representative: resp.data,
+                                 activeCountyId: resp.data.county.id,
+                                 SMresults: results });
+                _this.getCandidates();
             })
             .catch(function(err) {
                 console.log(err);
             });
     },
-    getCandidates: function(countyId) {
+    getSMresults: function(county) {
+        var results = {};
+        county.countyResults.forEach(sm => {
+            if (sm.singleMandateSystem) results = sm;
+        });
+        return results;
+    },
+    getCandidates: function() {
         var _this = this;
-        var getUrl = "http://localhost:8080/api/county/" + countyId + "/candidates";
+        var getUrl = "http://localhost:8080/api/county/" + this.state.activeCountyId + "/candidates";
         axios.get(getUrl)
             .then(function(resp) {
               var initialDictionary = _this.formInitialDictionary(resp.data);
                 _this.setState({ candidates: resp.data,
-                                 activeCountyId: countyId,
                                  dictionary: initialDictionary });
             })
             .catch(function(err) {
                 console.log(err);
-                console.log("NO SUCH COUNTY FOUND. CID - " + countyId);
             });
     },
     prepareCandidates() {
@@ -57,39 +73,43 @@ var SM_CountyResultsContainer = React.createClass({
 
         return preparedCandidates;
     },
+    prepareCandidatesWithResults: function() {
+        var preparedCandidates = [];
+        var candidates = this.state.candidates;
+        var candidateVotesList = this.state.SMresults.candidateVotesList;
+        var cVotes = {};
+
+        candidates.forEach((c, idx) => {
+            candidateVotesList.forEach(cv => {
+                if (cv.candidate.id === c.id) cVotes = cv;
+            });
+            preparedCandidates.push(
+                <CandidateWithResultsDisplayComponent
+                    key={idx}
+                    candidate={c}
+                    cVotes={cVotes}
+                />
+            );
+        });
+
+        return preparedCandidates;
+    },
     formInitialDictionary: function(candidates) {
         var mapped = new Map();
         candidates.forEach(c => mapped.set(c.id, undefined));
         return mapped;
     },
-    clearActiveCounty: function() {
-        this.setState({ activeCountyId: undefined, candidates: [] });
-    },
-    prepareRepresentativesSelection() {
-        var representatives = [];
-        var countiesReps = this.state.countiesReps;
-        if (countiesReps.length > 0) {
-            countiesReps.forEach((cr, idx) => {
-                representatives.push(
-                    <option
-                        value={cr.county.id}
-                        key={idx}
-                        onClick={this.getCandidates.bind(this, cr.county.id)}
-                    >
-                        {cr.firstName + " " + cr.lastName}
-                    </option>
-                );
-            });
-        }
+    prepareRepresentative() {
         return (
-            <select>
-                <option
-                    value={undefined}
-                    onClick={this.clearActiveCounty} >
-                    PASIRINKTI APYLINKĖS ATSTOVĄ
-                </option>
-                {representatives}
-            </select>
+            <div>
+                <div className="list-group-item active">
+                    Prisijungęs kaip
+                </div>
+                <div className="list-group-item">
+                    <span>{this.state.representative.firstName}</span> &nbsp;
+                    <span>{this.state.representative.lastName}</span>
+                </div>
+            </div>
         );
     },
     handleChangeSpoiled: function(e) {
@@ -128,17 +148,58 @@ var SM_CountyResultsContainer = React.createClass({
         var style={"marginTop": 10}
         return Validations.prepareErrors(this.state.springErrors, style);
     },
+    createdOn: function() {
+        var timeStamp = new Date(this.state.SMresults.createdOn);
+        var month = timeStamp.getMonth() + 1;
+        var date = timeStamp.getDate();
+        var hours = timeStamp.getHours();
+        var mins = timeStamp.getMinutes();
+        var secs = timeStamp.getSeconds();
+
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        if (hours < 10) hours = "0" + hours;
+        if (mins < 10) mins = "0" + mins;
+        if (secs < 10) secs = "0" + secs;
+
+        return (
+            <div>
+                <div className="list-group-item active" style={{'marginTop': 10}}>
+                    Rezultatų suvedimas:
+                </div>
+                <div className="list-group-item">
+                    <span>{timeStamp.getFullYear()}</span>
+                    <span>/{month}</span>
+                    <span>/{date} </span> &nbsp;
+                    <span>{hours}</span>
+                    <span>:{mins}</span>
+                    <span>:{secs}</span>
+                </div>
+            </div>
+        );
+    },
     render: function() {
-        return <SM_CountyResultsComponent
-                  repsSelection={this.prepareRepresentativesSelection()}
-                  candidates={this.prepareCandidates()}
-                  spoiled={this.state.spoiled}
-                  dictionary={this.state.dictionary}
-                  changeSpoiled={this.handleChangeSpoiled}
-                  submitSMresults={this.handleSubmitSMresults}
-                  springErrors={this.prepareSpringErrors()}
-                  activeCountyId={this.state.activeCountyId}
-               />
+        var formOrResults;
+        if (Object.keys(this.state.SMresults).length > 0) {
+            formOrResults = <SM_CountyResultsDisplayComponent
+                                representative={this.prepareRepresentative()}
+                                spoiled={this.state.SMresults.spoiledBallots}
+                                candidates={this.prepareCandidatesWithResults()}
+                                dateTime={this.createdOn()}
+                            />
+        } else {
+            formOrResults = <SM_CountyResultsComponent
+                                representative={this.prepareRepresentative()}
+                                candidates={this.prepareCandidates()}
+                                spoiled={this.state.spoiled}
+                                dictionary={this.state.dictionary}
+                                changeSpoiled={this.handleChangeSpoiled}
+                                submitSMresults={this.handleSubmitSMresults}
+                                springErrors={this.prepareSpringErrors()}
+                                activeCountyId={this.state.activeCountyId}
+                             />
+        }
+        return formOrResults;
     }
 });
 

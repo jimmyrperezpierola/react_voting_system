@@ -39,8 +39,8 @@ var MM_CountyResultsContainer = React.createClass({
     },
     getMMresults: function(county) {
         var results = {};
-        county.countyResults.forEach(sm => {
-            if (!sm.singleMandateSystem) results = sm;
+        county.countyResults.forEach(mm => {
+            if (!mm.singleMandateSystem) results = mm;
         });
         return results;
     },
