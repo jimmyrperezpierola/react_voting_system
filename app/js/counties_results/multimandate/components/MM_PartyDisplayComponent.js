@@ -69,7 +69,6 @@ var MM_PartyDisplayComponent = React.createClass({
             clearBtn = <button className="btn btn-primary btn-sm" onClick={this.clearForm}>CLEAR-FORM</button>
         }
         if (!this.state.showCandidates) display = {display: 'none'};
-        var disableBtn = (this.state.isChanged) ? {disabled: 'true'} : {disabled: 'false'};
 
         return (
             <div className="unit">
@@ -80,7 +79,7 @@ var MM_PartyDisplayComponent = React.createClass({
                 </div>
                 <div style={ display }>
                     <div className="list-group-item">
-                        <button className="btn btn-primary btn-sm" style={disableBtn} onClick={this.checkAndSaveResults}>
+                        <button className="btn btn-primary btn-sm" disabled={!this.state.formChanged} onClick={this.checkAndSaveResults}>
                             CHECK-SAVE
                         </button>
                         {clearBtn}

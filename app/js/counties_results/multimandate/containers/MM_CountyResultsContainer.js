@@ -1,40 +1,58 @@
 var React = require('react');
 var axios = require('axios');
 var MM_CountyResultsComponent = require('../components/MM_CountyResultsComponent');
+var MM_CountyResultsDisplayComponent = require('../components/MM_CountyResultsDisplayComponent');
 var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent');
 var MM_PartyDisplayComponent = require('../components/MM_PartyDisplayComponent');
+var MM_PartyDisplayWithResultsComponent = require('../components/MM_PartyDisplayWithResultsComponent');
 var Validations = require('../../../utils/Validations');
 
 var MM_CountyResultsContainer = React.createClass({
     getInitialState: function() {
         return ({ parties: [],
-                  selfNominatedCandidates: [],
                   activeCountyId: undefined,
-                  countiesReps: [],
+                  representative: {},
                   dictionary: new Map(),
                   spoiled: undefined,
                   springErrors: [],
-                  mergedResults: 0
+                  mergedResults: 0,
+                  MMresults: {}
                 });
     },
     componentDidMount: function() {
+
+        // refactor when login will be implemented
+
         var _this = this;
-        axios.get('http://localhost:8080/api/county-rep/')
+        var getUrl = "http://localhost:8080/api/county-rep/" + this.props.params.id + "";
+        axios.get(getUrl)
             .then(function(resp) {
-                _this.setState({ countiesReps: resp.data });
+                var results = _this.getMMresults(resp.data.county);
+                _this.setState({ representative: resp.data,
+                                 activeCountyId: resp.data.county.id,
+                                 MMresults: results });
             })
             .catch(function(err) {
                 console.log(err);
             });
+        this.getParties();
     },
-    getParties: function(countyId) {
+    getMMresults: function(county) {
+        var results = {};
+        county.countyResults.forEach(sm => {
+            if (!sm.singleMandateSystem) results = sm;
+        });
+        return results;
+    },
+    getParties: function() {
         var _this = this;
         var getUrl = "http://localhost:8080/api/party/";
         axios.get(getUrl)
             .then(function(resp) {
               var initialDictionary = _this.formInitialDictionary(resp.data);
                 _this.setState({ parties: resp.data,
-                                 dictionary: initialDictionary });
+                                 dictionary: initialDictionary
+                               });
             })
             .catch(function(err) {
                 console.log(err);
@@ -56,6 +74,22 @@ var MM_CountyResultsContainer = React.createClass({
 
         return preparedParties;
     },
+    preparePartiesWithResults: function() {
+        var preparedParties = [];
+        var parties = this.state.parties;
+
+        parties.forEach((p, idx) => {
+            preparedParties.push(
+                <MM_PartyDisplayWithResultsComponent
+                    key={idx}
+                    party={p}
+                    results={this.state.MMresults}
+                />
+            );
+        });
+
+        return preparedParties;
+    },
     formInitialDictionary: function(parties) {
         var mapped = new Map();
         parties.forEach(p => {
@@ -65,34 +99,17 @@ var MM_CountyResultsContainer = React.createClass({
         });
         return mapped;
     },
-    clearActiveCounty: function() {
-        this.setState({ activeCountyId: undefined, parties: [], mergedResults: 0 });
-    },
-    prepareRepresentativesSelection() {
-        var representatives = [];
-        var countiesReps = this.state.countiesReps;
-        if (countiesReps.length > 0) {
-            countiesReps.forEach((cr, idx) => {
-                representatives.push(
-                    <option
-                        value={cr.county.id}
-                        key={idx}
-                        onClick={this.getParties}
-                    >
-                        {cr.firstName + " " + cr.lastName}
-                    </option>
-                );
-            });
-        }
+    prepareRepresentative() {
         return (
-            <select>
-                <option
-                    value={undefined}
-                    onClick={this.clearActiveCounty} >
-                    PASIRINKTI APYLINKĖS ATSTOVĄ
-                </option>
-                {representatives}
-            </select>
+            <div>
+                <div className="list-group-item active">
+                    Prisijungęs kaip
+                </div>
+                <div className="list-group-item">
+                    <span>{this.state.representative.firstName}</span> &nbsp;
+                    <span>{this.state.representative.lastName}</span>
+                </div>
+            </div>
         );
     },
     handleChangeSpoiled: function(e) {
@@ -115,7 +132,8 @@ var MM_CountyResultsContainer = React.createClass({
             .then(function(resp) {
                 _this.setState({ springErrors: [],
                                  dictionary: new Map(),
-                                 spoiled: undefined });
+                                 spoiled: undefined,
+                                 MMresults: resp.data });
             })
             .catch(function(err) {
                 console.log(err);
@@ -135,19 +153,60 @@ var MM_CountyResultsContainer = React.createClass({
         var style={"marginTop": 10}
         return Validations.prepareErrors(this.state.springErrors, style);
     },
+    createdOn: function() {
+        var timeStamp = new Date(this.state.MMresults.createdOn);
+        var month = timeStamp.getMonth() + 1;
+        var date = timeStamp.getDate();
+        var hours = timeStamp.getHours();
+        var mins = timeStamp.getMinutes();
+        var secs = timeStamp.getSeconds();
+
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        if (hours < 10) hours = "0" + hours;
+        if (mins < 10) mins = "0" + mins;
+        if (secs < 10) secs = "0" + secs;
+
+        return (
+            <div>
+                <div className="list-group-item active" style={{'marginTop': 10}}>
+                    Rezultatų suvedimas:
+                </div>
+                <div className="list-group-item">
+                    <span>{timeStamp.getFullYear()}</span>
+                    <span>/{month}</span>
+                    <span>/{date} </span> &nbsp;
+                    <span>{hours}</span>
+                    <span>:{mins}</span>
+                    <span>:{secs}</span>
+                </div>
+            </div>
+        );
+    },
     render: function() {
-        return <MM_CountyResultsComponent
-                  repsSelection={this.prepareRepresentativesSelection()}
-                  parties={this.prepareParties()}
-                  spoiled={this.state.spoiled}
-                  dictionary={this.state.dictionary}
-                  changeSpoiled={this.handleChangeSpoiled}
-                  submitMMresults={this.handleSubmitMMresults}
-                  springErrors={this.prepareSpringErrors()}
-                  activeCountyId={this.state.activeCountyId}
-                  mergedResults={this.state.mergedResults}
-                  partiesCount={this.state.parties.length}
-               />
+        var formOrResults;
+        if (Object.keys(this.state.MMresults).length > 0) {
+            formOrResults = <MM_CountyResultsDisplayComponent
+                                representative={this.prepareRepresentative()}
+                                spoiled={this.state.MMresults.spoiledBallots}
+                                parties={this.preparePartiesWithResults()}
+                                dateTime={this.createdOn()}
+                            />
+        } else {
+            formOrResults = <MM_CountyResultsComponent
+                                representative={this.prepareRepresentative()}
+                                parties={this.prepareParties()}
+                                spoiled={this.state.spoiled}
+                                dictionary={this.state.dictionary}
+                                changeSpoiled={this.handleChangeSpoiled}
+                                submitMMresults={this.handleSubmitMMresults}
+                                springErrors={this.prepareSpringErrors()}
+                                activeCountyId={this.state.activeCountyId}
+                                mergedResults={this.state.mergedResults}
+                                partiesCount={this.state.parties.length}
+                            />
+        }
+        return formOrResults;
     }
 });
 

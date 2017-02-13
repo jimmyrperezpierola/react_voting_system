@@ -1,7 +1,7 @@
 var React = require('react');
 var partyName;
 
-var CandidateDisplayComponent = React.createClass({
+var CandidateWithResultsDisplayComponent = React.createClass({
     changeVotes: function(e) {
         this.props.changeVotes(this.props.candidate.id, e.target.value);
     },
@@ -15,7 +15,7 @@ var CandidateDisplayComponent = React.createClass({
                         <div className="col-md-4">{this.props.candidate.firstName} &nbsp; {this.props.candidate.lastName}</div>
                         <div className="col-md-3">{partyName}</div>
                         <div className="col-md-3">Balsų skaičius</div>
-                        <div className="col-md-2"><input type="text" className="form-control county-results-input" onChange={this.changeVotes} value={this.props.votes}/></div>
+                        <div className="col-md-2">{this.props.cVotes.votes}</div>
                       </div>
                     </div>
                   </div>
@@ -24,4 +24,4 @@ var CandidateDisplayComponent = React.createClass({
     }
 });
 
-module.exports = CandidateDisplayComponent;
+module.exports = CandidateWithResultsDisplayComponent;

@@ -27,7 +27,7 @@ ReactDOM.render((
 			      <Route path="apylinkiu-atstovai" component={CountyRepresentativesDisplayContainer}/>
 			      <Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
         </Route>
-        <Route path="atstovui" component={RepresentativePanelComponent}>
+        <Route path="atstovui/:id" component={RepresentativePanelComponent}>
             <Route path="rezultatai">
                 <Route path="vienmandaciai" component={SM_CountyResultsContainer}/>
                 <Route path="daugiamandaciai" component={MM_CountyResultsContainer}/>

@@ -37,7 +37,7 @@ var MM_CountyResultsComponent = React.createClass({
                     </div>
                     <div className="col-md-4 units-create-area">
                         <div className="col-md-11">
-                            {this.props.repsSelection}
+                            {this.props.representative}
                             <button className="btn btn-primary btn-md" onClick={this.submitResults}>
                                 SIŲSTI REZUS
                             </button>
