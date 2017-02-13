@@ -12,8 +12,7 @@ function MM_ResultsFormComponent(props) {
                 <span>Apylinkės kandidatų sąrašas (DAUGIAMANDAČIAI)</span>
             </div>
             <div className="list-group-item" style={{ height: 'auto' }}>
-                //{props.candidates}
-                REIKIA NUSTATYTI KAIP ATRODYS MM FORMA
+                {props.parties}
             </div>
         </form>
     );

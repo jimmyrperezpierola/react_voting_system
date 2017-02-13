@@ -4,16 +4,24 @@ var Validations = require('../../../utils/Validations');
 
 var MM_CountyResultsComponent = React.createClass({
     getInitialState: function() {
-        return ({ jsErrors: [] });
+        return ({ jsErrors: [],
+                  mergedResults: 0});
+    },
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.mergedResults > this.state.mergedResults) {
+            this.setState({ mergedResults: newProps.mergedResults, jsErrors: [] });
+        }
     },
     submitResults: function() {
         var errors = Validations.checkErrorsMMform(this.props.dictionary,
-                                               this.props.spoiled);
+                                                   this.props.spoiled,
+                                                   this.props.mergedResults,
+                                                   this.props.partiesCount);
         if (errors.length > 0) {
             this.setState({ jsErrors: Validations.prepareErrors(errors) });
         } else {
             this.setState({ jsErrors: [] });
-            this.props.submitSMresults();
+            this.props.submitMMresults();
         }
     },
     render: function() {
@@ -24,7 +32,7 @@ var MM_CountyResultsComponent = React.createClass({
                         <MM_ResultsFormComponent
                             spoiled={this.props.spoiled}
                             changeSpoiled={this.props.changeSpoiled}
-                            candidates={this.props.candidates}
+                            parties={this.props.parties}
                         />
                     </div>
                     <div className="col-md-4 units-create-area">

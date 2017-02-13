@@ -59,8 +59,11 @@ var Validations = {
         var errors = [];
         var emptyFields = 0;
 
-        if (spoiled == undefined) emptyFields += 1;
-        if (isNaN(spoiled)) errors.push(spoiled + " " + Errors.NaNerror);
+        if (spoiled == undefined) {
+            emptyFields += 1;
+        } else if (isNaN(spoiled)) {
+            errors.push(spoiled + " " + Errors.NaNerror);
+        }
         if (parseInt(spoiled) < 0) errors.push(spoiled + " " + Errors.negativeNumError);
         dictionary.forEach(function(value) {
             if (value == undefined) {
@@ -82,10 +85,65 @@ var Validations = {
 
         return errors;
     },
-    checkErrorsMMform: function() {
-        // CODE NEEDED
-        console.log("checkErrorsMMform");
+    checkErrorsPartyMMform: function(dictionary) {
         var errors = [];
+        var emptyFields = 0;
+
+        dictionary.forEach(function(value) {
+            if (value == undefined) {
+                emptyFields += 1;
+            } else if (isNaN(value)) {
+                errors.push(value + " " + Errors.NaNerror);
+            } else if (parseInt(value) < 0) {
+                errors.push(value + " " + Errors.negativeNumError);
+            } else if (parseInt(value) > 50000) {
+                errors.push(value + " " + Errors.positiveInfiniteNumError);
+            }
+        });
+        if (emptyFields > 0) errors.push(Errors.emptyFieldsError + "(" + emptyFields + ")");
+        if (emptyFields == dictionary.size + 1) {
+            var emptyForm = new Array();
+            emptyForm.push(Errors.emptyFormError);
+            errors = emptyForm;
+        }
+
+        return errors;
+    },
+    checkErrorsMMform: function(dictionary, spoiled, mergedCount, partiesCount) {
+        var errors = [];
+        var emptyFields = 0;
+
+        if (spoiled == undefined) {
+            emptyFields += 1;
+        } else if (isNaN(spoiled)) {
+            errors.push(spoiled + " " + Errors.NaNerror);
+        }
+        if (parseInt(spoiled) < 0) errors.push(spoiled + " " + Errors.negativeNumError);
+
+        dictionary.forEach(function(value) {
+            if (value == undefined) {
+                emptyFields += 1;
+            } else if (isNaN(value)) {
+                errors.push(value + " " + Errors.NaNerror);
+            } else if (parseInt(value) < 0) {
+                errors.push(value + " " + Errors.negativeNumError);
+            } else if (parseInt(value) > 50000) {
+                errors.push(value + " " + Errors.positiveInfiniteNumError);
+            }
+        });
+        if (emptyFields > 0) errors.push(Errors.emptyFieldsError + "(" + emptyFields + ")");
+
+        if (mergedCount < partiesCount) errors.push(Errors.notAllResultsMergedError +
+                                                    " (" +
+                                                    mergedCount +
+                                                    " iš " +
+                                                    partiesCount + ")");
+        if (emptyFields == dictionary.size + 1) {
+            var emptyForm = new Array();
+            emptyForm.push(Errors.emptyFormError);
+            errors = emptyForm;
+        }
+
         return errors;
     },
     validateCsv: function(file) {
@@ -122,7 +180,8 @@ var Errors = {
     emptyValueError: "REACT - balsų įvedimo laukas liko tuščias",
     emptyFieldsError: "REACT - formoje liko tuščių laukų ",
     positiveInfiniteNumError: "nu kur tau matytas toks skaičius...",
-    emptyFormError: "React - forma tuščia"
+    emptyFormError: "React - forma tuščia",
+    notAllResultsMergedError: "React - Ne visų partijų rezultatai pateikti"
 };
 
 module.exports = Validations;
