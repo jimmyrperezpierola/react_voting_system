@@ -70,11 +70,6 @@ var CountyDisplayContainer = React.createClass({
         var preparedResults = [];
         var parties = this.state.parties;
 
-        // preparedResults.push(
-        //     <div className="list-group-item" key={results.candidateVotesList.length}>
-        //         <p>Sugadinti biuleteniai: {results.spoiledBallots}</p>
-        //     </div>
-        // );
         parties.forEach((p, idx) => {
             preparedResults.push(
                 <MM_PartyDisplayWithResultsComponent

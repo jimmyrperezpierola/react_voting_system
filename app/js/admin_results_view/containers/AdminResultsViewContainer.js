@@ -47,9 +47,7 @@ var AdminResultsViewContainer = React.createClass({
         if (this.state.activeDistrictId != undefined) {
             if (this.state.activeCountyId != undefined) {
                 counties.forEach((c, idx) => {
-                  if (this.state.activeDistrictId == c.districtId &&
-                      this.state.activeCountyId == c.id)
-                  {
+                  if (this.state.activeCountyId == c.id) {
                       preparedCounties.push(
                         <CountyDisplayContainer
                             key={idx}
