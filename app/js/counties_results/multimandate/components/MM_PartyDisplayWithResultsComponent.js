@@ -1,5 +1,5 @@
 var React = require('react');
-var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent');
+//var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent');
 var CandidateWithResultsDisplayComponent = require('./CandidateWithResultsDisplayComponent');
 var Validations = require('../../../utils/Validations');
 
@@ -30,7 +30,7 @@ var MM_PartyDisplayWithResultsComponent = React.createClass({
             <div className="unit">
                 <div className="list-group-item active">
                     <div onClick={this.toggleShowCandidates} style={{ cursor: 'pointer' }}>
-                        {this.props.party.name} &nbsp; <span className="glyphicon glyphicon-saved"></span>
+                        {this.props.party.name}
                     </div>
                 </div>
                 <div>

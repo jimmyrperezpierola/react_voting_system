@@ -16,6 +16,7 @@ var NoMatch = require('./js/config/NoMatch');
 var CountyRepresentativesDisplayContainer = require('./js/territorial_units/containers/CountyRepresentativesDisplayContainer');
 var SM_CountyResultsContainer = require('./js/counties_results/singlemandate/containers/SM_CountyResultsContainer');
 var MM_CountyResultsContainer = require('./js/counties_results/multimandate/containers/MM_CountyResultsContainer');
+var AdminResultsViewContainer = require('./js/admin_results_view/containers/AdminResultsViewContainer');
 
 ReactDOM.render((
   <Router history={ReactRouter.hashHistory}>
@@ -26,6 +27,7 @@ ReactDOM.render((
             <Route path="apygardu-kandidatai" component={SingleCandidatesContainer}/>
 			      <Route path="apylinkiu-atstovai" component={CountyRepresentativesDisplayContainer}/>
 			      <Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
+            <Route path="apylinkiu-rezultatai" component={AdminResultsViewContainer}/>
         </Route>
         <Route path="atstovui/:id" component={RepresentativePanelComponent}>
             <Route path="rezultatai">

@@ -54,6 +54,11 @@ adminPanelButton:hover{
     background-color: #CDEBF7;
 }
 
+.row.narrowed {
+  height: auto;
+  background-color: white;
+}
+
 .container {
     padding: 0;
 }
@@ -91,6 +96,11 @@ adminPanelButton:hover{
 .unit {
     padding: 5px 0;
 }
+
+.unit.narrowed {
+    padding: 0;
+}
+
 
 .candidate.card {
     height: auto;
