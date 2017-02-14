@@ -11,6 +11,7 @@ var NewPartyAsideForm = React.createClass({
         }
     },
     create: function() {
+        //e.preventDefault();
         var file = this.refs.fileCSV.files[0];
         var errors = Validations.checkErrorsPartyAsideForm(this.props.name, file);
 

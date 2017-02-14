@@ -6,6 +6,7 @@ var NewCountyInlineForm = React.createClass({
         return ({ jsErrors: [] });
     },
     submit: function() {
+        //e.preventDefault();
         var errors = Validations.checkErrorsCountyForm(this.props.name, this.props.count);
         if (errors.length > 0) {
             var style={ marginTop: 10 };

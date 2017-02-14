@@ -13,6 +13,7 @@ var MM_CountyResultsComponent = React.createClass({
         }
     },
     submitResults: function() {
+        //e.preventDefault();
         var errors = Validations.checkErrorsMMform(this.props.dictionary,
                                                    this.props.spoiled,
                                                    this.props.mergedResults,

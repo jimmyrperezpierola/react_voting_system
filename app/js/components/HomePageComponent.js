@@ -1,7 +1,3 @@
-/**
- * Created by osvaldas on 17.1.20.
- */
-
 var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;

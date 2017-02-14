@@ -71,6 +71,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
     },
 
     newRep: function (name, surname, email, district, county) {
+        //e.preventDefault();
         var self = this;
         var countyId = this.getCountyId(district, county);
 
@@ -129,5 +130,3 @@ var CountyRepresentativesDisplayContainer = React.createClass({
 });
 
 module.exports = CountyRepresentativesDisplayContainer;
-
-

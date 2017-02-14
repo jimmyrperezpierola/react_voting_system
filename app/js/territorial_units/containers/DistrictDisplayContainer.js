@@ -49,6 +49,7 @@ var DistrictDisplayContainer = React.createClass({
         });
     },
     handleCountyCreate() {
+        //e.preventDefault();
         var _this = this;
         var body = {
             name: this.state.countyName,

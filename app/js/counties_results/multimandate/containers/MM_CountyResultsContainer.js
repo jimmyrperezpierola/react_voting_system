@@ -6,6 +6,7 @@ var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent'
 var MM_PartyDisplayComponent = require('../components/MM_PartyDisplayComponent');
 var MM_PartyDisplayWithResultsComponent = require('../components/MM_PartyDisplayWithResultsComponent');
 var Validations = require('../../../utils/Validations');
+var Helpers = require('../../../utils/Helpers');
 
 var MM_CountyResultsContainer = React.createClass({
     getInitialState: function() {
@@ -116,6 +117,7 @@ var MM_CountyResultsContainer = React.createClass({
         this.setState({ spoiled: e.target.value })
     },
     handleSubmitMMresults: function() {
+        //e.preventDefaults();
         var _this = this;
         var map = this.state.dictionary;
         var candidatesVotes = [];
@@ -140,7 +142,8 @@ var MM_CountyResultsContainer = React.createClass({
                 _this.setState({ springErrors: err.response.data.errorsMessages });
             });
     },
-    mergeResults: function(partyDictionary) {
+    mergeResults: function(partyDictionary, e) {
+        e.preventDefault();
         var actualDict = this.state.dictionary;
         partyDictionary.forEach(function(value, key) {
             actualDict.set(key, value);
@@ -153,36 +156,6 @@ var MM_CountyResultsContainer = React.createClass({
         var style={"marginTop": 10}
         return Validations.prepareErrors(this.state.springErrors, style);
     },
-    createdOn: function() {
-        var timeStamp = new Date(this.state.MMresults.createdOn);
-        var month = timeStamp.getMonth() + 1;
-        var date = timeStamp.getDate();
-        var hours = timeStamp.getHours();
-        var mins = timeStamp.getMinutes();
-        var secs = timeStamp.getSeconds();
-
-        if (month < 10) month = "0" + month;
-        if (date < 10) date = "0" + date;
-        if (hours < 10) hours = "0" + hours;
-        if (mins < 10) mins = "0" + mins;
-        if (secs < 10) secs = "0" + secs;
-
-        return (
-            <div>
-                <div className="list-group-item active" style={{'marginTop': 10}}>
-                    Rezultatų suvedimas:
-                </div>
-                <div className="list-group-item">
-                    <span>{timeStamp.getFullYear()}</span>
-                    <span>/{month}</span>
-                    <span>/{date} </span> &nbsp;
-                    <span>{hours}</span>
-                    <span>:{mins}</span>
-                    <span>:{secs}</span>
-                </div>
-            </div>
-        );
-    },
     render: function() {
         var formOrResults;
         if (Object.keys(this.state.MMresults).length > 0) {
@@ -190,7 +163,7 @@ var MM_CountyResultsContainer = React.createClass({
                                 representative={this.prepareRepresentative()}
                                 spoiled={this.state.MMresults.spoiledBallots}
                                 parties={this.preparePartiesWithResults()}
-                                dateTime={this.createdOn()}
+                                dateTime={Helpers.createdOn(this.state.MMresults.createdOn)}
                             />
         } else {
             formOrResults = <MM_CountyResultsComponent

@@ -37,6 +37,7 @@ var PartyDisplayContainer = React.createClass({
         this.setState({ showCandidates: !this.state.showCandidates });
     },
     uploadCandidates: function(fd, partyID) {
+        //e.preventDefault();
         var _this = this;
         var uploadUrl = "http://localhost:8080/api/party/" + partyID + "/candidates";
         axios.post(uploadUrl, fd, { headers: { 'Content-Type': 'multipart/form-data' } })

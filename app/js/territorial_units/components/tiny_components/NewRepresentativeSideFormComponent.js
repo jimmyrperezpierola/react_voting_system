@@ -31,7 +31,6 @@ var NewRepresentativeSideFormComponent = React.createClass({
     componentWillMount: function () {
         onlyRequiredCounties = [];
     },
-
     handleNameChange: function (event) {
         this.setState({name: event.target.value});
 
@@ -52,7 +51,6 @@ var NewRepresentativeSideFormComponent = React.createClass({
             this.setState({nameCharacters: ''});
         }
     },
-
     handleSurnameChange: function (event) {
         this.setState({surname: event.target.value});
 
@@ -73,7 +71,6 @@ var NewRepresentativeSideFormComponent = React.createClass({
             this.setState({surnameCharacters: ''});
         }
     },
-
     hendleEmailChange: function (event) {
         this.setState({email: event.target.value})
 
@@ -84,24 +81,19 @@ var NewRepresentativeSideFormComponent = React.createClass({
             this.setState({emailCharacters: ''});
         }
     },
-
     handleDistrictChange: function (event) {
         this.setState({district: event.target.value})
     },
-
     handleCountyChange: function (event) {
         this.setState({county: event.target.value});
     },
-
     callHelperFunction: function (event) {
         this.changePossibleCounties(event);
         this.handleDistrictChange(event);
     },
-
     changeState: function () {
         this.setState({countiesOfDistrict: this.props.onlyFirstRequiredCounties});
     },
-
     changePossibleCounties: function (event) {
         onlyRequiredCounties = [];
         console.log("click");

@@ -162,6 +162,7 @@ div.list-group-item.remove-units {
 }
 
 /* COUNTY RESULTS */
+
 .county-results {
     margin-bottom: 0;
 }
@@ -171,6 +172,14 @@ div.list-group-item.remove-units {
     width: auto;
     height: auto;
     margin-left: 10px;
+}
+
+/* current-time */
+
+#current-time {
+    float: right;
+    margin-right: 15px;
+    display: table-cell;
 }
 
 /* OSVALDO */

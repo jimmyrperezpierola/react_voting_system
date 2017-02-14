@@ -3,12 +3,7 @@
  */
 var React = require('react');
 
-// onRemove = function (props) {
-//     props.onDeleteRepresentative(props.key)
-// };
-
 var CountyRepresentativeListLineComponent = React.createClass ({
-
     onRemoveRep: function () {
         this.props.onDeleteRepresentative(this.props.repData.id)
     },

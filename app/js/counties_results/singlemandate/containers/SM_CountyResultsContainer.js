@@ -5,6 +5,7 @@ var SM_CountyResultsDisplayComponent = require('../components/SM_CountyResultsDi
 var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent');
 var CandidateWithResultsDisplayComponent = require('../../multimandate/components/CandidateWithResultsDisplayComponent');
 var Validations = require('../../../utils/Validations');
+var Helpers = require('../../../utils/Helpers');
 
 var SM_CountyResultsContainer = React.createClass({
     getInitialState: function() {
@@ -121,6 +122,7 @@ var SM_CountyResultsContainer = React.createClass({
         this.setState({ dictionary: actualDict });
     },
     handleSubmitSMresults: function() {
+        //e.preventDefault();
         var _this = this;
         var map = this.state.dictionary;
         var candidatesVotes = [];
@@ -137,7 +139,8 @@ var SM_CountyResultsContainer = React.createClass({
             .then(function(resp) {
                 _this.setState({ springErrors: [],
                                  dictionary: new Map(),
-                                 spoiled: undefined });
+                                 spoiled: undefined,
+                                 SMresults: resp.data });
             })
             .catch(function(err) {
                 console.log(err);
@@ -148,44 +151,15 @@ var SM_CountyResultsContainer = React.createClass({
         var style={"marginTop": 10}
         return Validations.prepareErrors(this.state.springErrors, style);
     },
-    createdOn: function() {
-        var timeStamp = new Date(this.state.SMresults.createdOn);
-        var month = timeStamp.getMonth() + 1;
-        var date = timeStamp.getDate();
-        var hours = timeStamp.getHours();
-        var mins = timeStamp.getMinutes();
-        var secs = timeStamp.getSeconds();
-
-        if (month < 10) month = "0" + month;
-        if (date < 10) date = "0" + date;
-        if (hours < 10) hours = "0" + hours;
-        if (mins < 10) mins = "0" + mins;
-        if (secs < 10) secs = "0" + secs;
-
-        return (
-            <div>
-                <div className="list-group-item active" style={{'marginTop': 10}}>
-                    Rezultatų suvedimas:
-                </div>
-                <div className="list-group-item">
-                    <span>{timeStamp.getFullYear()}</span>
-                    <span>/{month}</span>
-                    <span>/{date} </span> &nbsp;
-                    <span>{hours}</span>
-                    <span>:{mins}</span>
-                    <span>:{secs}</span>
-                </div>
-            </div>
-        );
-    },
     render: function() {
+        console.log(Object.keys(this.state.SMresults));
         var formOrResults;
         if (Object.keys(this.state.SMresults).length > 0) {
             formOrResults = <SM_CountyResultsDisplayComponent
                                 representative={this.prepareRepresentative()}
                                 spoiled={this.state.SMresults.spoiledBallots}
                                 candidates={this.prepareCandidatesWithResults()}
-                                dateTime={this.createdOn()}
+                                dateTime={Helpers.createdOn(this.state.SMresults.createdOn)}
                             />
         } else {
             formOrResults = <SM_CountyResultsComponent

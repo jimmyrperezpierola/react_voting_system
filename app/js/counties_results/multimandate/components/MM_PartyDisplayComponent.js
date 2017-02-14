@@ -47,6 +47,7 @@ var MM_PartyDisplayComponent = React.createClass({
         this.setState({ dictionary: actualDict, formChanged: true });
     },
     checkAndSaveResults: function() {
+        //e.preventDefault();
         var errors = Validations.checkErrorsPartyMMform(this.state.partyDictionary);
 
         if (errors.length > 0) {

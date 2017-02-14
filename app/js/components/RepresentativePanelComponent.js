@@ -14,8 +14,6 @@ var RepresentativesPanelComponent = React.createClass({
 								location1: styles.passive,
 								location2: styles.passive,
 								location3: styles.passive,
-								location4: styles.passive,
-								location5: styles.passive
 						}
 				});
 	  },
@@ -25,8 +23,6 @@ var RepresentativesPanelComponent = React.createClass({
 								location1: styles.passive,
 								location2: styles.passive,
 								location3: styles.passive,
-								location4: styles.passive,
-								location5: styles.passive
 						}
 				});
 	  },

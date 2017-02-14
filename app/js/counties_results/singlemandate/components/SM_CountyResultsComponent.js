@@ -7,6 +7,7 @@ var SM_CountyResultsComponent = React.createClass({
         return ({ jsErrors: [] });
     },
     submitResults: function() {
+        //e.preventDefault();
         var errors = Validations.checkErrorsSMform(this.props.dictionary,
                                                this.props.spoiled);
         if (errors.length > 0) {

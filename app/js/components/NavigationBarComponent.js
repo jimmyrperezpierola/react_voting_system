@@ -5,6 +5,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
+var CurrentTimeComponent = require('./tiny_components/CurrentTimeComponent');
 
 var NavigationBarComponent = React.createClass ({
     getInitialState: function () {
@@ -50,10 +51,6 @@ var NavigationBarComponent = React.createClass ({
                                 </Link>
                         </ul>
 
-
-
-
-
                         {/*<button className="navBarButton" style={b1}> {this.props.mainMenu}</button>
                         <button className="navBarButton" style={b2}> {this.props.secondMenu}</button>
                         <button className="navBarButton" style={b3}> {this.props.thirdMenu}</button>*/}
@@ -62,7 +59,6 @@ var NavigationBarComponent = React.createClass ({
                         {/*<span className="navbar-brand" >{this.props.secondMenu}</span>*/}
                         {/*<span className="navbar-brand" >{this.props.thirdMenu}</span>*/}
                     </div>
-
 
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul className="nav navbar-nav navbar-right">
@@ -73,6 +69,7 @@ var NavigationBarComponent = React.createClass ({
                                 </ul>
                             </li>
                         </ul>
+                        <CurrentTimeComponent/>
                     </div>
                 </div>
             </nav>

@@ -15,6 +15,7 @@ var NewDistrictAsideForm = React.createClass({
         }
     },
     create: function() {
+        //e.preventDefault();
         var errors = Validations.checkErrorsDistrictAsideForm(this.props.name);
         if (errors.length > 0) {
             this.setState({ jsErrors: Validations.prepareErrors(errors) });
@@ -23,7 +24,7 @@ var NewDistrictAsideForm = React.createClass({
             this.props.create();
         }
     },
-    backendErrors: function() {
+    springErrors: function() {
         return Validations.prepareErrors(this.props.springErrors);
     },
     render: function() {
@@ -43,7 +44,7 @@ var NewDistrictAsideForm = React.createClass({
                 </form>
                 <div className="form-group errors-area">
                     {this.state.jsErrors}
-                    {this.backendErrors()}
+                    {this.springErrors()}
                 </div>
             </div>
         )
