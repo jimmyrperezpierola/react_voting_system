@@ -101,7 +101,6 @@ adminPanelButton:hover{
     padding: 0;
 }
 
-
 .candidate.card {
     height: auto;
     width: 33%;
@@ -182,6 +181,11 @@ div.list-group-item.remove-units {
     width: auto;
     height: auto;
     margin-left: 10px;
+}
+
+.btn.btn-default.btn-sm.floaters-right {
+    float: right;
+    margin-right: 15px;
 }
 
 /* current-time */

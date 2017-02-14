@@ -16,9 +16,7 @@ var AdminResultsViewContainer = React.createClass({
             .then(function(resp) {
                 var counties = [];
                 resp.data.forEach(d => {
-                    d.counties.forEach(c => {
-                        counties.push(c);
-                    });
+                    d.counties.forEach(c => counties.push(c));
                 });
                 _this.setState({ districts: resp.data, counties: counties });
             })
@@ -30,7 +28,6 @@ var AdminResultsViewContainer = React.createClass({
         this.setState({ activeDistrictId: districtId });
     },
     clearActiveDistrict: function() {
-        console.log("CLEAR DISTRICT");
         this.setState({ activeDistrictId: undefined });
     },
     setActiveCounty: function(countyId) {
@@ -40,7 +37,6 @@ var AdminResultsViewContainer = React.createClass({
         this.setState({ activeCountyId: undefined });
     },
     prepareCounties() {
-        console.log("active district " + this.state.activeDistrictId);
         var counties = this.state.counties;
         var preparedCounties = [];
 
@@ -48,34 +44,19 @@ var AdminResultsViewContainer = React.createClass({
             if (this.state.activeCountyId != undefined) {
                 counties.forEach((c, idx) => {
                   if (this.state.activeCountyId == c.id) {
-                      preparedCounties.push(
-                        <CountyDisplayContainer
-                            key={idx}
-                            county={c}
-                        />
-                      );
+                      preparedCounties.push(<CountyDisplayContainer key={idx} index={idx} county={c}/>);
                   }
                 });
             } else {
                 counties.forEach((c, idx) => {
                   if (this.state.activeDistrictId == c.districtId) {
-                    preparedCounties.push(
-                      <CountyDisplayContainer
-                      key={idx}
-                      county={c}
-                      />
-                    );
+                      preparedCounties.push(<CountyDisplayContainer key={idx} index={idx} county={c}/>);
                   }
                 });
             }
         } else {
             counties.forEach((c, idx) => {
-              preparedCounties.push(
-                <CountyDisplayContainer
-                    key={idx}
-                    county={c}
-                />
-              );
+                preparedCounties.push(<CountyDisplayContainer key={idx} index={idx} county={c}/>);
             });
         }
         return preparedCounties;

@@ -8,7 +8,12 @@ var CountyDisplayContainer = React.createClass({
     getInitialState: function() {
         return ({ showResults: false,
                   smDisplay: undefined,
-                  parties: [] });
+                  parties: [],
+                  county: this.props.county,
+                  resultsConfirmed: false });
+    },
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.county != this.state.county) this.setState({ county: newProps.county });
     },
     componentDidMount: function() {
         var _this = this;
@@ -37,9 +42,9 @@ var CountyDisplayContainer = React.createClass({
         return results;
     },
     prepareSMresults: function() {
-      var results = this.getResults(this.props.county, true);
+      var results = this.getResults(this.state.county, true);
       if (results == undefined) {
-          return "REZULTATŲ NĖRA";
+          return results;
       }
       var preparedResults = [];
 
@@ -63,16 +68,16 @@ var CountyDisplayContainer = React.createClass({
       return preparedResults;
     },
     prepareMMresults: function() {
-        var results = this.getResults(this.props.county, false);
-        if (results == undefined) {
-            return "REZULTATŲ NĖRA";
-        }
+        var results = this.getResults(this.state.county, false);
         var preparedResults = [];
         var parties = this.state.parties;
+
+        if (results == undefined) return results;
 
         parties.forEach((p, idx) => {
             preparedResults.push(
                 <MM_PartyDisplayWithResultsComponent
+                    key={idx}
                     party={p}
                     results={results}
                 />
@@ -90,24 +95,60 @@ var CountyDisplayContainer = React.createClass({
             </div>
         );
     },
-    render: function() {
-        var results;
+    determineResults: function() {
+        var results = undefined;
         if (this.state.smDisplay == undefined) {
-            results = "PASIRINKITE MANDATO TIPĄ";
+            return results;
         } else if (this.state.smDisplay) {
             results = this.prepareSMresults();
         } else {
             results = this.prepareMMresults();
         }
+        return results;
+    },
+    determineConfirmButton: function() {
+        var confirmBtn;
+        if (this.state.resultsConfirmed) {
+            confirmBtn = (
+                <button className="btn btn-default btn-sm floaters-right">
+                    Patvirtinta &nbsp;
+                    <span className="glyphicon glyphicon-ok-sign"></span>
+                </button>
+            );
+        } else {
+            confirmBtn = (
+                <button className="btn btn-default btn-sm floaters-right">
+                    Patvirtinti rezultatus &nbsp;
+                    <span className="glyphicon glyphicon-exclamation-sign"></span>
+                </button>
+            );
+        }
+        return confirmBtn;
+    },
+    handleResultsDelete: function() {
+        var _this = this;
+        var delUrl = "http://localhost:8080/api/county-results/county/" + this.state.county.id + "";
+        axios.delete(delUrl)
+            .then(function(resp) {
+                _this.setState({ smDisplay: undefined, resultsConfirmed: false, county: resp.data });
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
+    },
+    render: function() {
         return (
             <CountyDisplayComponent
                 index={this.props.index}
                 show={this.state.showResults}
                 toggleShow={this.toggleShowResults}
-                county={this.props.county}
+                county={this.state.county}
                 displaySM={this.displaySMresults}
                 displayMM={this.displayMMresults}
-                results={results}
+                results={this.determineResults()}
+                smDisplay={this.state.smDisplay}
+                confirmBtn={this.determineConfirmButton()}
+                delete={this.handleResultsDelete}
             />
         );
     }
