@@ -17,6 +17,10 @@ var SM_CountyResultsComponent = React.createClass({
             this.props.submitSMresults();
         }
     },
+    clearForm: function() {
+        this.setState({ jsErrors: [] });
+        this.props.clearForm();
+    },
     render: function() {
         return (
             <div className="container">
@@ -33,6 +37,9 @@ var SM_CountyResultsComponent = React.createClass({
                             {this.props.representative}
                             <button className="btn btn-primary btn-md" onClick={this.submitResults}>
                                 SIŲSTI REZUS
+                            </button>
+                            <button className="btn btn-primary btn-sm" onClick={this.clearForm}>
+                                CLEAR-FORM
                             </button>
                             {this.state.jsErrors}
                             {this.props.springErrors}

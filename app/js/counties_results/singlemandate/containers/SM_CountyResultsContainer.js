@@ -13,7 +13,7 @@ var SM_CountyResultsContainer = React.createClass({
                   activeCountyId: undefined,
                   representative: [],
                   dictionary: new Map(),
-                  spoiled: undefined,
+                  spoiled: "",
                   springErrors: [],
                   SMresults: {}
                 });
@@ -97,8 +97,18 @@ var SM_CountyResultsContainer = React.createClass({
     },
     formInitialDictionary: function(candidates) {
         var mapped = new Map();
-        candidates.forEach(c => mapped.set(c.id, undefined));
+        candidates.forEach(c => mapped.set(c.id, ""));
         return mapped;
+    },
+    clearForm: function() {
+        var newDictionary = new Map();
+        var tempDictionary = this.state.dictionary;
+        tempDictionary.forEach(function(value, key) {
+            newDictionary.set(key, "");
+        });
+        this.setState({ dictionary: newDictionary,
+                        springErrors: [],
+                        spoiled: "" });
     },
     prepareRepresentative() {
         return (
@@ -171,6 +181,7 @@ var SM_CountyResultsContainer = React.createClass({
                                 submitSMresults={this.handleSubmitSMresults}
                                 springErrors={this.prepareSpringErrors()}
                                 activeCountyId={this.state.activeCountyId}
+                                clearForm={this.clearForm}
                              />
         }
         return formOrResults;

@@ -143,7 +143,7 @@ var MM_CountyResultsContainer = React.createClass({
             });
     },
     mergeResults: function(partyDictionary, e) {
-        e.preventDefault();
+        //e.preventDefault();
         var actualDict = this.state.dictionary;
         partyDictionary.forEach(function(value, key) {
             actualDict.set(key, value);

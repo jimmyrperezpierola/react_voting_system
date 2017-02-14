@@ -59,14 +59,14 @@ var Validations = {
         var errors = [];
         var emptyFields = 0;
 
-        if (spoiled == undefined) {
+        if (spoiled === "") {
             emptyFields += 1;
         } else if (isNaN(spoiled)) {
             errors.push(spoiled + " " + Errors.NaNerror);
         }
         if (parseInt(spoiled) < 0) errors.push(spoiled + " " + Errors.negativeNumError);
         dictionary.forEach(function(value) {
-            if (value == undefined) {
+            if (value == "") {
                 emptyFields += 1;
             } else if (isNaN(value)) {
                 errors.push(value + " " + Errors.NaNerror);
@@ -90,7 +90,7 @@ var Validations = {
         var emptyFields = 0;
 
         dictionary.forEach(function(value) {
-            if (value == undefined) {
+            if (value === "") {
                 emptyFields += 1;
             } else if (isNaN(value)) {
                 errors.push(value + " " + Errors.NaNerror);
@@ -113,7 +113,7 @@ var Validations = {
         var errors = [];
         var emptyFields = 0;
 
-        if (spoiled == undefined) {
+        if (spoiled == "") {
             emptyFields += 1;
         } else if (isNaN(spoiled)) {
             errors.push(spoiled + " " + Errors.NaNerror);
@@ -121,7 +121,7 @@ var Validations = {
         if (parseInt(spoiled) < 0) errors.push(spoiled + " " + Errors.negativeNumError);
 
         dictionary.forEach(function(value) {
-            if (value == undefined) {
+            if (value == "") {
                 emptyFields += 1;
             } else if (isNaN(value)) {
                 errors.push(value + " " + Errors.NaNerror);

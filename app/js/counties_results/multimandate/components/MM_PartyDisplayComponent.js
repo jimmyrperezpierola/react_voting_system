@@ -37,7 +37,7 @@ var MM_PartyDisplayComponent = React.createClass({
     formInitialDictionary: function(candidates) {
         var mapped = new Map();
         candidates.forEach(c => {
-            mapped.set(c.id, undefined);
+            mapped.set(c.id, "");
         });
         return mapped;
     },
@@ -66,8 +66,13 @@ var MM_PartyDisplayComponent = React.createClass({
         var saved = []; var clearBtn = []; var display = {};
         if (this.state.isMerged) {
             saved = <span className="glyphicon glyphicon-saved"></span>;
-        } else {
-            clearBtn = <button className="btn btn-primary btn-sm" onClick={this.clearForm}>CLEAR-FORM</button>
+        }
+        if (this.state.formChanged || !this.state.isMerged) {
+            clearBtn = <button
+                          className="btn btn-primary btn-sm"
+                          onClick={this.clearForm}>
+                          CLEAR-FORM
+                       </button>
         }
         if (!this.state.showCandidates) display = {display: 'none'};
 
