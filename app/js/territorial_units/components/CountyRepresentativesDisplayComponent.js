@@ -6,14 +6,16 @@ var NewRepresentativeSideFormContainer = require('../containers/tiny_containers/
 var CountyRepresentativeListLineComponent = require('./tiny_components/CountyRepresentativeListLineComponent');
 
 var CountyRepresentativesDisplayComponent = React.createClass ({
-
     render: function () {
 
+      console.log(this.props)
+      console.log("TYPE")
+      console.log(typeof this.props.repData)
         var CountyRepresentativesArray = [];
 
         that=this;
 
-        this.props.repData.map(function (rep, index) {
+        this.props.repData.forEach(function (rep, index) {
             CountyRepresentativesArray.push(
                 <CountyRepresentativeListLineComponent
                     repData={rep}
