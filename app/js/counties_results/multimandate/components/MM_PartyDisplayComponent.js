@@ -55,7 +55,7 @@ var MM_PartyDisplayComponent = React.createClass({
             this.setState({ jsErrors: Validations.prepareErrors(errors, style) });
         } else {
             this.setState({ jsErrors: [], showCandidates: false, isMerged: true, formChanged: false });
-            this.props.mergeResults(this.state.partyDictionary);
+            this.props.mergeResults(this.state.partyDictionary, this.props.id);
         }
     },
     clearForm: function() {

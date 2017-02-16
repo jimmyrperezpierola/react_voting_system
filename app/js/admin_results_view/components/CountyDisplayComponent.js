@@ -6,7 +6,7 @@ function CountyDisplayComponent(props) {
     var smBtn = 'btn btn-default btn-sm';
     var mmBtn = 'btn btn-default btn-sm';
     if (props.smDisplay == undefined) {
-        // do nothing
+        // btns remain the same
     } else if (props.smDisplay) {
         smBtn += ' active';
     } else {
@@ -31,6 +31,7 @@ function CountyDisplayComponent(props) {
             <div className="list-group-item active">
                 <div onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
                     <strong>{props.county.name}</strong> (Apygarda: {props.county.districtName})
+                    {props.allConfirmedBtn}
                 </div>
             </div>
             <div style={ display }>

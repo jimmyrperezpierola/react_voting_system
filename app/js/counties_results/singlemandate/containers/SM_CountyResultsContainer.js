@@ -35,6 +35,30 @@ var SM_CountyResultsContainer = React.createClass({
             .catch(function(err) {
                 console.log(err);
             });
+
+            // var _this = this;
+            // var repGetUrl = "http://localhost:8080/api/county-rep/" + this.props.params.id + "";
+            // var candidatesGetUrl = "http://localhost:8080/api/county/" + this.state.activeCountyId + "/candidates";
+            //
+            // axios
+            //     .all([
+            //         axios.get(repGetUrl),
+            //         axios.get(candidatesGetUrl)
+            //     ])
+            //     .then(axios.spread(function(representative, candidates) {
+            //         var results = _this.getSMresults(representative.data.county);
+            //         var initialDictionary = _this.formInitialDictionary(candidates.data);
+            //         _this.setState({
+            //             representative: representative.data,
+            //             activeCountyId: representative.data.county.id,
+            //             SMresults: results,
+            //             candidates: candidates.data,
+            //             dictionary: initialDictionary
+            //         });
+            //     }))
+            //     .catch(function(err) {
+            //         console.log(err);
+            //     });
     },
     getSMresults: function(county) {
         var results = {};
@@ -162,14 +186,20 @@ var SM_CountyResultsContainer = React.createClass({
         return Validations.prepareErrors(this.state.springErrors, style);
     },
     render: function() {
-        console.log(Object.keys(this.state.SMresults));
         var formOrResults;
         if (Object.keys(this.state.SMresults).length > 0) {
             formOrResults = <SM_CountyResultsDisplayComponent
                                 representative={this.prepareRepresentative()}
                                 spoiled={this.state.SMresults.spoiledBallots}
                                 candidates={this.prepareCandidatesWithResults()}
-                                dateTime={Helpers.createdOn(this.state.SMresults.createdOn)}
+                                createdOn={Helpers.dateTimeFormatWithMessage(
+                                              this.state.SMresults.createdOn,
+                                              "Rezultatai pateikti"
+                                          )}
+                                confirmedOn={Helpers.dateTimeFormatWithMessage(
+                                              this.state.SMresults.confirmedOn,
+                                              "Rezultatai patvirtinti"
+                                          )}
                             />
         } else {
             formOrResults = <SM_CountyResultsComponent

@@ -59,14 +59,19 @@ var Validations = {
         var errors = [];
         var emptyFields = 0;
 
-        if (spoiled === "") {
+        if (spoiled === "" || spoiled == undefined) {
             emptyFields += 1;
         } else if (isNaN(spoiled)) {
             errors.push(spoiled + " " + Errors.NaNerror);
         }
-        if (parseInt(spoiled) < 0) errors.push(spoiled + " " + Errors.negativeNumError);
+        if (parseInt(spoiled) < 0) {
+            errors.push(spoiled + " " + Errors.negativeNumError);
+        } else if (parseInt(spoiled) > 50000) {
+            errors.push(value + " " + Errors.positiveInfiniteNumError);
+        }
+
         dictionary.forEach(function(value) {
-            if (value == "") {
+            if (value == "" || value == undefined) {
                 emptyFields += 1;
             } else if (isNaN(value)) {
                 errors.push(value + " " + Errors.NaNerror);
@@ -109,19 +114,23 @@ var Validations = {
 
         return errors;
     },
-    checkErrorsMMform: function(dictionary, spoiled, mergedCount, partiesCount) {
+    checkErrorsMMform: function(dictionary, spoiled, mergedResults, partiesCount) {
         var errors = [];
         var emptyFields = 0;
 
-        if (spoiled == "") {
+        if (spoiled == "" || spoiled == undefined) {
             emptyFields += 1;
         } else if (isNaN(spoiled)) {
             errors.push(spoiled + " " + Errors.NaNerror);
         }
-        if (parseInt(spoiled) < 0) errors.push(spoiled + " " + Errors.negativeNumError);
+        if (parseInt(spoiled) < 0) {
+            errors.push(spoiled + " " + Errors.negativeNumError);
+        } else if (parseInt(spoiled) > 50000) {
+            errors.push(value + " " + Errors.positiveInfiniteNumError);
+        }
 
         dictionary.forEach(function(value) {
-            if (value == "") {
+            if (value == "" || value == undefined) {
                 emptyFields += 1;
             } else if (isNaN(value)) {
                 errors.push(value + " " + Errors.NaNerror);
@@ -133,9 +142,13 @@ var Validations = {
         });
         if (emptyFields > 0) errors.push(Errors.emptyFieldsError + "(" + emptyFields + ")");
 
-        if (mergedCount < partiesCount) errors.push(Errors.notAllResultsMergedError +
+        var merged = 0;
+        for (var pair of mergedResults) {
+            merged += (pair[1] == true) ? 1 : 0;
+        }
+        if (merged < partiesCount) errors.push(Errors.notAllResultsMergedError +
                                                     " (" +
-                                                    mergedCount +
+                                                    merged +
                                                     " iš " +
                                                     partiesCount + ")");
         if (emptyFields == dictionary.size + 1) {

@@ -188,6 +188,13 @@ div.list-group-item.remove-units {
     margin-right: 15px;
 }
 
+.btn-sm.confirmed-floaters {
+    float: right;
+    margin-right: 15px;
+    display: table-cell;
+    padding: 0;
+}
+
 /* current-time */
 
 #current-time {

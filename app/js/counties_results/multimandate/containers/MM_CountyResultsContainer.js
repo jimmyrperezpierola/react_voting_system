@@ -16,7 +16,7 @@ var MM_CountyResultsContainer = React.createClass({
                   dictionary: new Map(),
                   spoiled: undefined,
                   springErrors: [],
-                  mergedResults: 0,
+                  mergedResults: new Map(),
                   MMresults: {}
                 });
     },
@@ -25,18 +25,29 @@ var MM_CountyResultsContainer = React.createClass({
         // refactor when login will be implemented
 
         var _this = this;
-        var getUrl = "http://localhost:8080/api/county-rep/" + this.props.params.id + "";
-        axios.get(getUrl)
-            .then(function(resp) {
-                var results = _this.getMMresults(resp.data.county);
-                _this.setState({ representative: resp.data,
-                                 activeCountyId: resp.data.county.id,
-                                 MMresults: results });
-            })
+        var repGetUrl = "http://localhost:8080/api/county-rep/" + this.props.params.id + "";
+
+        axios
+            .all([
+                axios.get(repGetUrl),
+                axios.get('http://localhost:8080/api/party/')
+            ])
+            .then(axios.spread(function(representative, parties) {
+                var results = _this.getMMresults(representative.data.county);
+                var candidatesDictionary = _this.formCandidatesDictionary(parties.data);
+                var mergedDictionary = _this.formMergedResultsDictionary(parties.data)
+                _this.setState({
+                    representative: representative.data,
+                    activeCountyId: representative.data.county.id,
+                    MMresults: results,
+                    dictionary: candidatesDictionary,
+                    mergedResults: mergedDictionary,
+                    parties: parties.data
+                });
+            }))
             .catch(function(err) {
                 console.log(err);
             });
-        this.getParties();
     },
     getMMresults: function(county) {
         var results = {};
@@ -44,20 +55,6 @@ var MM_CountyResultsContainer = React.createClass({
             if (!mm.singleMandateSystem) results = mm;
         });
         return results;
-    },
-    getParties: function() {
-        var _this = this;
-        var getUrl = "http://localhost:8080/api/party/";
-        axios.get(getUrl)
-            .then(function(resp) {
-              var initialDictionary = _this.formInitialDictionary(resp.data);
-                _this.setState({ parties: resp.data,
-                                 dictionary: initialDictionary
-                               });
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
     },
     prepareParties: function() {
         var preparedParties = [];
@@ -67,6 +64,7 @@ var MM_CountyResultsContainer = React.createClass({
             preparedParties.push(
                 <MM_PartyDisplayComponent
                     key={idx}
+                    id={p.id}
                     party={p}
                     mergeResults={this.mergeResults}
                 />
@@ -91,13 +89,18 @@ var MM_CountyResultsContainer = React.createClass({
 
         return preparedParties;
     },
-    formInitialDictionary: function(parties) {
+    formCandidatesDictionary: function(parties) {
         var mapped = new Map();
         parties.forEach(p => {
             p.candidates.forEach(c => {
                 mapped.set(c.id, undefined);
             });
         });
+        return mapped;
+    },
+    formMergedResultsDictionary: function(parties) {
+        var mapped = new Map();
+        parties.forEach(p => mapped.set(p.id, false));
         return mapped;
     },
     prepareRepresentative() {
@@ -117,7 +120,7 @@ var MM_CountyResultsContainer = React.createClass({
         this.setState({ spoiled: e.target.value })
     },
     handleSubmitMMresults: function() {
-        //e.preventDefaults();
+        //e.preventDefault();
         var _this = this;
         var map = this.state.dictionary;
         var candidatesVotes = [];
@@ -142,14 +145,14 @@ var MM_CountyResultsContainer = React.createClass({
                 _this.setState({ springErrors: err.response.data.errorsMessages });
             });
     },
-    mergeResults: function(partyDictionary, e) {
+    mergeResults: function(partyDictionary, partyId) {
         //e.preventDefault();
         var actualDict = this.state.dictionary;
         partyDictionary.forEach(function(value, key) {
             actualDict.set(key, value);
         });
         var merged = this.state.mergedResults;
-        merged += 1;
+        merged.set(partyId, true);
         this.setState({ dictionary: actualDict, mergedResults: merged, springErrors: [] });
     },
     prepareSpringErrors: function() {
@@ -163,7 +166,14 @@ var MM_CountyResultsContainer = React.createClass({
                                 representative={this.prepareRepresentative()}
                                 spoiled={this.state.MMresults.spoiledBallots}
                                 parties={this.preparePartiesWithResults()}
-                                dateTime={Helpers.createdOn(this.state.MMresults.createdOn)}
+                                createdOn={Helpers.dateTimeFormatWithMessage(
+                                              this.state.MMresults.createdOn,
+                                              "Rezultatai pateikti"
+                                          )}
+                                confirmedOn={Helpers.dateTimeFormatWithMessage(
+                                              this.state.MMresults.confirmedOn,
+                                              "Rezultatai patvirtinti"
+                                          )}
                             />
         } else {
             formOrResults = <MM_CountyResultsComponent
