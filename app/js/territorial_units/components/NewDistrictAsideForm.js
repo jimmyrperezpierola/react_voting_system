@@ -6,6 +6,10 @@ var NewDistrictAsideForm = React.createClass({
     getInitialState: function() {
         return ({ jsErrors: [] });
     },
+    componentDidUpdate()
+    {
+        $('.toggleInput').bootstrapToggle();
+    },
     reportErrors: function(errors) {
         if (errors.length == 0) {
             this.setState({ jsErrors: [] });

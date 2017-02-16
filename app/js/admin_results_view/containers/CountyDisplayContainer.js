@@ -153,16 +153,34 @@ var CountyDisplayContainer = React.createClass({
                 console.log(err);
             });
     },
-    handleResultsDelete: function() {
+    handleResultsDelete: function(singleMandate) {
         var _this = this;
-        var delUrl = "http://localhost:8080/api/county-results/county/" + this.state.county.id + "";
-        axios.delete(delUrl)
-            .then(function(resp) {
-                _this.setState({ smDisplay: undefined, resultsConfirmed: false, county: resp.data });
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
+
+        axios({
+            method: 'delete',
+            url: 'http://localhost:8080/api/county-results/county/',
+            params: {
+              countyId: this.state.county.id,
+              isSingleMandate: singleMandate
+            }
+        })
+        .then(function(resp) {
+            var updatedState = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
+            console.log(resp.data);
+            _this.setState({ smDisplay: undefined, [updatedState]: false, county: resp.data });
+        })
+        .catch(function(err) {
+            console.log("ERROR");
+        })
+
+        // axios.delete('http://localhost:8080/api/county-results/county/', params)
+        //     .then(function(resp) {
+        //         var updatedState = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
+        //         _this.setState({ smDisplay: undefined, [updatedState]: false, county: resp.data });
+        //     })
+        //     .catch(function(err) {
+        //         console.log(err);
+        //     });
     },
     determineAllConfirmedButton: function() {
         var btn = (

@@ -1,10 +1,14 @@
 var React = require('react');
 
 function CountyDisplayComponent(props) {
+    var del = function() { props.delete(props.smDisplay) }
     var display = (!props.show) ? {display: 'none'} : {};
-
     var smBtn = 'btn btn-default btn-sm';
     var mmBtn = 'btn btn-default btn-sm';
+    var deleteBtn = undefined;
+    var results = (props.smDisplay == undefined) ? "PASIRINKITE MANDATO TIPĄ" : "REZULTATŲ NĖRA";
+    var confirmBtn = undefined;
+
     if (props.smDisplay == undefined) {
         // btns remain the same
     } else if (props.smDisplay) {
@@ -13,12 +17,9 @@ function CountyDisplayComponent(props) {
         mmBtn += ' active';
     }
 
-    var deleteBtn = undefined;
-    var results = (props.smDisplay == undefined) ? "PASIRINKITE MANDATO TIPĄ" : "REZULTATŲ NĖRA";
-    var confirmBtn = undefined;
     if (props.results != undefined) {
         deleteBtn = (
-            <button className="btn btn-default btn-sm floaters-right" onClick={props.delete}>
+            <button className="btn btn-default btn-sm floaters-right" onClick={del}>
                 Pašalinti <span className="glyphicon glyphicon-remove"></span>
             </button>
         );

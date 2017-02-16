@@ -12,7 +12,7 @@ function DistrictDisplayComponent(props) {
                     {props.name}
                 </div>
                 <div className="unit-actions-area" style={ display }>
-                    <span onClick={del} style={{ cursor: 'pointer' }}>
+                    <span data-toggle="confirmation" style={{ cursor: 'pointer' }}>
                         <span className="glyphicon glyphicon-remove-sign"></span> šalinti
                     </span>
                 </div>
