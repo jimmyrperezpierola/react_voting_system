@@ -6,8 +6,7 @@ var NewCountyInlineForm = React.createClass({
         return ({ jsErrors: [] });
     },
     submit: function() {
-        //e.preventDefault();
-        var errors = Validations.checkErrorsCountyForm(this.props.name, this.props.count);
+        var errors = Validations.checkErrorsCountyForm(this.props.name, this.props.count, this.props.address);
         if (errors.length > 0) {
             var style={ marginTop: 10 };
             this.setState({ jsErrors: Validations.prepareErrors(errors, style) });
@@ -28,6 +27,9 @@ var NewCountyInlineForm = React.createClass({
                     </div>
                     <div className="form-group">
                         <input type="number" onChange={this.props.changeVoterCount} className="form-control" value={this.props.count} placeholder="Gyv. skaičius" min={1}/>
+                    </div>
+                    <div className="form-group">
+                        <input type="text" onChange={this.props.changeAddress} className="form-control" value={this.props.address} placeholder="Adresas" min={1}/>
                     </div>
                     <div className="form-group">
                         <button type="submit" className="btn btn-primary btn-sm" onClick={this.submit}>Sukurti</button>

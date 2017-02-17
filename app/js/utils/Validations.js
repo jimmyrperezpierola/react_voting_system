@@ -12,8 +12,8 @@ var Validations = {
     checkErrorsPartyAsideForm: function(name, file) {
         var errors = [];
 
-        if (name.length < Vars.min) errors.push(Errors.nameToShort);
-        if (name.length > Vars.max) errors.push(Errors.nameToLong);
+        if (name.length < Vars.min) errors.push("Partijos pavadinimas " + Errors.toShort);
+        if (name.length > Vars.max) errors.push("Partijos pavadinimas " + Errors.toLong);
         if (!Vars.partyNameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         if (file == undefined) {
@@ -28,17 +28,17 @@ var Validations = {
     checkErrorsDistrictAsideForm: function(name) {
         var errors = [];
 
-        if (name.length < Vars.min) errors.push(Errors.nameToShort);
-        if (name.length > Vars.max) errors.push(Errors.nameToLong);
+        if (name.length < Vars.min) errors.push("Apygardos pavadinimas " + Errors.toShort);
+        if (name.length > Vars.max) errors.push("Apygardos pavadinimas " + Errors.toLong);
         if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         return errors;
     },
-    checkErrorsCountyForm: function(name, count) {
+    checkErrorsCountyForm: function(name, count, address) {
         var errors = [];
 
-        if (name.length < Vars.min) errors.push(Errors.nameToShort);
-        if (name.length > Vars.max) errors.push(Errors.nameToLong);
+        if (name.length < Vars.min) errors.push("Apylinkės pavadinimas " + Errors.toShort);
+        if (name.length > Vars.max) errors.push("Apylinkės pavadinimas " + Errors.toLong);
         if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         switch (true) {
@@ -51,6 +51,13 @@ var Validations = {
             case (count > 3000000):
               errors.push(Errors.popToHigh + count);
               break;
+        }
+
+        if (address.length == 0) {
+            errors.push("Adresas - " + Errors.blankField);
+        } else {
+            if (address.length < Vars.min) errors.push("Adresas " + Errors.toShort);
+            if (address.length > Vars.max) errors.push("Adresas " + Errors.toLong);
         }
 
         return errors;
@@ -181,8 +188,9 @@ var Validations = {
 };
 
 var Errors = {
-    nameToShort: "REACT - Pavadinime ne mažiau " + Vars.min + " raidžių",
-    nameToLong: "REACT - Pavadinime ne daugiau " + Vars.max + " raidžių",
+    toShort: "per trumpas (min. " + Vars.min + " simbolių) - REACT",
+    toLong: "per ilgas (min. " + Vars.max + " simbolių) - REACT",
+    blankField: "tuščias laukas - REACT",
     onlyAlphas: "REACT - Pavadinimas neatitinka formato",
     popToLow: "REACT - Nerealiai mažai gyventojų - ",
     popToHigh: "REACT - Nerealiai daug gyventojų - ",
