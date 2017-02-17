@@ -26,8 +26,8 @@ function PartyDisplayComponent(props) {
             </div>
             <div style={ display }>
                 <div className="list-group-item">
+                    <p onClick={del} style={{ cursor: 'pointer' }}><span className="glyphicon glyphicon-remove-sign"></span> šalinti partiją</p>
                     {actions}
-                    <p onClick={del} style={{ cursor: 'pointer', paddingTop: 10 }}><span className="glyphicon glyphicon-remove-sign"></span> šalinti partiją</p>
                 </div>
                 {props.candidates}
             </div>

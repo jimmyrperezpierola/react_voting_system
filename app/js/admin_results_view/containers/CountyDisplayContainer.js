@@ -172,15 +172,6 @@ var CountyDisplayContainer = React.createClass({
         .catch(function(err) {
             console.log("ERROR");
         })
-
-        // axios.delete('http://localhost:8080/api/county-results/county/', params)
-        //     .then(function(resp) {
-        //         var updatedState = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
-        //         _this.setState({ smDisplay: undefined, [updatedState]: false, county: resp.data });
-        //     })
-        //     .catch(function(err) {
-        //         console.log(err);
-        //     });
     },
     determineAllConfirmedButton: function() {
         var btn = (

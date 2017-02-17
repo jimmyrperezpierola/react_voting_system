@@ -32,7 +32,7 @@ var NewDistrictAsideForm = React.createClass({
         return Validations.prepareErrors(this.props.springErrors);
     },
     countiesHeader: function() {
-        return (this.props.counties.length == 0) ? <span></span> : <p>Apylinkės:</p>
+        return (this.props.counties.length == 0) ? <span></span> : <p>Apylinkės:</p>;
     },
     render: function() {
         return (

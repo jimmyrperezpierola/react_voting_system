@@ -156,6 +156,22 @@ div.list-group-item.remove-units {
   float: left;
 }
 
+/* candidate-card */
+
+.candidate-card {
+    height: auto;
+    margin-bottom: 0;
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.row.candidate-card-low {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
 /* validations */
 
 #inline-form-errors {
