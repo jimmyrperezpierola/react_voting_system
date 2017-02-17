@@ -12,7 +12,7 @@ var DistrictDisplayContainer = React.createClass({
                   countyName: "",
                   voterCount: undefined,
                   counties: [],
-                  hoverState: false,
+                  hoverState: true,
                   springErrors: [] });
     },
     componentDidMount: function() {
@@ -104,7 +104,7 @@ var DistrictDisplayContainer = React.createClass({
         }
     },
     toggleHoverState: function() {
-        this.setState({ hoverState: !this.state.hoverState });
+        this.setState({ hoverState: this.state.hoverState });
     },
     render: function() {
         return <DistrictDisplayComponent
