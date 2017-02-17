@@ -41,7 +41,7 @@ var TerritorialBreakdownContainer = React.createClass({
                 <AddedCountyDisplayComponent
                     key={index}
                     index={index}
-                    name={c.name}
+                    county={c}
                     remove={this.handleAddedCountyRemove}
                 />
             )
@@ -69,6 +69,7 @@ var TerritorialBreakdownContainer = React.createClass({
             })
             .catch(function(err) {
                 console.log(err);
+                console.log(err.response);
                 _this.setState({ springErrors: err.response.data.errorsMessages })
             });
     },

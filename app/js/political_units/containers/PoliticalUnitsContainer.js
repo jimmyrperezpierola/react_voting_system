@@ -67,6 +67,7 @@ var PoliticalUnitsContainer = React.createClass({
             })
             .catch(function(err) {
                 console.log(err);
+                console.log(err.response);
                 _this.setState({ springErrors: err.response.data.errorsMessages });
             });
     },

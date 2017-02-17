@@ -31,6 +31,9 @@ var NewDistrictAsideForm = React.createClass({
     springErrors: function() {
         return Validations.prepareErrors(this.props.springErrors);
     },
+    countiesHeader: function() {
+        return (this.props.counties.length == 0) ? <span></span> : <p>Apylinkės:</p>
+    },
     render: function() {
         return (
             <div>
@@ -39,6 +42,7 @@ var NewDistrictAsideForm = React.createClass({
                         <label htmlFor="inputDistrict">Apygardos pavadinimas</label>
                         <input type="text" className="form-control" id="inputDistrictName" value={this.props.name} onChange={this.props.changeName}/>
                     </div>
+                    {this.countiesHeader()}
                     {this.props.counties}
                     <NewCountyAsideFormContainer
                         addCounty={this.props.addCounty}
