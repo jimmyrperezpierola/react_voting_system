@@ -59,11 +59,11 @@ var CountyDisplayContainer = React.createClass({
       if (results == undefined) return results;
 
       preparedResults.push(
-          <div className="list-group-item" key={results.candidateVotesList.length}>
+          <div className="list-group-item" key={results.unitVotesList.length}>
               <p>Sugadinti biuleteniai: {results.spoiledBallots}</p>
           </div>
       );
-      results.candidateVotesList.forEach((cv, idx) => {
+      results.unitVotesList.forEach((cv, idx) => {
           var partyName = (cv.candidate.partyName) ? cv.candidate.partyName : "Išsikėlęs pats";
           preparedResults.push(
               <AdminViewCandidateComponent
@@ -80,30 +80,24 @@ var CountyDisplayContainer = React.createClass({
     prepareMMresults: function() {
         var results = this.getResults(this.state.county, false);
         var preparedResults = [];
-        var parties = this.state.parties;
 
         if (results == undefined) return results;
 
-        parties.forEach((p, idx) => {
+        preparedResults.push(
+            <div className="list-group-item" key={results.unitVotesList.length}>
+                <p>Sugadinti biuleteniai: {results.spoiledBallots}</p>
+            </div>
+        );
+        results.unitVotesList.forEach((uv, idx) => {
             preparedResults.push(
                 <MM_PartyDisplayWithResultsComponent
                     key={idx}
-                    party={p}
-                    results={results}
+                    party={uv.party}
+                    pVotes={uv}
                 />
             );
         });
-
-        return (
-            <div>
-                <div className="list-group-item" key={results.candidateVotesList.length}>
-                    <p>Sugadinti biuleteniai: {results.spoiledBallots}</p>
-                </div>
-                <div className="list-group-item">
-                    {preparedResults}
-                </div>
-            </div>
-        );
+        return preparedResults;
     },
     determineResults: function() {
         if (this.state.smDisplay == undefined) return undefined;
@@ -166,7 +160,6 @@ var CountyDisplayContainer = React.createClass({
         })
         .then(function(resp) {
             var updatedState = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
-            console.log(resp.data);
             _this.setState({ smDisplay: undefined, [updatedState]: false, county: resp.data });
         })
         .catch(function(err) {
