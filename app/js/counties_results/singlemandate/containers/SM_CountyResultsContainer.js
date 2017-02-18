@@ -101,7 +101,7 @@ var SM_CountyResultsContainer = React.createClass({
     prepareCandidatesWithResults: function() {
         var preparedCandidates = [];
         var candidates = this.state.candidates;
-        var candidateVotesList = this.state.SMresults.candidateVotesList;
+        var candidateVotesList = this.state.SMresults.unitVotesList;
         var cVotes = {};
 
         candidates.forEach((c, idx) => {
@@ -161,25 +161,28 @@ var SM_CountyResultsContainer = React.createClass({
         var map = this.state.dictionary;
         var candidatesVotes = [];
         for (var pair of map) {
-            candidatesVotes.push({ "candidateId": pair[0], "votes": pair[1] });
+            candidatesVotes.push({ "unitId": pair[0], "votes": pair[1] });
         }
         var body = {
             "spoiledBallots": this.state.spoiled,
             "countyId": this.state.activeCountyId,
             "singleMandateSystem": true,
-            "candidatesVotes": candidatesVotes
+            "unitVotes": candidatesVotes
         }
-        axios.post('http://localhost:8080/api/county-results/', body)
-            .then(function(resp) {
-                _this.setState({ springErrors: [],
+        axios.post('http://localhost:8080/api/county-results/',
+                   body,
+                   { headers: { 'Content-Type': 'application/json' } }
+              )
+              .then(function(resp) {
+                  _this.setState({ springErrors: [],
                                  dictionary: new Map(),
                                  spoiled: undefined,
                                  SMresults: resp.data });
-            })
-            .catch(function(err) {
-                console.log(err);
-                _this.setState({ springErrors: err.response.data.errorsMessages });
-            });
+              })
+              .catch(function(err) {
+                  console.log(err);
+                  _this.setState({ springErrors: err.response.data.errorsMessages });
+              });
     },
     prepareSpringErrors: function() {
         var style={"marginTop": 10}
