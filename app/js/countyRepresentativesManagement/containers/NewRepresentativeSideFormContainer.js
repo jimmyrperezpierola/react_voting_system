@@ -2,7 +2,7 @@
  * Created by osvaldas on 17.2.7.
  */
 var React = require('react');
-var NewRepresentativeSideFormComponent = require('../../components/tiny_components/NewRepresentativeSideFormComponent');
+var NewRepresentativeSideFormComponent = require('../components/NewRepresentativeSideFormComponent');
 
 var OnlyDistricts = [];
 var onlyFirstRequiredCounties = [];

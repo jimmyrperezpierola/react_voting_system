@@ -2,8 +2,8 @@
  * Created by osvaldas on 17.2.7.
  */
 var React = require('react');
-var NewRepresentativeSideFormContainer = require('../containers/tiny_containers/NewRepresentativeSideFormContainer');
-var CountyRepresentativeListLineComponent = require('./tiny_components/CountyRepresentativeListLineComponent');
+var NewRepresentativeSideFormContainer = require('../containers/NewRepresentativeSideFormContainer');
+var CountyRepresentativeListLineComponent = require('./CountyRepresentativeListLineComponent');
 
 var CountyRepresentativesDisplayComponent = React.createClass ({
     render: function () {
