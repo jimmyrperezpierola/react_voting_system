@@ -1,5 +1,4 @@
 var React = require('react');
-var Geosuggest = require('react-geosuggest').default;
 
 function NewCountyAsideForm(props) {
     return (
