@@ -44,9 +44,9 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
                                 <div style={{height: "20px"}}>
                                     <div className="col-md-4">Atstovas</div>
 
-                                    <div className="col-md-4">Apylinkė</div>
-                                    <div className="col-md-3">ID (būsimas e-mail)</div>
-                                    <div className="col-md-1">action</div>
+                                    <div className="col-md-3">Apylinkė</div>
+                                    <div className="col-md-4">Atstovo el. paštas</div>
+                                    <div className="col-md-1">Trinti</div>
                                 </div>
                             </div>
                         </div>

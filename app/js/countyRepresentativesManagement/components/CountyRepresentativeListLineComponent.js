@@ -18,10 +18,15 @@ var CountyRepresentativeListLineComponent = React.createClass ({
 
                         {/*<div className="col-md-2">{this.props.repData.firstName}</div>*/}
                         {/*<div className="col-md-2">{this.props.repData.lastName}</div>*/}
-                        <div className="col-md-4">{this.props.repData.county.name}</div>
+                        <div className="col-md-3">{this.props.repData.county.name}</div>
 
-                        <div className="col-md-3">{this.props.repData.id}</div>
-                        <div className="col-md-1"><button onClick={this.onRemoveRep}> DEL </button></div>
+                        <div className="col-md-4">{this.props.repData.email}</div>
+                        <div className="col-md-1">
+                            <span className="glyphicon glyphicon-remove-sign"
+                                  onClick={this.onRemoveRep}
+                                  style={{ cursor: 'pointer', padding: '0px 15px 0px 15px' }}>
+                            </span>
+                        </div>
 
                     </div>
                 </div>

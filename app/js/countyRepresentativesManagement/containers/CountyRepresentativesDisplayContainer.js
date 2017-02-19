@@ -37,6 +37,8 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         // gets all districts
         axios.get('http://localhost:8080/api/district')
             .then(function (response){
+                // console.log("RESPONSE.DATA");
+                // console.log(response.data);
                 self.setState({districts: response.data});
             })
             .catch(function(error){
@@ -100,7 +102,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         var self = this;
         var countyId = this.getCountyId(district, county);
 
-        var RequestBody = {"firstName": name, "lastName": surname, "county": {"id": countyId}};
+        var RequestBody = {"firstName": name, "lastName": surname, "email": email, "county": {"id": countyId}};
 
         axios.post('http://localhost:8080/api/county-rep', RequestBody)
             .then(function(response){
