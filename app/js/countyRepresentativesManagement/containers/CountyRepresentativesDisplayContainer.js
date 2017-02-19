@@ -26,8 +26,8 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         //gets all representatives
         axios.get('http://localhost:8080//api/county-rep')
             .then(function(response){
-              console.log("RESPONSE.DATA");
-              console.log(response.data);
+              // console.log("RESPONSE.DATA");
+              // console.log(response.data);
                 self.setState({representatives: response.data});
             })
             .catch(function(error){
@@ -51,15 +51,15 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         var newAddress = address.concat(addressEnding);
         axios.delete(newAddress)
             .then(function(response){
-                console.log("delete passed");
-                console.log(response);
+                // console.log("delete passed");
+                // console.log(response);
                 // gets updated list and updates the state
                 // ---------------------------------------
                 axios.get('http://localhost:8080/api/county-rep')
                     .then(function(response){
                         self.setState({representatives: response.data});
-                        console.log("new representatives list received and state updated")
-                        console.log(response.data);
+                        // console.log("new representatives list received and state updated")
+                        // console.log(response.data);
                     })
                     .catch(function(error){
                         console.log(error);
@@ -70,6 +70,29 @@ var CountyRepresentativesDisplayContainer = React.createClass({
                 console.log("delete failed");
                 console.log(error);
             });
+
+        //updates all representatives
+        axios.get('http://localhost:8080//api/county-rep')
+            .then(function(response){
+                // console.log("RESPONSE.DATA");
+                // console.log(response.data);
+                self.setState({representatives: response.data});
+            })
+            .catch(function(error){
+                console.log("ERROR");
+                console.log(error);
+            });
+
+        // updates all districts
+        axios.get('http://localhost:8080/api/district')
+            .then(function (response){
+                self.setState({districts: response.data});
+            })
+            .catch(function(error){
+                console.log("ERROR");
+                console.log(error);
+            });
+
     },
 
     newRep: function (name, surname, email, district, county) {
@@ -81,18 +104,20 @@ var CountyRepresentativesDisplayContainer = React.createClass({
 
         axios.post('http://localhost:8080/api/county-rep', RequestBody)
             .then(function(response){
-                console.log("POST RESPONSE");
-                console.log(response.data);
+                // console.log("POST RESPONSE");
+                // console.log(response.data);
                 axios.get('http://localhost:8080//api/county-rep')
                     .then(function(response){
                         self.setState({representatives: response.data});
-                        console.log(response.data);
+                        // console.log(response.data);
                     })
                     .catch(function(error){
+                        console.log("ERROR");
                         console.log(error);
                     });
             })
             .catch(function(error){
+                console.log("ERROR");
                 console.log(error);
             });
         this.setState({newRepresentative: RequestBody});
@@ -103,15 +128,15 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         var CountyId;
         this.state.districts.map(function(district, index){
             if(district.name == districtName){
-                console.log("match");
+                // console.log("match");
                 district.counties.map(function (county, index) {
                     if(county.name == countyName){
                         CountyId = county.id;
-                        console.log(CountyId);
+                        // console.log(CountyId);
                     }
                 });
             } else {
-                console.log("county name did not match");
+                // console.log("county name did not match");
             }
         });
         return CountyId;

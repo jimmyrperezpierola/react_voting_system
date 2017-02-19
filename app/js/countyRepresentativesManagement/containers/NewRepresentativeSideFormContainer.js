@@ -11,46 +11,36 @@ var NewRepresentativeSideFormContainer = React.createClass ({
 
     getAllDistricts: function () {
         OnlyDistricts = [];
+        self = this;
         var DistrictsInformation = this.props.districtsData;
+        var currentDistrictName = '';
+        var currentCountyName = '';
+        var uniqueCombinationOfDistrictAndCounty = '';
         DistrictsInformation.map(function(district, index) {
-            OnlyDistricts.push(
-                district
-            )
-        });
-    },
-
-    getFirstPossibleCounties: function () {
-        var firstDistrict;
-        OnlyDistricts.map(function (district, index) {
-            if(index == 0){
-                firstDistrict = district.name;
+            currentDistrictName = district.name;
+            var isDistrictRequiredInDistrictList = false;
+            district.counties.map(function (county, index){
+                currentCountyName = county.name;
+                uniqueCombinationOfDistrictAndCounty = currentDistrictName.concat(currentCountyName);
+                if (!self.props.uniqueDistrictAndCountyNameCombinationArray.includes(uniqueCombinationOfDistrictAndCounty)){
+                    isDistrictRequiredInDistrictList = true;
+                }
+            });
+            if (isDistrictRequiredInDistrictList){
+                OnlyDistricts.push(district)
             }
         });
-        OnlyDistricts.map(function(district, index){
-
-            if(district.name == firstDistrict){
-                console.log("match");
-                onlyFirstRequiredCounties = [];
-                district.counties.map(function (county, index) {
-                    onlyFirstRequiredCounties.push(county);
-                });
-            } else {
-                console.log("no match");
-            }
-        });
-
     },
 
     render: function () {
         {this.getAllDistricts()}
-        {this.getFirstPossibleCounties()}
 
         return (
             <div>
                 <NewRepresentativeSideFormComponent
                     newRep={this.props.newRep}
                     OnlyDistricts={OnlyDistricts}
-                    onlyFirstRequiredCounties={onlyFirstRequiredCounties}
+                    uniqueDistrictAndCountyNameCombinationArray={this.props.uniqueDistrictAndCountyNameCombinationArray}
                 />
             </div>
         )
