@@ -10,7 +10,7 @@ function PartyDisplayComponent(props) {
 		actions;
     if (!props.show) display = {display: 'none'};
     if (props.candidates.length > 0) {
-      actions = 
+      actions =
             <ConfirmAction
                 title="Ar tikrai norite pašalinti apygardos kandidatų sąrašą?"
                 body="Duomenų atstatymas neįmanomas."
@@ -18,7 +18,7 @@ function PartyDisplayComponent(props) {
             >
                 <p className="remove-units-element" style={{ cursor: 'pointer' }}>
                     <span className="glyphicon glyphicon-remove-sign">
-                    </span>
+                    </span> &nbsp;
                     šalinti narius
                 </p>
             </ConfirmAction>
@@ -38,7 +38,7 @@ function PartyDisplayComponent(props) {
         >
             <p style={{ cursor: 'pointer', paddingTop: 10 }}>
                 <span className="glyphicon glyphicon-remove-sign">
-                </span>
+                </span> &nbsp;
                 šalinti partiją
             </p>
         </ConfirmAction>
