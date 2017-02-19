@@ -17,7 +17,7 @@ function SingleMandateDistrictDisplayComponent(props) {
             >
                 <p className="remove-units-element" style={{ cursor: 'pointer' }} >
                     <span className="glyphicon glyphicon-remove-sign">
-                    </span>
+                    </span> &nbsp;
                     šalinti kandidatus
                 </p>
             </ConfirmAction>
