@@ -1,14 +1,27 @@
 var React = require('react');
 var InlineCsvUploadForm = require('../../components/tiny_components/InlineCsvUploadForm');
+var ConfirmAction = require('../../components/tiny_components/ConfirmAction');
 
 function PartyDisplayComponent(props) {
     var del = function() { props.delete(props.index, props.party.id) };
     var delCandidates = function() { props.deleteCandidates(props.party.id) };
 
-    var display; var actions;
+    var display,
+		actions;
     if (!props.show) display = {display: 'none'};
     if (props.candidates.length > 0) {
-      actions = <p onClick={delCandidates} className="remove-units-element" style={{ cursor: 'pointer' }}><span className="glyphicon glyphicon-remove-sign"></span> šalinti narius</p>
+      actions = 
+            <ConfirmAction
+                title="Ar tikrai norite pašalinti apygardos kandidatų sąrašą?"
+                body="Duomenų atstatymas neįmanomas."
+                onConfirm={delCandidates}
+            >
+                <p className="remove-units-element" style={{ cursor: 'pointer' }}>
+                    <span className="glyphicon glyphicon-remove-sign">
+                    </span>
+                    šalinti narius
+                </p>
+            </ConfirmAction>
     } else {
       actions = <InlineCsvUploadForm
                     upload={props.upload}
@@ -16,6 +29,19 @@ function PartyDisplayComponent(props) {
                     springErrors={props.springErrors}
                 />
     }
+
+    var confirmDeleteParty =
+        <ConfirmAction
+            title="Ar tikrai norite pašalinti partiją?"
+            body="Duomenų atstatymas neįmanomas."
+            onConfirm={del}
+        >
+            <p style={{ cursor: 'pointer', paddingTop: 10 }}>
+                <span className="glyphicon glyphicon-remove-sign">
+                </span>
+                šalinti partiją
+            </p>
+        </ConfirmAction>
 
     return (
         <div className="unit">
@@ -26,8 +52,8 @@ function PartyDisplayComponent(props) {
             </div>
             <div style={ display }>
                 <div className="list-group-item">
-                    <p onClick={del} style={{ cursor: 'pointer' }}><span className="glyphicon glyphicon-remove-sign"></span> šalinti partiją</p>
                     {actions}
+                    {confirmDeleteParty}
                 </div>
                 {props.candidates}
             </div>
