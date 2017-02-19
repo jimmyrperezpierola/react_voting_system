@@ -8,9 +8,9 @@ var CountyRepresentativeListLineComponent = require('./CountyRepresentativeListL
 var CountyRepresentativesDisplayComponent = React.createClass ({
     render: function () {
 
-      console.log(this.props)
-      console.log("TYPE")
-      console.log(typeof this.props.repData)
+      // console.log(this.props);
+      // console.log("TYPE");
+      // console.log(typeof this.props.repData);
         var CountyRepresentativesArray = [];
 
         that=this;

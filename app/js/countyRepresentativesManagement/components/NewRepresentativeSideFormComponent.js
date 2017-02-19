@@ -72,7 +72,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
         }
     },
     hendleEmailChange: function (event) {
-        this.setState({email: event.target.value})
+        this.setState({email: event.target.value});
 
         var checkIfOnlyCharacters = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(event.target.value);
         if(!checkIfOnlyCharacters){
@@ -108,6 +108,11 @@ var NewRepresentativeSideFormComponent = React.createClass({
                 matchFound = true;
                 onlyRequiredCounties = [];
                 district.counties.map(function (county, index) {
+
+                    // console.log("CHECK HERE");
+                    // console.log(county);
+                    // console.log("END");
+
                     onlyRequiredCounties.push(county);
                 });
                 self.setState({countiesOfDistrict: onlyRequiredCounties})

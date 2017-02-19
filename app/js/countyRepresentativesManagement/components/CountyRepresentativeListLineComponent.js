@@ -5,7 +5,7 @@ var React = require('react');
 
 var CountyRepresentativeListLineComponent = React.createClass ({
     onRemoveRep: function () {
-        this.props.onDeleteRepresentative(this.props.repData.id)
+        this.props.onDeleteRepresentative(this.props.repData.id);
     },
 
     render: function () {

@@ -26,12 +26,12 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         //gets all representatives
         axios.get('http://localhost:8080//api/county-rep')
             .then(function(response){
-              console.log("RESPONSE.DATA")
+              console.log("RESPONSE.DATA");
               console.log(response.data);
                 self.setState({representatives: response.data});
             })
             .catch(function(error){
-              console.log("ERROR")
+              console.log("ERROR");
                 console.log(error);
             });
         // gets all districts

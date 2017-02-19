@@ -449,3 +449,8 @@ div.list-group-item.remove-units {
         background-color: #005577;
     }
 } /* END Media Query */
+
+.popover-content {
+    color: #5875DB;
+    font-weight: bold;
+}
