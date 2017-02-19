@@ -35,30 +35,6 @@ var SM_CountyResultsContainer = React.createClass({
             .catch(function(err) {
                 console.log(err);
             });
-
-            // var _this = this;
-            // var repGetUrl = "http://localhost:8080/api/county-rep/" + this.props.params.id + "";
-            // var candidatesGetUrl = "http://localhost:8080/api/county/" + this.state.activeCountyId + "/candidates";
-            //
-            // axios
-            //     .all([
-            //         axios.get(repGetUrl),
-            //         axios.get(candidatesGetUrl)
-            //     ])
-            //     .then(axios.spread(function(representative, candidates) {
-            //         var results = _this.getSMresults(representative.data.county);
-            //         var initialDictionary = _this.formInitialDictionary(candidates.data);
-            //         _this.setState({
-            //             representative: representative.data,
-            //             activeCountyId: representative.data.county.id,
-            //             SMresults: results,
-            //             candidates: candidates.data,
-            //             dictionary: initialDictionary
-            //         });
-            //     }))
-            //     .catch(function(err) {
-            //         console.log(err);
-            //     });
     },
     getSMresults: function(county) {
         var results = {};
@@ -101,11 +77,11 @@ var SM_CountyResultsContainer = React.createClass({
     prepareCandidatesWithResults: function() {
         var preparedCandidates = [];
         var candidates = this.state.candidates;
-        var candidateVotesList = this.state.SMresults.candidateVotesList;
+        var candidatesVotesList = this.state.SMresults.unitVotesList;
         var cVotes = {};
 
         candidates.forEach((c, idx) => {
-            candidateVotesList.forEach(cv => {
+            candidatesVotesList.forEach(cv => {
                 if (cv.candidate.id === c.id) cVotes = cv;
             });
             preparedCandidates.push(
@@ -161,25 +137,28 @@ var SM_CountyResultsContainer = React.createClass({
         var map = this.state.dictionary;
         var candidatesVotes = [];
         for (var pair of map) {
-            candidatesVotes.push({ "candidateId": pair[0], "votes": pair[1] });
+            candidatesVotes.push({ "unitId": pair[0], "votes": pair[1] });
         }
         var body = {
             "spoiledBallots": this.state.spoiled,
             "countyId": this.state.activeCountyId,
             "singleMandateSystem": true,
-            "candidatesVotes": candidatesVotes
+            "unitVotes": candidatesVotes
         }
-        axios.post('http://localhost:8080/api/county-results/', body)
-            .then(function(resp) {
-                _this.setState({ springErrors: [],
-                                 dictionary: new Map(),
-                                 spoiled: undefined,
-                                 SMresults: resp.data });
-            })
-            .catch(function(err) {
-                console.log(err);
-                _this.setState({ springErrors: err.response.data.errorsMessages });
-            });
+        axios.post('http://localhost:8080/api/county-results/',
+                    body,
+                    { headers: { 'Content-Type': 'application/json' } }
+              )
+              .then(function(resp) {
+                  _this.setState({ springErrors: [],
+                                   dictionary: new Map(),
+                                   spoiled: undefined,
+                                   SMresults: resp.data });
+              })
+              .catch(function(err) {
+                  console.log(err);
+                  _this.setState({ springErrors: err.response.data.errorsMessages });
+              });
     },
     prepareSpringErrors: function() {
         var style={"marginTop": 10}

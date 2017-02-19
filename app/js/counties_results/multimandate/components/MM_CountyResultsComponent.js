@@ -4,20 +4,12 @@ var Validations = require('../../../utils/Validations');
 
 var MM_CountyResultsComponent = React.createClass({
     getInitialState: function() {
-        return ({ jsErrors: [],
-                  mergedResults: 0});
+        return ({ jsErrors: [] });
     },
-    componentWillReceiveProps: function(newProps) {
-        if (newProps.mergedResults > this.state.mergedResults) {
-            this.setState({ mergedResults: newProps.mergedResults, jsErrors: [] });
-        }
-    },
-    submitResults: function() {
-        //e.preventDefault();
+    submitResults: function(e) {
+        e.preventDefault();
         var errors = Validations.checkErrorsMMform(this.props.dictionary,
-                                                   this.props.spoiled,
-                                                   this.props.mergedResults,
-                                                   this.props.partiesCount);
+                                                   this.props.spoiled);
         if (errors.length > 0) {
             this.setState({ jsErrors: Validations.prepareErrors(errors) });
         } else {

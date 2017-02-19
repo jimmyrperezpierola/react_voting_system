@@ -3,7 +3,7 @@ var axios = require('axios');
 var MM_CountyResultsComponent = require('../components/MM_CountyResultsComponent');
 var MM_CountyResultsDisplayComponent = require('../components/MM_CountyResultsDisplayComponent');
 var CandidateDisplayComponent = require('../../shared/CandidateDisplayComponent');
-var MM_PartyDisplayComponent = require('../components/MM_PartyDisplayComponent');
+var MM_PartyComponent = require('../components/MM_PartyComponent');
 var MM_PartyDisplayWithResultsComponent = require('../components/MM_PartyDisplayWithResultsComponent');
 var Validations = require('../../../utils/Validations');
 var Helpers = require('../../../utils/Helpers');
@@ -16,7 +16,6 @@ var MM_CountyResultsContainer = React.createClass({
                   dictionary: new Map(),
                   spoiled: undefined,
                   springErrors: [],
-                  mergedResults: new Map(),
                   MMresults: {}
                 });
     },
@@ -34,14 +33,12 @@ var MM_CountyResultsContainer = React.createClass({
             ])
             .then(axios.spread(function(representative, parties) {
                 var results = _this.getMMresults(representative.data.county);
-                var candidatesDictionary = _this.formCandidatesDictionary(parties.data);
-                var mergedDictionary = _this.formMergedResultsDictionary(parties.data)
+                var dictionary = _this.formDictionary(parties.data);
                 _this.setState({
                     representative: representative.data,
                     activeCountyId: representative.data.county.id,
                     MMresults: results,
-                    dictionary: candidatesDictionary,
-                    mergedResults: mergedDictionary,
+                    dictionary: dictionary,
                     parties: parties.data
                 });
             }))
@@ -62,11 +59,10 @@ var MM_CountyResultsContainer = React.createClass({
 
         parties.forEach((p, idx) => {
             preparedParties.push(
-                <MM_PartyDisplayComponent
+                <MM_PartyComponent
                     key={idx}
-                    id={p.id}
                     party={p}
-                    mergeResults={this.mergeResults}
+                    changeVotes={this.handleChangeVotes}
                 />
             );
         });
@@ -76,31 +72,27 @@ var MM_CountyResultsContainer = React.createClass({
     preparePartiesWithResults: function() {
         var preparedParties = [];
         var parties = this.state.parties;
+        var partiesVotesList = this.state.MMresults.unitVotesList;
+        var pVotes = {};
 
         parties.forEach((p, idx) => {
+            partiesVotesList.forEach(pv => {
+                if (pv.party.id === p.id) pVotes = pv;
+            });
             preparedParties.push(
                 <MM_PartyDisplayWithResultsComponent
                     key={idx}
                     party={p}
-                    results={this.state.MMresults}
+                    pVotes={pVotes}
                 />
             );
         });
 
         return preparedParties;
     },
-    formCandidatesDictionary: function(parties) {
+    formDictionary: function(parties) {
         var mapped = new Map();
-        parties.forEach(p => {
-            p.candidates.forEach(c => {
-                mapped.set(c.id, undefined);
-            });
-        });
-        return mapped;
-    },
-    formMergedResultsDictionary: function(parties) {
-        var mapped = new Map();
-        parties.forEach(p => mapped.set(p.id, false));
+        parties.forEach(p => mapped.set(p.id, undefined));
         return mapped;
     },
     prepareRepresentative() {
@@ -119,21 +111,28 @@ var MM_CountyResultsContainer = React.createClass({
     handleChangeSpoiled: function(e) {
         this.setState({ spoiled: e.target.value })
     },
+    handleChangeVotes: function(party_id, votes) {
+        var actualDict = this.state.dictionary;
+        actualDict.set(party_id, votes);
+        this.setState({ dictionary: actualDict });
+    },
     handleSubmitMMresults: function() {
-        //e.preventDefault();
         var _this = this;
         var map = this.state.dictionary;
-        var candidatesVotes = [];
+        var partiesVotes = [];
         for (var pair of map) {
-            candidatesVotes.push({ "candidateId": pair[0], "votes": pair[1] });
+            partiesVotes.push({ "unitId": pair[0], "votes": pair[1] });
         }
         var body = {
             "spoiledBallots": this.state.spoiled,
             "countyId": this.state.activeCountyId,
             "singleMandateSystem": false,
-            "candidatesVotes": candidatesVotes
+            "unitVotes": partiesVotes
         }
-        axios.post('http://localhost:8080/api/county-results/', body)
+        axios.post('http://localhost:8080/api/county-results/',
+                    body,
+                    { headers: { 'Content-Type': 'application/json' } }
+            )
             .then(function(resp) {
                 _this.setState({ springErrors: [],
                                  dictionary: new Map(),
@@ -144,16 +143,6 @@ var MM_CountyResultsContainer = React.createClass({
                 console.log(err);
                 _this.setState({ springErrors: err.response.data.errorsMessages });
             });
-    },
-    mergeResults: function(partyDictionary, partyId) {
-        //e.preventDefault();
-        var actualDict = this.state.dictionary;
-        partyDictionary.forEach(function(value, key) {
-            actualDict.set(key, value);
-        });
-        var merged = this.state.mergedResults;
-        merged.set(partyId, true);
-        this.setState({ dictionary: actualDict, mergedResults: merged, springErrors: [] });
     },
     prepareSpringErrors: function() {
         var style={"marginTop": 10}
@@ -185,8 +174,6 @@ var MM_CountyResultsContainer = React.createClass({
                                 submitMMresults={this.handleSubmitMMresults}
                                 springErrors={this.prepareSpringErrors()}
                                 activeCountyId={this.state.activeCountyId}
-                                mergedResults={this.state.mergedResults}
-                                partiesCount={this.state.parties.length}
                             />
         }
         return formOrResults;

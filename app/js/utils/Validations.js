@@ -121,7 +121,7 @@ var Validations = {
 
         return errors;
     },
-    checkErrorsMMform: function(dictionary, spoiled, mergedResults, partiesCount) {
+    checkErrorsMMform: function(dictionary, spoiled) {
         var errors = [];
         var emptyFields = 0;
 
@@ -149,15 +149,6 @@ var Validations = {
         });
         if (emptyFields > 0) errors.push(Errors.emptyFieldsError + "(" + emptyFields + ")");
 
-        var merged = 0;
-        for (var pair of mergedResults) {
-            merged += (pair[1] == true) ? 1 : 0;
-        }
-        if (merged < partiesCount) errors.push(Errors.notAllResultsMergedError +
-                                                    " (" +
-                                                    merged +
-                                                    " iš " +
-                                                    partiesCount + ")");
         if (emptyFields == dictionary.size + 1) {
             var emptyForm = new Array();
             emptyForm.push(Errors.emptyFormError);
@@ -201,8 +192,7 @@ var Errors = {
     emptyValueError: "REACT - balsų įvedimo laukas liko tuščias",
     emptyFieldsError: "REACT - formoje liko tuščių laukų ",
     positiveInfiniteNumError: "nu kur tau matytas toks skaičius...",
-    emptyFormError: "React - forma tuščia",
-    notAllResultsMergedError: "React - Ne visų partijų rezultatai pateikti"
+    emptyFormError: "React - forma tuščia"
 };
 
 module.exports = Validations;
