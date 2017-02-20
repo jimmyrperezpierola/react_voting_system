@@ -5,7 +5,7 @@ var React = require('react');
 var NewRepresentativeSideFormComponent = require('../components/NewRepresentativeSideFormComponent');
 
 var OnlyDistricts = [];
-var onlyFirstRequiredCounties = [];
+var AllRepresentativesEmails = [];
 
 var NewRepresentativeSideFormContainer = React.createClass ({
 
@@ -40,6 +40,7 @@ var NewRepresentativeSideFormContainer = React.createClass ({
                 <NewRepresentativeSideFormComponent
                     newRep={this.props.newRep}
                     OnlyDistricts={OnlyDistricts}
+                    CountyRepresentativesEmailsArray={this.props.CountyRepresentativesEmailsArray}
                     uniqueDistrictAndCountyNameCombinationArray={this.props.uniqueDistrictAndCountyNameCombinationArray}
                 />
             </div>
