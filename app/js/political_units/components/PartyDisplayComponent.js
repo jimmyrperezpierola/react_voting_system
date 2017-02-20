@@ -6,8 +6,7 @@ function PartyDisplayComponent(props) {
     var del = function() { props.delete(props.index, props.party.id) };
     var delCandidates = function() { props.deleteCandidates(props.party.id) };
 
-    var display,
-		actions;
+    var display, actions;
     if (!props.show) display = {display: 'none'};
     if (props.candidates.length > 0) {
       actions =

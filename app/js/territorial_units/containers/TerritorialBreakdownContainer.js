@@ -29,7 +29,7 @@ var TerritorialBreakdownContainer = React.createClass({
                                 key={index}
                                 index={index}
                                 district={d}
-                                delete={this.handleDistrictDestroy}
+                                remove={this.handleDistrictRemove}
                            />)
         });
         return districts;
@@ -73,7 +73,7 @@ var TerritorialBreakdownContainer = React.createClass({
                 _this.setState({ springErrors: err.response.data.errorsMessages })
             });
     },
-    handleDistrictDestroy(idx) {
+    handleDistrictRemove(idx) {
         var districts = this.state.districts;
         districts.splice(idx, 1);
         this.setState({ districts:  districts});
@@ -91,7 +91,7 @@ var TerritorialBreakdownContainer = React.createClass({
     render: function() {
         return <TerritorialBreakdownComponent
                   districts={this.prepareDistricts()}
-                  delete={this.handleDistrictDestroy}
+                  delete={this.handleDistrictRemove}
                   changeName={this.handleNameChange}
                   name={this.state.districtName}
                   create={this.handleDistrictSubmit}

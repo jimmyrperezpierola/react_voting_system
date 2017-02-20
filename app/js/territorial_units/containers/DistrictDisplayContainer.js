@@ -24,6 +24,7 @@ var DistrictDisplayContainer = React.createClass({
     prepareCounties: function() {
         var stateCounties = this.state.counties;
         var counties = [];
+
         stateCounties.forEach((c, index) => {
             counties.push(
                 <CountyDisplayComponent
@@ -105,12 +106,13 @@ var DistrictDisplayContainer = React.createClass({
     handleAddressChange: function(e) {
         this.setState({ countyAddress: e.target.value })
     },
-    handleDistrictDestroy(idx) {
+    handleDistrictDestroy() {
         var _this = this;
         var deletePath = "http://localhost:8080/api/district/" + this.props.district.id + "";
         axios.delete(deletePath)
             .then(function(resp) {
-                _this.props.delete(idx);
+                _this.setState({ showCounties: false });
+                _this.props.remove(_this.props.index);
             })
             .catch(function(err) {
                 console.log(err);
@@ -142,7 +144,6 @@ var DistrictDisplayContainer = React.createClass({
                     toggleCountiesList={this.toggleCountiesList}
                     show={this.state.showCounties}
                     delete={this.handleDistrictDestroy}
-                    index={this.props.index}
                />
     }
 });
