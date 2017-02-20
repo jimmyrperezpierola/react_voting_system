@@ -4,14 +4,12 @@
 var React = require('react');
 
 var onlyRequiredCounties = [];
-var countyErrors = '';
 
 var NewRepresentativeSideFormComponent = React.createClass({
 
     getInitialState: function () {
         return {
             countiesOfDistrict: [],
-            countyErrors: '',
             name: '',
             surname: '',
             email: '',
@@ -91,33 +89,37 @@ var NewRepresentativeSideFormComponent = React.createClass({
         this.changePossibleCounties(event);
         this.handleDistrictChange(event);
     },
-    changeState: function () {
-        this.setState({countiesOfDistrict: this.props.onlyFirstRequiredCounties});
-    },
+
     changePossibleCounties: function (event) {
         onlyRequiredCounties = [];
-        console.log("click");
+        // console.log("click");
         var self = this;
         var matchFound = false;
         var districtToLookFor = event.target.value;
-        console.log(districtToLookFor);
+        var currentDistrictObject = null;
+        var currentDistrictName = '';
+        var currentCountyName = '';
+        var uniqueCombinationOfDistrictAndCounty = '';
         this.props.OnlyDistricts.map(function(district, index){
-
+            currentDistrictObject = district;
+            currentDistrictName = district.name;
             if(district.name == districtToLookFor){
-                console.log("match");
+                // console.log("match");
                 matchFound = true;
                 onlyRequiredCounties = [];
                 district.counties.map(function (county, index) {
-
                     // console.log("CHECK HERE");
                     // console.log(county);
                     // console.log("END");
-
-                    onlyRequiredCounties.push(county);
+                    currentCountyName = county.name;
+                    uniqueCombinationOfDistrictAndCounty = currentDistrictName.concat(currentCountyName);
+                    if(!self.props.uniqueDistrictAndCountyNameCombinationArray.includes(uniqueCombinationOfDistrictAndCounty)){
+                        onlyRequiredCounties.push(county);
+                    }
                 });
                 self.setState({countiesOfDistrict: onlyRequiredCounties})
             } else {
-                console.log("no match");
+                // console.log("no match");
             }
             if(matchFound == false){
                 onlyRequiredCounties = [];
@@ -138,18 +140,16 @@ var NewRepresentativeSideFormComponent = React.createClass({
 
     render: function () {
 
-        {this.changePossibleCounties};
+        {this.changePossibleCounties}
 
         var DistrictNames = [];
         DistrictNames = this.props.OnlyDistricts;
 
-        console.log(this.props.OnlyDistricts);
-
         MakeDistrictItem = function(X) {
-            return <option>{X.name}</option>;
+            return <option key={X.id}>{X.name}</option>;
         };
         MakeCountyItem = function(X) {
-            return <option>{X.name}</option>;
+            return <option key={X.id}>{X.name}</option>;
         };
 
         return (
@@ -185,7 +185,10 @@ var NewRepresentativeSideFormComponent = React.createClass({
                         this.state.surnameLength ||
                         this.state.emailCharacters ||
                         this.state.district == 'Pasirinkite apygardą' ||
-                        this.state.county == 'Pasirinkite apylinkę'
+                        this.state.county == 'Pasirinkite apylinkę' ||
+                        this.state.name == '' ||
+                        this.state.surname == '' ||
+                        this.state.email == ''
                     } className="btn btn-primary btn-md" onClick={this.onSubmit} style={{ marginTop: 10 }} >Sukurti</button>
                 </div>
 
