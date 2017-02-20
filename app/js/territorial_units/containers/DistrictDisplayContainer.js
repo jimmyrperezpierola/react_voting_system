@@ -59,7 +59,7 @@ var DistrictDisplayContainer = React.createClass({
         };
         axios.post('http://localhost:8080/api/county/', body)
             .then(function(resp) {
-                var counties = this.state.counties;
+                var counties = _this.state.counties;
                 counties.push(resp.data);
 
                 _this.setState({

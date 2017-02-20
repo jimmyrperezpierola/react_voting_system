@@ -11,7 +11,7 @@ var NewCountyInlineForm = React.createClass({
             var style={ marginTop: 10 };
             this.setState({ jsErrors: Validations.prepareErrors(errors, style) });
         } else {
-            this.setState({ jsErrors: [] });
+            if (this.state.jsErrors.length > 0) this.setState({ jsErrors: [] });
             this.props.submit();
         }
     },
