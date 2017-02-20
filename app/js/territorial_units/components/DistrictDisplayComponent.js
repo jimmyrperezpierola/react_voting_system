@@ -15,6 +15,7 @@ function DistrictDisplayComponent(props) {
                 </div>
                 <div className="unit-actions-area">
                     <span className="glyphicon glyphicon-remove-sign popoverDistrict"
+                        id={"remove-district-button-" + props.index}
                         style={{ cursor: 'pointer', padding: '0px 15px 0px 15px' }}
                         onClick={del}
                         onMouseOver={popup}

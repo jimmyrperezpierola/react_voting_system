@@ -17,6 +17,7 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
         that=this;
 
         this.props.repData.forEach(function (rep, index) {
+            console.log(rep);
             CountyRepresentativesArray.push(
                 <CountyRepresentativeListLineComponent
                     repData={rep}
