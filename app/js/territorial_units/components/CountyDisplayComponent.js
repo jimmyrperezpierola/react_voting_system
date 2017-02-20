@@ -8,17 +8,18 @@ function CountyDisplayComponent(props) {
     var popup = function() { $('.popoverCounty').popover({ trigger: "hover" }) };
     return (
         <div className="list-group-item">
-            <p style={{ display: 'inline-block', width: '30%' }}>
+            <p style={{ display: 'inline-block', width: '30%' }} id={"county-title-" + props.index}>
                 <span className="glyphicon glyphicon-list-alt"></span>&nbsp;{props.county.name}
             </p>
-            <p style={{ display: 'inline-block', width: '15%' }}>
+            <p style={{ display: 'inline-block', width: '15%' }} id={"county-voters-count-" + props.index}>
                 <span className="glyphicon glyphicon-user"></span>&nbsp;{props.county.voterCount}
             </p>
-            <p style={{ display: 'inline-block', width: '40%' }}>
+            <p style={{ display: 'inline-block', width: '40%' }} id={"county-address-" + props.index}>
                 <span className="glyphicon glyphicon-map-marker"></span>&nbsp;{props.county.address}
             </p>
             <div className="unit-actions-area">
                 <span className="glyphicon glyphicon-edit popoverCounty"
+                    id={"edit-county-button-" + props.index}
                     style={{ cursor: 'pointer' }}
                     onClick={edit}
                     onMouseOver={popup}
@@ -29,6 +30,7 @@ function CountyDisplayComponent(props) {
                 >
                 </span>
                 <span className="glyphicon glyphicon-remove-sign popoverCounty"
+                    id={"remove-county-button-" + props.index}
                     style={{ cursor: 'pointer', padding: '0px 15px 0px 15px' }}
                     onClick={del}
                     onMouseOver={popup}

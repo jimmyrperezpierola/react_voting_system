@@ -22,7 +22,7 @@ var CountyRepresentativeListLineComponent = React.createClass ({
 
                         <div className="col-md-4">{this.props.repData.email}</div>
                         <div className="col-md-1">
-                            <span className="glyphicon glyphicon-remove-sign"
+                            <span className="glyphicon glyphicon-remove-sign" id={"remove-representative-" + this.props.id}
                                   onClick={this.onRemoveRep}
                                   style={{ cursor: 'pointer', padding: '0px 15px 0px 15px' }}>
                             </span>

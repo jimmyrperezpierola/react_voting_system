@@ -4,6 +4,7 @@
 var React = require('react');
 
 var onlyRequiredCounties = [];
+var allRepresentativesEmails = [];
 
 var NewRepresentativeSideFormComponent = React.createClass({
 
@@ -23,11 +24,14 @@ var NewRepresentativeSideFormComponent = React.createClass({
             maxSurnameLength: 20,
             surnameLength: '',
             emailCharacters: '',
+            emailAlreadyExists: '',
         }
     },
 
     componentWillMount: function () {
         onlyRequiredCounties = [];
+
+
     },
     handleNameChange: function (event) {
         this.setState({name: event.target.value});
@@ -71,12 +75,22 @@ var NewRepresentativeSideFormComponent = React.createClass({
     },
     hendleEmailChange: function (event) {
         this.setState({email: event.target.value});
+        allRepresentativesEmails = this.props.CountyRepresentativesEmailsArray;
 
         var checkIfOnlyCharacters = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(event.target.value);
         if(!checkIfOnlyCharacters){
             this.setState({emailCharacters: "El. pašto adreso pavyzdys: vartotojas@e-mail.lt"});
         } else {
             this.setState({emailCharacters: ''});
+        }
+        // console.log(allRepresentativesEmails);
+
+        var doesEmailAlreadyExists = false;
+        doesEmailAlreadyExists = allRepresentativesEmails.includes(event.target.value.toLowerCase());
+        if(doesEmailAlreadyExists){
+            this.setState({emailAlreadyExists: "Toks el. pašto adresas jau yra sistemoje."});
+        } else {
+            this.setState({emailAlreadyExists: ''});
         }
     },
     handleDistrictChange: function (event) {
@@ -129,7 +143,12 @@ var NewRepresentativeSideFormComponent = React.createClass({
     },
 
     onSubmit: function () {
-        this.props.newRep(this.state.name, this.state.surname, this.state.email, this.state.district, this.state.county);
+        var tempName = this.state.name[0].toUpperCase() + this.state.name.substring(1).toLowerCase();
+        var tempSurname = this.state.surname[0].toUpperCase() + this.state.surname.substring(1).toLowerCase();
+        tempSurname[0].toUpperCase();
+        var tempEmail = this.state.email.toLowerCase();
+        this.props.newRep(tempName, tempSurname, tempEmail, this.state.district, this.state.county);
+        // this.props.newRep(this.state.name, this.state.surname, this.state.email, this.state.district, this.state.county);
         this.setState({name: ''});
         this.setState({surname: ''});
         this.setState({email: ''});
@@ -166,6 +185,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
                     <label htmlFor="inputCounty">Atstovo el. paštas</label>
                     <input type="text" className="form-control"  value={this.state.email} onChange={this.hendleEmailChange}/>
                     <div style={{fontStyle: 'italic'}}>{this.state.emailCharacters}</div>
+                    <div style={{color: 'red'}}>{this.state.emailAlreadyExists}</div>
                     <label htmlFor="inputCounty" >Atstovo apygarda</label>
                     <select className="form-control" value={this.state.district} onChange={this.callHelperFunction}>
                         <option>Pasirinkite apygardą</option>;
@@ -184,6 +204,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
                         this.state.nameLength ||
                         this.state.surnameLength ||
                         this.state.emailCharacters ||
+                        this.state.emailAlreadyExists ||
                         this.state.district == 'Pasirinkite apygardą' ||
                         this.state.county == 'Pasirinkite apylinkę' ||
                         this.state.name == '' ||
