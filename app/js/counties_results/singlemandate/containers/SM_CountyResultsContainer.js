@@ -162,7 +162,7 @@ var SM_CountyResultsContainer = React.createClass({
     },
     prepareSpringErrors: function() {
         var style={"marginTop": 10}
-        return Validations.prepareErrors(this.state.springErrors, style);
+        return Validations.prepareSpringErrors(this.state.springErrors, style);
     },
     render: function() {
         var formOrResults;

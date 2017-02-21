@@ -15,7 +15,7 @@ function PartyDisplayComponent(props) {
                 body="Duomenų atstatymas neįmanomas."
                 onConfirm={delCandidates}
             >
-                <p className="remove-units-element" style={{ cursor: 'pointer' }}>
+                <p className="remove-units-element confirmation-buttons">
                     <span className="glyphicon glyphicon-remove-sign">
                     </span> &nbsp;
                     šalinti narius
@@ -35,7 +35,7 @@ function PartyDisplayComponent(props) {
             body="Duomenų atstatymas neįmanomas."
             onConfirm={del}
         >
-            <p style={{ cursor: 'pointer', paddingTop: 10 }}>
+            <p className="confirmation-buttons">
                 <span className="glyphicon glyphicon-remove-sign">
                 </span> &nbsp;
                 šalinti partiją

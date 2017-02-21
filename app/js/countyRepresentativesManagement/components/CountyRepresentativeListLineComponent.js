@@ -10,7 +10,6 @@ var CountyRepresentativeListLineComponent = React.createClass ({
     },
 
     render: function () {
-        console.log(this.props);
         return (
             <div className="list-group-item passive">
                 <div>
@@ -29,9 +28,8 @@ var CountyRepresentativeListLineComponent = React.createClass ({
                                 body="Duomenų atstatymas neįmanomas."
                                 onConfirm={this.onRemoveRep}
                             >
-                                <span className="glyphicon glyphicon-remove-sign remove-units-element"
+                                <span className="glyphicon glyphicon-remove-sign remove-representative confirmation-buttons"
                                     id={"remove-representative-" + this.props.id}
-                                    style={{ cursor: 'pointer', width: '50%', margin: '0px auto' }}
                                 ></span>
                             </ConfirmAction>
                         </div>

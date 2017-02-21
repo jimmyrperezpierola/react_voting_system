@@ -11,13 +11,15 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
         var ArrayOfUniqueCombinationsOfDistrictAndCountyNames = [];
         var CountyRepresentativesEmailsArray = [];
 
+        var _this = this;
+
         this.props.repData.forEach(function (rep, index) {
             CountyRepresentativesArray.push(
                 <CountyRepresentativeListLineComponent
                     repData={rep}
                     id={index}
                     key={index}
-                    onDeleteRepresentative={this.props.onDeleteRepresentative}
+                    onDeleteRepresentative={_this.props.onDeleteRepresentative}
                 />
             );
             CountyRepresentativesEmailsArray.push(rep.email);
@@ -26,7 +28,6 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
             var UniqueCombinaitonOfDistrictAndCounty = RepresentativeIsFromDistrict.concat(RepresentativeIsFromCounty);
             ArrayOfUniqueCombinationsOfDistrictAndCountyNames.push(UniqueCombinaitonOfDistrictAndCounty);
         });
-
         return (
             <div className="container">
                 <div className="row">

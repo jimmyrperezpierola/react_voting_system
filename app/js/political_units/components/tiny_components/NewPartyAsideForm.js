@@ -17,7 +17,7 @@ var NewPartyAsideForm = React.createClass({
 
         if (errors.length > 0) {
             var style={ marginTop: 10 };
-            this.setState({ jsErrors: Validations.prepareErrors(errors, style), springErrors: [] });
+            this.setState({ jsErrors: Validations.prepareJSerrors(errors, "Klaida registruojant apygardą", style), springErrors: [] });
         } else {
             var fd = new FormData();
             fd.append('file',file);
@@ -27,9 +27,10 @@ var NewPartyAsideForm = React.createClass({
         }
     },
     springErrors: function() {
-        return Validations.prepareErrors(this.state.springErrors);
+        return Validations.prepareSpringErrors(this.state.springErrors);
     },
     render: function() {
+        var springErrors = (this.props.springErrors.length > 0) ? this.springErrors() : [];
         return (
             <div>
                 <form>
@@ -47,7 +48,7 @@ var NewPartyAsideForm = React.createClass({
                 </form>
                 <div className="form-group errors-area">
                     {this.state.jsErrors}
-                    {this.springErrors()}
+                    {springErrors}
                 </div>
             </div>
         )

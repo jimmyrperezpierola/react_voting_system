@@ -1,5 +1,6 @@
 var React = require('react');
 var ErrorWrapper = require('../components/tiny_components/ErrorWrapper');
+var RootErrorWrapper = require('../components/tiny_components/RootErrorWrapper');
 
 var Vars = {
     nameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ0-9\s][^qQwWxX]*)$/),
@@ -169,12 +170,27 @@ var Validations = {
 
       return errors;
     },
-    prepareErrors: function(errors, style) {
+    prepareJSerrors: function(errors, root_message) {
         var preparedErrors = [];
-        errors.forEach((e, idx) => {
-            preparedErrors.push(<ErrorWrapper message={e} key={idx} inlineStyle={style}/>);
-        });
-        return preparedErrors;
+        for (var i = 0; i < errors.length; i++) {
+            preparedErrors.push(<ErrorWrapper message={errors[i]} key={i}/>);
+        }
+        return (
+            <RootErrorWrapper message={root_message} key={errors.length}>
+                {preparedErrors}
+            </RootErrorWrapper>
+        );
+    },
+    prepareSpringErrors: function(errors, style) {
+        var preparedErrors = [];
+        for (var i = 1; i < errors.length; i++) {
+            preparedErrors.push(<ErrorWrapper message={errors[i]} key={i}/>);
+        }
+        return (
+            <RootErrorWrapper message={errors[0]} key={0} inlineStyle={{ style }}>
+                {preparedErrors}
+            </RootErrorWrapper>
+        );
     },
 };
 

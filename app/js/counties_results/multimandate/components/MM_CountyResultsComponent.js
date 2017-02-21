@@ -11,7 +11,7 @@ var MM_CountyResultsComponent = React.createClass({
         var errors = Validations.checkErrorsMMform(this.props.dictionary,
                                                    this.props.spoiled);
         if (errors.length > 0) {
-            this.setState({ jsErrors: Validations.prepareErrors(errors) });
+            this.setState({ jsErrors: Validations.prepareJSerrors(errors, "Klaida rezultatuose") });
         } else {
             this.setState({ jsErrors: [] });
             this.props.submitMMresults();

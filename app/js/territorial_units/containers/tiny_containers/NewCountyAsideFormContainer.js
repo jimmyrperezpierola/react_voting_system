@@ -12,12 +12,12 @@ var  NewCountyAsideFormContainer = React.createClass({
     },
     handleCountyCancel: function() {
       this.setState({ showAsideForm: !this.state.showAsideForm, countyName: "", voterCount: undefined, countyAddress: "" });
-      this.props.reportErrors([]);
+      this.props.reportCountyErrors([]);
     },
     handleCountyAdd() {
         var errors = Validations.checkErrorsCountyForm(this.state.countyName, this.state.voterCount, this.state.countyAddress);
         if (errors.length != 0) {
-            this.props.reportErrors(errors);
+            this.props.reportCountyErrors(errors, this.state.countyName);
         } else {
             var body = {
                 name: this.state.countyName,
@@ -26,7 +26,7 @@ var  NewCountyAsideFormContainer = React.createClass({
             };
             this.props.addCounty(body);
             this.setState({ showAsideForm: false, countyName: "", voterCount: undefined, countyAddress: "" });
-            this.props.reportErrors([]);
+            this.props.reportCountyErrors([]);
         }
     },
     handleNameChange: function(e) {
@@ -41,15 +41,15 @@ var  NewCountyAsideFormContainer = React.createClass({
     render: function() {
         if (this.state.showAsideForm) {
             return <NewCountyAsideFormComponent
-                cancel={this.handleCountyCancel}
-                add={this.handleCountyAdd}
-                changeName={this.handleNameChange}
-                changeCount={this.handleVoterCountChange}
-                changeAddress={this.handleAddressChange}
-                name={this.state.countyName}
-                count={this.state.voterCount}
-                address={this.state.countyAddress}
-            />
+                      cancel={this.handleCountyCancel}
+                      add={this.handleCountyAdd}
+                      changeName={this.handleNameChange}
+                      changeCount={this.handleVoterCountChange}
+                      changeAddress={this.handleAddressChange}
+                      name={this.state.countyName}
+                      count={this.state.voterCount}
+                      address={this.state.countyAddress}
+                   />
         } else {
             return <NewCountyFormButton
                 renderCountyForm={this.handleSwitchState}
