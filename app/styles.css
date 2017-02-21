@@ -155,6 +155,10 @@ adminPanelButton:hover{
     float: left;
 }
 
+.popoverCounty {
+    padding: 0 15px;
+}
+
 .county-cancel-button {
     margin-left: 10px;
 }

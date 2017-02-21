@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var Link = ReactRouter.Link;
+var ConfirmAction = require('../../components/tiny_components/ConfirmAction');
 
 function CountyDisplayComponent(props) {
     var del = function() { props.delete(props.index) };
@@ -29,17 +30,21 @@ function CountyDisplayComponent(props) {
                     data-trigger="hover"
                 >
                 </span>
-                <span className="glyphicon glyphicon-remove-sign popoverCounty"
-                    id={"remove-county-button-" + props.index}
-                    style={{ cursor: 'pointer', padding: '0px 15px 0px 15px' }}
-                    onClick={del}
-                    onMouseOver={popup}
-                    data-content="Ištrinti"
-                    rel="popover"
-                    data-placement="top"
-                    data-trigger="hover"
+                <ConfirmAction
+                    title="Ar tikrai norite pašalinti partiją?"
+                    body="Duomenų atstatymas neįmanomas."
+                    onConfirm={del}
                 >
-                </span>
+                    <span className="glyphicon glyphicon-remove-sign popoverCounty confirmation-buttons"
+                        id={"remove-county-button-" + props.index}
+                        onMouseOver={popup}
+                        data-content="Ištrinti"
+                        rel="popover"
+                        data-placement="top"
+                        data-trigger="hover"
+                    >
+                    </span>
+                </ConfirmAction>
             </div>
         </div>
     );
