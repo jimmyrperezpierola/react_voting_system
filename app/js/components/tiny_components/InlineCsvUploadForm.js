@@ -10,8 +10,8 @@ var InlineCsvUploadForm = React.createClass({
             this.setState({ springErrors: newProps.springErrors })
         }
     },
-    upload: function() {
-        //e.preventDefault();
+    upload: function(e) {
+        e.preventDefault();
         var file = this.refs.fileCSV.files[0];
         var errors = Validations.validateCsv(file);
 

@@ -63,6 +63,7 @@ var MM_CountyResultsContainer = React.createClass({
                     key={idx}
                     party={p}
                     changeVotes={this.handleChangeVotes}
+                    votes={this.state.dictionary.get(p.id)}
                 />
             );
         });
@@ -95,6 +96,16 @@ var MM_CountyResultsContainer = React.createClass({
         parties.forEach(p => mapped.set(p.id, undefined));
         return mapped;
     },
+    clearForm: function() {
+        var newDictionary = new Map();
+        var tempDictionary = this.state.dictionary;
+        tempDictionary.forEach(function(value, key) {
+            newDictionary.set(key, "");
+        });
+        this.setState({ dictionary: newDictionary,
+                        springErrors: [],
+                        spoiled: "" });
+    },
     prepareRepresentative() {
         return (
             <div>
@@ -102,6 +113,7 @@ var MM_CountyResultsContainer = React.createClass({
                     Prisijungęs kaip
                 </div>
                 <div className="list-group-item">
+                    <img src="app/imgs/representative.png" style={{ width: 20, height: 20 }}/> &nbsp;
                     <span>{this.state.representative.firstName}</span> &nbsp;
                     <span>{this.state.representative.lastName}</span>
                 </div>
@@ -174,6 +186,7 @@ var MM_CountyResultsContainer = React.createClass({
                                 submitMMresults={this.handleSubmitMMresults}
                                 springErrors={this.prepareSpringErrors()}
                                 activeCountyId={this.state.activeCountyId}
+                                clearForm={this.clearForm}
                             />
         }
         return formOrResults;

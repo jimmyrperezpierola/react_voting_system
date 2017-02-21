@@ -24,9 +24,18 @@ body {
 
 #bootstrap-overrides-nav-tabs .tab a {
     font-weight: bold;
-    font-size: 1.5em;
-    display: table-cell;
+    font-size: 1.4em;
+    display: block;
     vertical-align: middle;
+}
+
+#bootstrap-overrides-nav-tabs .tab.centered {
+    width: 33.33%;
+    height: 100%;
+    text-align: center;
+    display: table;
+    padding: 15px;
+    background-color: #CDEBF7;
 }
 
 .main-layout {
@@ -255,6 +264,7 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
 
 .county-results {
     margin-bottom: 0;
+    margin-left: 30px;
 }
 
 .county-results .form-control.county-results-input {
@@ -262,6 +272,21 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     width: auto;
     height: auto;
     margin-left: 10px;
+    padding: inherit 0;
+}
+
+.candidate-votes-input {
+    text-align: right;
+    position: relative;
+    height: 150%;
+}
+
+.candidate-votes-input .form-control.county-results-input {
+    text-align: right;
+    position: absolute;
+    height: 100%;
+    top: -15%;
+    right: 8%;
 }
 
 .btn.btn-default.btn-sm.floaters-right {
@@ -274,6 +299,10 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     margin-right: 15px;
     display: table-cell;
     padding: 0;
+}
+
+.county-results-form-btns {
+    width: 50%;
 }
 
 /* current-time */

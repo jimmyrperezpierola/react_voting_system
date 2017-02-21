@@ -1,5 +1,7 @@
 var React = require('react');
-
+var styles = {
+    "image": {width: 20, height: 20}
+}
 function CandidateCardComponent(props) {
   return (
         <div className="well well-sm candidate-card">
@@ -7,11 +9,11 @@ function CandidateCardComponent(props) {
 
                     <div className="col-sm-6 col-md-8">
                         <h4>{props.candidate.firstName}&nbsp;{props.candidate.lastName}</h4>
-                        <small><cite><i className="glyphicon glyphicon-flag"></i> PARTY NAME</cite></small>
+                        <small><cite><img src="app/imgs/political_party.png" style={ styles.image }/>&nbsp; {props.candidate.partyName}</cite></small>
                         <p>
-                            <i className="glyphicon glyphicon-eye-open"></i> {props.candidate.personId}
+                            <img src="app/imgs/fingerprint.png" style={ styles.image }/>&nbsp; {props.candidate.personId}
                             <br />
-                            <i className="glyphicon glyphicon-briefcase"></i> Kandidato aprasymas
+                            <img src="app/imgs/books.png" style={ styles.image }/>&nbsp; Kandidato aprasymas
                         </p>
                         <button type="button" className="btn btn-default btn-sm" style={{ marginBottom: 10 }}>Detaliau</button>
                     </div>

@@ -1,4 +1,7 @@
 var React = require('react');
+var styles = {
+		"image": {width: 20, height: 20}
+}
 
 var Helpers = {
     dateTimeFormatWithMessage: function(millis, message) {
@@ -34,6 +37,7 @@ var Helpers = {
                     {message}
                 </div>
                 <div className="list-group-item">
+                    <img src="app/imgs/time.png" style={ styles.image }/> &nbsp;
                     <span>{timeStamp.getFullYear()}</span>
                     <span>/{month}</span>
                     <span>/{date} </span> &nbsp;
@@ -56,6 +60,7 @@ var Helpers = {
 
         return (
             <span id="current-time">
+                <img src="app/imgs/alarm_clock.png" style={ styles.image }/> &nbsp;
                 <span>{hours}</span>
                 <span>:{mins}</span>
                 <span>:{secs}</span>

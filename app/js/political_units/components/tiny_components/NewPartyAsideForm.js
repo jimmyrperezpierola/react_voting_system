@@ -10,8 +10,8 @@ var NewPartyAsideForm = React.createClass({
             this.setState({ springErrors: newProps.springErrors })
         }
     },
-    create: function() {
-        //e.preventDefault();
+    create: function(e) {
+        e.preventDefault();
         var file = this.refs.fileCSV.files[0];
         var errors = Validations.checkErrorsPartyAsideForm(this.props.name, file);
 

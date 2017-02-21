@@ -170,13 +170,13 @@ var Validations = {
 
       return errors;
     },
-    prepareJSerrors: function(errors, root_message) {
+    prepareJSerrors: function(errors, root_message, style) {
         var preparedErrors = [];
         for (var i = 0; i < errors.length; i++) {
             preparedErrors.push(<ErrorWrapper message={errors[i]} key={i}/>);
         }
         return (
-            <RootErrorWrapper message={root_message} key={errors.length}>
+            <RootErrorWrapper message={root_message} key={errors.length} inlineStyle={style}>
                 {preparedErrors}
             </RootErrorWrapper>
         );
@@ -187,7 +187,7 @@ var Validations = {
             preparedErrors.push(<ErrorWrapper message={errors[i]} key={i}/>);
         }
         return (
-            <RootErrorWrapper message={errors[0]} key={0} inlineStyle={{ style }}>
+            <RootErrorWrapper message={errors[0]} key={0} inlineStyle={style}>
                 {preparedErrors}
             </RootErrorWrapper>
         );

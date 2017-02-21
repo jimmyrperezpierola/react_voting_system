@@ -117,6 +117,7 @@ var SM_CountyResultsContainer = React.createClass({
                     Prisijungęs kaip
                 </div>
                 <div className="list-group-item">
+                    <img src="app/imgs/representative.png" style={{ width: 20, height: 20 }}/> &nbsp;
                     <span>{this.state.representative.firstName}</span> &nbsp;
                     <span>{this.state.representative.lastName}</span>
                 </div>
@@ -132,7 +133,6 @@ var SM_CountyResultsContainer = React.createClass({
         this.setState({ dictionary: actualDict });
     },
     handleSubmitSMresults: function() {
-        //e.preventDefault();
         var _this = this;
         var map = this.state.dictionary;
         var candidatesVotes = [];

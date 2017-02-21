@@ -54,7 +54,6 @@ var PoliticalUnitsContainer = React.createClass({
         this.setState({ partyName: e.target.value });
     },
     handlePartySubmit: function(fd) {
-        //e.preventDefault();
         var party = { name: this.state.partyName }
         fd.append("party", JSON.stringify(party));
         var _this = this;

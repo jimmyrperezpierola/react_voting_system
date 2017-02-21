@@ -7,7 +7,7 @@ var MM_CountyResultsDisplayComponent = React.createClass({
                 <div className="row">
                     <div className="col-md-8 units-list-area">
                         <div className="list-group-item active">
-                            <span>Apylinkės kandidatų rezultatai (DAUGIAMANDAČIAI)</span>
+                            <span>Apylinkės partijų rezultatai (DAUGIAMANDAČIAI)</span>
                         </div>
                         <div className="list-group-item">
                             <p className="county-results">
