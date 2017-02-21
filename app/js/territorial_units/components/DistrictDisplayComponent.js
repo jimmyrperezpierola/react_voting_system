@@ -5,7 +5,6 @@ function DistrictDisplayComponent(props) {
     var del = function() { props.delete(props.index) };
     var counties = []; var actions = [];
     var popup = function() { $('.popoverDistrict').popover({ trigger: "hover" }) };
-
     if (props.show) {
         counties = props.counties;
         actions = (

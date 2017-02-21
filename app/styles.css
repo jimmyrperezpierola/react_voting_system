@@ -132,14 +132,14 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     width: auto;
 }
 
-div.list-group-item.remove-units {
+/*div.list-group-item.remove-units {
     display: table;
     width: 100%;
 }
 
 .remove-units-element {
     display: table-cell;
-}
+}*/
 
 #unit-header {
     display: table;

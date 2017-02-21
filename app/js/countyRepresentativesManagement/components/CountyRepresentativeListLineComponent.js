@@ -2,6 +2,7 @@
  * Created by osvaldas on 17.2.7.
  */
 var React = require('react');
+var ConfirmAction = require('../../components/tiny_components/ConfirmAction');
 
 var CountyRepresentativeListLineComponent = React.createClass ({
     onRemoveRep: function () {
@@ -9,6 +10,7 @@ var CountyRepresentativeListLineComponent = React.createClass ({
     },
 
     render: function () {
+        console.log(this.props);
         return (
             <div className="list-group-item passive">
                 <div>
@@ -21,11 +23,17 @@ var CountyRepresentativeListLineComponent = React.createClass ({
                         <div className="col-md-3">{this.props.repData.county.name}</div>
 
                         <div className="col-md-4">{this.props.repData.email}</div>
-                        <div className="col-md-1">
-                            <span className="glyphicon glyphicon-remove-sign" id={"remove-representative-" + this.props.id}
-                                  onClick={this.onRemoveRep}
-                                  style={{ cursor: 'pointer', padding: '0px 15px 0px 15px' }}>
-                            </span>
+                        <div className="col-md-1" style={{ textAlign: 'center' }}>
+                            <ConfirmAction
+                                title="Ar tikrai norite pašalinti apygardą?"
+                                body="Duomenų atstatymas neįmanomas."
+                                onConfirm={this.onRemoveRep}
+                            >
+                                <span className="glyphicon glyphicon-remove-sign remove-units-element"
+                                    id={"remove-representative-" + this.props.id}
+                                    style={{ cursor: 'pointer', width: '50%', margin: '0px auto' }}
+                                ></span>
+                            </ConfirmAction>
                         </div>
 
                     </div>
