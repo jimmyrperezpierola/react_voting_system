@@ -40,11 +40,7 @@ var ValidationsOR = {
 };
 
 var Helpers = {
-    errorWrapperWarning1: function (message, id) {
-        return (
-            <div key={id} style={{color: 'red'}}>{message}</div>
-        )
-    },
+
     errorWrapperWarning: function (message, id) {
         return (
             <div key={id} className="alert alert-danger error">
@@ -55,7 +51,9 @@ var Helpers = {
 
     errorWrapperInformation: function (message, id) {
         return (
-            <div key={id} style={{fontStyle: 'italic'}}>{message}</div>
+            <div key={id} className="alert alert-info error">
+                <small>{message}</small>
+            </div>
         )
     },
 };
