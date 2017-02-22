@@ -24,9 +24,13 @@ var SM_CountyResultsComponent = React.createClass({
     prepareJSerrors: function() {
         return Validations.prepareJSerrors(this.state.jsErrors, "Klaida rezultatuose", {marginTop: 15});
     },
+    prepareSpringErrors: function() {
+        return Validations.prepareSpringErrors(this.props.springErrors, {"marginTop": 10});
+    },
     render: function() {
+        console.log(this.props.springErrors);
         var jsErrors = (this.state.jsErrors.length > 0) ? this.prepareJSerrors() : [];
-        var springErrors = (this.props.springErrors.length > 0) ? this.props.springErrors : [];
+        var springErrors = (this.props.springErrors.length > 0) ? this.prepareSpringErrors() : [];
 
         return (
             <div className="container">

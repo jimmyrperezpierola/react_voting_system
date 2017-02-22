@@ -157,9 +157,6 @@ var MM_CountyResultsContainer = React.createClass({
                 _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
             });
     },
-    prepareSpringErrors: function() {
-        return Validations.prepareSpringErrors(this.state.springErrors, {"marginTop": 10});
-    },
     render: function() {
         var formOrResults;
         if (Object.keys(this.state.MMresults).length > 0) {
@@ -184,7 +181,7 @@ var MM_CountyResultsContainer = React.createClass({
                                 dictionary={this.state.dictionary}
                                 changeSpoiled={this.handleChangeSpoiled}
                                 submitMMresults={this.handleSubmitMMresults}
-                                springErrors={this.prepareSpringErrors()}
+                                springErrors={this.state.springErrors}
                                 activeCountyId={this.state.activeCountyId}
                                 clearForm={this.clearForm}
                             />
