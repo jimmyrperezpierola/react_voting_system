@@ -25,7 +25,8 @@ var SearchCandidatesListContainer = React.createClass({
           console.log(c);
 
             var match = false;
-            if (c.firstName.toLowerCase().includes(query)) match = true;
+            if ((c.firstName + " " + c.lastName).toLowerCase().includes(query)) match = true;
+            else if (c.firstName.toLowerCase().includes(query)) match = true;
             else if (c.lastName.toLowerCase().includes(query)) match = true;
             else if (c.partyName != undefined) {
               if (c.partyName.toLowerCase().includes(query)) match = true;
