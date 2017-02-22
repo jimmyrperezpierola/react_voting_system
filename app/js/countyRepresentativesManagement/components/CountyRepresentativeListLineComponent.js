@@ -24,8 +24,8 @@ var CountyRepresentativeListLineComponent = React.createClass ({
                         <div className="col-md-4">{this.props.repData.email}</div>
                         <div className="col-md-1" style={{ textAlign: 'center' }}>
                             <ConfirmAction
-                                title="Ar tikrai norite pašalinti apygardą?"
-                                body="Duomenų atstatymas neįmanomas."
+                                title={"Norite pašalinti " + this.props.repData.firstName + " " + this.props.repData.lastName + " iš apylinkės " + this.props.repData.county.name +" atstovo pareigų ?"}
+                                body="Duomenų atstatymas bus neįmanomas."
                                 onConfirm={this.onRemoveRep}
                             >
                                 <span className="glyphicon glyphicon-remove-sign remove-representative confirmation-buttons"

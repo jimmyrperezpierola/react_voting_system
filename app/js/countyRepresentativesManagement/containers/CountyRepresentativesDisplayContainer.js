@@ -24,7 +24,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
     componentDidMount: function () {
         var self = this;
         //gets all representatives
-        axios.get('http://localhost:8080//api/county-rep')
+        axios.get('http://localhost:8080/api/county-rep')
             .then(function(response){
               // console.log("RESPONSE.DATA");
               // console.log(response.data);
@@ -74,7 +74,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
             });
 
         //updates all representatives
-        axios.get('http://localhost:8080//api/county-rep')
+        axios.get('http://localhost:8080/api/county-rep')
             .then(function(response){
                 // console.log("RESPONSE.DATA");
                 // console.log(response.data);
