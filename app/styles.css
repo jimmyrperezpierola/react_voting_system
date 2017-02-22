@@ -228,6 +228,10 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     box-sizing: border-box;
 }
 
+.candidate-card-wide {
+    width: 100%;
+}
+
 /* validations */
 
 #inline-form-errors {

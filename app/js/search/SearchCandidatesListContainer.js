@@ -3,10 +3,11 @@ var axios = require('axios');
 var SearchCandidateComponent = require('./SearchCandidateComponent');
 var SearchBarComponent = require('./SearchBarComponent');
 var SearchCandidatesHeaderComponent = require('./SearchCandidatesHeaderComponent');
+var SearchCandidateCardComponent = require('./SearchCandidateCardComponent');
 
 var SearchCandidatesListContainer = React.createClass({
     getInitialState: function() {
-        return ({ candidates: [], query: "" });
+        return ({ candidates: [], query: "", activeCandidate: undefined });
     },
     componentDidMount: function() {
         var _this = this;
@@ -18,12 +19,16 @@ var SearchCandidatesListContainer = React.createClass({
                 console.log(err);
              });
     },
+    setActiveCandidate: function(candidate) {
+        this.setState({ activeCandidate: candidate });
+    },
+    clearActiveCandidate: function(candidate) {
+        this.setState({ activeCandidate: undefined });
+    },
     prepareCandidates: function() {
         var query = this.state.query.toLowerCase();
         var candidates = [];
         this.state.candidates.forEach((c, idx) => {
-          console.log(c);
-
             var match = false;
             if ((c.firstName + " " + c.lastName).toLowerCase().includes(query)) match = true;
             else if (c.firstName.toLowerCase().includes(query)) match = true;
@@ -37,6 +42,7 @@ var SearchCandidatesListContainer = React.createClass({
                     <SearchCandidateComponent
                         key={idx}
                         candidate={c}
+                        showDetails={this.setActiveCandidate}
                     />
                 );
             }
@@ -51,6 +57,17 @@ var SearchCandidatesListContainer = React.createClass({
         this.setState({ query: "" });
     },
     render() {
+        var activeCandidate = (this.state.activeCandidate != undefined) ?
+        (
+            <SearchCandidateCardComponent
+                candidate={this.state.activeCandidate}
+                hideDetails={this.clearActiveCandidate}
+            />
+        )
+        :
+        (
+            []
+        );
         return (
             <div>
                 <SearchBarComponent
@@ -58,7 +75,12 @@ var SearchCandidatesListContainer = React.createClass({
                     changeQuery={this.handleChangeQuery}
                     clearQuery={this.clearQuery}
                 />
-                {this.prepareCandidates()}
+                <div className="col-md-8">
+                    {this.prepareCandidates()}
+                </div>
+                <div className="col-md-4">
+                    {activeCandidate}
+                </div>
             </div>
         );
     }

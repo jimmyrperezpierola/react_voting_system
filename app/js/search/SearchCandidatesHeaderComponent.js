@@ -7,13 +7,13 @@ var SearchCandidatesHeaderComponent = React.createClass({
                   <div className="list-group-item">
                     <div>
                       <div style={{height: "20px"}}>
-                        <div className="col-md-4">
+                        <div className="col-md-6">
                             Vardas Pavardė
                         </div>
                         <div className="col-md-5">
                             Partija
                         </div>
-                        <div className="col-md-3">Kita info</div>
+                        <div className="col-md-1">Info</div>
                       </div>
                     </div>
                   </div>
