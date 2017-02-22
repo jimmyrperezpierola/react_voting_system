@@ -236,7 +236,7 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     margin-top: 10px;
 }
 
-.alert.alert-danger.root-error, .alert.alert-danger.error {
+.alert.alert-danger.root-error, .alert.alert-danger.error, .alert.alert-info.error {
     padding: 3px;
     padding-left: 15px;
     text-align: left;
