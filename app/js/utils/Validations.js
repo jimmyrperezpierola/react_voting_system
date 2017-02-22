@@ -187,7 +187,7 @@ var Validations = {
             preparedErrors.push(<ErrorWrapper message={errors[i]} key={i}/>);
         }
         return (
-            <RootErrorWrapper message={errors[0]} key={0} inlineStyle={style}>
+            <RootErrorWrapper message={errors[0]} inlineStyle={style}>
                 {preparedErrors}
             </RootErrorWrapper>
         );

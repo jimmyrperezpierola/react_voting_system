@@ -52,6 +52,7 @@ var DistrictDisplayContainer = React.createClass({
     },
     handleCountyCreate() {
         var _this = this;
+        var errors = [];
         var body = {
             name: this.state.countyName,
             voterCount: this.state.voterCount,
@@ -74,7 +75,9 @@ var DistrictDisplayContainer = React.createClass({
                 });
             })
             .catch(function(err) {
-                _this.setState({ springErrors: err.response.data.errorsMessages })
+                console.log(err);
+                errors.push(err.response.data.rootMessage);
+                _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
             });
     },
     handleCountyDelete: function(index) {

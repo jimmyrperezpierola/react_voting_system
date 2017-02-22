@@ -16,9 +16,10 @@ var NewCountyInlineForm = React.createClass({
         }
     },
     springErrors: function() {
-        return (this.props.springErrors.length > 0) ? Validations.prepareSpringErrors(this.props.springErrors) : [];
+        return Validations.prepareSpringErrors(this.props.springErrors);
     },
     render: function() {
+        var springErrors = (this.props.springErrors.length > 0) ? this.springErrors() : [];
         return (
             <div>
                 <form className="inline-add-county-form" style={{ minHeight: 45 }}>

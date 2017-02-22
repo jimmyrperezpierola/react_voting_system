@@ -25,10 +25,10 @@ function PoliticalUnitsComponent(props) {
                 <div className="col-md-4 units-create-area">
                     <div className="col-md-11">
                         <NewPartyAsideForm
-                          create={props.create}
-                          changeName={props.changeName}
-                          name={props.name}
-                          springErrors={props.springErrors}
+                            create={props.create}
+                            changeName={props.changeName}
+                            name={props.name}
+                            springErrors={props.springErrors}
                         />
                     </div>
                 </div>

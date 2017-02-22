@@ -53,6 +53,7 @@ var TerritorialBreakdownContainer = React.createClass({
     },
     handleDistrictSubmit: function() {
         var _this = this;
+        var errors = [];
         var body = {
             name: this.state.districtName,
             counties: this.state.counties
@@ -69,8 +70,8 @@ var TerritorialBreakdownContainer = React.createClass({
             })
             .catch(function(err) {
                 console.log(err);
-                console.log(err.response);
-                _this.setState({ springErrors: err.response.data.errorsMessages })
+                errors.push(err.response.data.rootMessage);
+                _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
             });
     },
     handleDistrictRemove(idx) {

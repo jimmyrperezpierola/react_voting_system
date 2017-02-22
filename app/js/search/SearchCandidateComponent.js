@@ -1,13 +1,9 @@
 var React = require('react');
 var styles = {"image": {width: 20, height: 20}}
-var partyName;
 
-var CandidateDisplayComponent = React.createClass({
-    changeVotes: function(e) {
-        this.props.changeVotes(this.props.candidate.id, e.target.value);
-    },
-    render: function() {
-        partyName = (this.props.candidate.partyName == undefined) ? "Išsikėlęs pats" : this.props.candidate.partyName;
+var SearchCandidateComponent = React.createClass({
+    render() {
+        var partyName = (this.props.candidate.partyName == undefined) ? "Išsikėlęs pats" : this.props.candidate.partyName;
         return (
             <div className="unit">
                   <div className="list-group-item">
@@ -21,14 +17,9 @@ var CandidateDisplayComponent = React.createClass({
                             <img src="app/imgs/political_party.png" style={ styles.image }/> &nbsp;
                             {partyName}
                         </div>
-                        <div className="col-md-2" style={{ textAlign: 'right' }}><span>Balsai:</span></div>
-                        <div className="col-md-2 candidate-votes-input">
-                            <input
-                                type="text"
-                                className="form-control county-results-input"
-                                onChange={this.changeVotes}
-                                value={this.props.votes}
-                            />
+                        <div className="col-md-2">COL-MD-2</div>
+                        <div className="col-md-2">
+                            COL-MD-2
                         </div>
                       </div>
                     </div>
@@ -38,4 +29,4 @@ var CandidateDisplayComponent = React.createClass({
     }
 });
 
-module.exports = CandidateDisplayComponent;
+module.exports = SearchCandidateComponent;

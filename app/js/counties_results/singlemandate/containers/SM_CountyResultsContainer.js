@@ -136,9 +136,8 @@ var SM_CountyResultsContainer = React.createClass({
         var _this = this;
         var map = this.state.dictionary;
         var candidatesVotes = [];
-        for (var pair of map) {
-            candidatesVotes.push({ "unitId": pair[0], "votes": pair[1] });
-        }
+        for (var pair of map) candidatesVotes.push({ "unitId": pair[0], "votes": pair[1] });
+        var errors = [];
         var body = {
             "spoiledBallots": this.state.spoiled,
             "countyId": this.state.activeCountyId,
@@ -157,12 +156,12 @@ var SM_CountyResultsContainer = React.createClass({
               })
               .catch(function(err) {
                   console.log(err);
-                  _this.setState({ springErrors: err.response.data.errorsMessages });
+                  errors.push(err.response.data.rootMessage);
+                  _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
               });
     },
     prepareSpringErrors: function() {
-        var style={"marginTop": 10}
-        return Validations.prepareSpringErrors(this.state.springErrors, style);
+        return Validations.prepareSpringErrors(this.state.springErrors, {"marginTop": 10});
     },
     render: function() {
         var formOrResults;

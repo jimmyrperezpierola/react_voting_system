@@ -28,6 +28,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
     },
     uploadCandidates: function(fd, districtId) {
         var _this = this;
+        var errors = [];
         var uploadPath = "http://localhost:8080/api/district/" + districtId + "/candidates";
         axios.post(uploadPath, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
@@ -35,7 +36,8 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
             })
             .catch(function(err) {
                 console.log(err);
-                _this.setState({ springErrors: err.response.data.errorsMessages })
+                errors.push(err.response.data.rootMessage);
+                _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
             });
     },
     deleteCandidates: function() {

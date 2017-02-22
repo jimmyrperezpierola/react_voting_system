@@ -17,6 +17,7 @@ var CountyRepresentativesDisplayContainer = require('./js/countyRepresentativesM
 var SM_CountyResultsContainer = require('./js/counties_results/singlemandate/containers/SM_CountyResultsContainer');
 var MM_CountyResultsContainer = require('./js/counties_results/multimandate/containers/MM_CountyResultsContainer');
 var AdminResultsViewContainer = require('./js/admin_results_view/containers/AdminResultsViewContainer');
+var SearchCandidatesListContainer = require('./js/search/SearchCandidatesListContainer');
 
 ReactDOM.render((
   <Router history={ReactRouter.hashHistory}>
@@ -36,6 +37,7 @@ ReactDOM.render((
             </Route>
             {/*<Route path="profilis" component={}/>*/}
         </Route>
+        <Route path="paieska" component={SearchCandidatesListContainer}/>
         <Route path="*" component={NoMatch} />
     </Route>
   </Router>

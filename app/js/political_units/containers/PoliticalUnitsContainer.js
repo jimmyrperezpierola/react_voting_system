@@ -58,16 +58,17 @@ var PoliticalUnitsContainer = React.createClass({
         fd.append("party", JSON.stringify(party));
         var _this = this;
         var parties = this.state.parties;
+        var errors = [];
 
         axios.post('http://localhost:8080/api/party', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
                 parties.push(resp.data);
-                _this.setState({ parties: parties, partyName: "" });
+                _this.setState({ parties: parties, partyName: "", springErrors: [] });
             })
             .catch(function(err) {
                 console.log(err);
-                console.log(err.response);
-                _this.setState({ springErrors: err.response.data.errorsMessages });
+                errors.push(err.response.data.rootMessage);
+                _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
             });
     },
     deleteParty(idx, party_id) {

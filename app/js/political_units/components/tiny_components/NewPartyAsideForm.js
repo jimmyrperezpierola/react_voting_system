@@ -16,21 +16,25 @@ var NewPartyAsideForm = React.createClass({
         var errors = Validations.checkErrorsPartyAsideForm(this.props.name, file);
 
         if (errors.length > 0) {
-            var style={ marginTop: 10 };
-            this.setState({ jsErrors: Validations.prepareJSerrors(errors, "Klaida registruojant apygardą", style), springErrors: [] });
+            this.setState({ jsErrors: errors });
         } else {
             var fd = new FormData();
             fd.append('file',file);
-            if (this.state.springErrors == []) this.refs.fileCSV.value = "";
+            this.refs.fileCSV.value = "";
             this.setState({ jsErrors: [] });
             this.props.create(fd);
         }
     },
-    springErrors: function() {
+    prepareSpringErrors: function() {
+        console.log("SPRING PREPARE");
         return Validations.prepareSpringErrors(this.state.springErrors);
     },
+    prepareJSerrors: function() {
+        return Validations.prepareJSerrors(this.state.jsErrors, "Klaida registruojant partiją!");
+    },
     render: function() {
-        var springErrors = (this.props.springErrors.length > 0) ? this.springErrors() : [];
+        var springErrors = (this.props.springErrors.length > 0) ? this.prepareSpringErrors() : [];
+        var jsErrors = (this.state.jsErrors.length > 0) ? this.prepareJSerrors() : [];
         return (
             <div>
                 <form>
@@ -47,7 +51,7 @@ var NewPartyAsideForm = React.createClass({
                     </div>
                 </form>
                 <div className="form-group errors-area">
-                    {this.state.jsErrors}
+                    {jsErrors}
                     {springErrors}
                 </div>
             </div>
