@@ -15,10 +15,10 @@ function SingleMandateDistrictDisplayComponent(props) {
                 body="Duomenų atstatymas neįmanomas."
                 onConfirm={props.deleteCandidates}
             >
-                <p className="remove-units-element" style={{ cursor: 'pointer' }} >
-                    <span className="glyphicon glyphicon-remove-sign">
+                <p className="remove-units-element">
+                    <span className="glyphicon glyphicon-remove-sign" style={{ cursor: 'pointer' }} >
                     </span> &nbsp;
-                    šalinti kandidatus
+                    <span style={{ cursor: 'pointer' }} >Šalinti kandidatus</span>
                 </p>
             </ConfirmAction>
     } else {
