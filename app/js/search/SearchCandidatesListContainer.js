@@ -1,14 +1,16 @@
 var React = require('react');
 var axios = require('axios');
 var SearchCandidateComponent = require('./SearchCandidateComponent');
+var SearchBarComponent = require('./SearchBarComponent');
+var SearchCandidatesHeaderComponent = require('./SearchCandidatesHeaderComponent');
 
 var SearchCandidatesListContainer = React.createClass({
-    getInitialState() {
-        return ({ candidates: [] });
+    getInitialState: function() {
+        return ({ candidates: [], query: "" });
     },
-    componentDidMount() {
+    componentDidMount: function() {
         var _this = this;
-        axios.get()
+        axios.get('http://localhost:8080/api/candidate')
              .then(resp => {
                 _this.setState({ candidates: resp.data });
              })
@@ -16,20 +18,48 @@ var SearchCandidatesListContainer = React.createClass({
                 console.log(err);
              });
     },
-    prepareCandidates() {
-        return this.state.candidates.map((c, idx) => {
-            return (
-                <SearchCandidateComponent
-                    key={idx}
-                    candidate={c}
-                />
-            );
-        })
+    prepareCandidates: function() {
+        var query = this.state.query.toLowerCase();
+        var candidates = [];
+        this.state.candidates.forEach((c, idx) => {
+          console.log(c);
+
+            var match = false;
+            if (c.firstName.toLowerCase().includes(query)) match = true;
+            else if (c.lastName.toLowerCase().includes(query)) match = true;
+            else if (c.partyName != undefined) {
+              if (c.partyName.toLowerCase().includes(query)) match = true;
+            }
+
+            if (match) {
+                candidates.push(
+                    <SearchCandidateComponent
+                        key={idx}
+                        candidate={c}
+                    />
+                );
+            }
+        });
+        candidates.unshift(<SearchCandidatesHeaderComponent key={this.state.candidates.length}/>);
+        return candidates;
+    },
+    handleChangeQuery: function(e) {
+        this.setState({ query: e.target.value });
+    },
+    clearQuery: function() {
+        this.setState({ query: "" });
     },
     render() {
         return (
-            "LIST OF CANDIDATES"
-        )
+            <div>
+                <SearchBarComponent
+                    query={this.state.query}
+                    changeQuery={this.handleChangeQuery}
+                    clearQuery={this.clearQuery}
+                />
+                {this.prepareCandidates()}
+            </div>
+        );
     }
 });
 
