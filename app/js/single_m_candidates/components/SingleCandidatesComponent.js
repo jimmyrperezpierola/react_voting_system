@@ -9,7 +9,7 @@ function SingleCandidatesComponent(props) {
         <div className="container">
             <div className="row">
                 <div className="col-md-8 units-list-area">
-                    <div className="list-group-item active">
+                    <div className="list-group-item list-group-item-success">
                         <span>Apygardų sąrašas</span>
                     </div>
                     <div className="list-group-item" style={{ height: 'auto' }}>

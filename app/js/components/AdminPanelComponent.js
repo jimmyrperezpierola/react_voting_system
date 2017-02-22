@@ -92,7 +92,7 @@ var AdminPanelComponent = React.createClass({
 																className="adminPanelButton"
 																id="location3"
 																style={this.state.tagIds.location3}>
-																<img src="app/imgs/representative.png" style={ styles.image }/>
+																<img src="app/imgs/representative1.png" style={ styles.image }/>
 																<p>Apylinkių atstovai</p>
 														</Link>
 												</li>

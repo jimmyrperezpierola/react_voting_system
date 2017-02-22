@@ -44,7 +44,7 @@ function PartyDisplayComponent(props) {
 
     return (
         <div className="unit">
-            <div className="list-group-item active">
+            <div className="list-group-item list-group-item-success">
                 <div onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
                     {props.party.name}
                 </div>
