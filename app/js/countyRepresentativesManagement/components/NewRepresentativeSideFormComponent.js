@@ -3,6 +3,7 @@
  */
 var React = require('react');
 var ValidationsOR = require("../../utils/ValidationsOR");
+var Validations = require("../../utils/Validations");
 
 var onlyRequiredCounties = [];
 
@@ -27,16 +28,22 @@ var NewRepresentativeSideFormComponent = React.createClass({
         onlyRequiredCounties = [];
     },
     handleNameChange: function (event) {
-        this.setState({name: event.target.value});
-        this.setState({nameErrors: ValidationsOR.nameValidation(event.target.value.trim())});
+        this.setState({
+            name: event.target.value,
+            nameErrors: ValidationsOR.nameValidation(event.target.value.trim())
+        });
     },
     handleSurnameChange: function (event) {
-        this.setState({surname: event.target.value});
-        this.setState({surnameErrors: ValidationsOR.nameValidation(event.target.value.trim())});
+        this.setState({
+            surname: event.target.value,
+            surnameErrors: ValidationsOR.nameValidation(event.target.value.trim())
+        });
     },
     hendleEmailChange: function (event) {
-        this.setState({email: event.target.value});
-        this.setState({emailErrors: ValidationsOR.emailValidation(event.target.value.trim(), this.props.CountyRepresentativesEmailsArray)});
+        this.setState({
+            email: event.target.value,
+            emailErrors: ValidationsOR.emailValidation(event.target.value.trim(), this.props.CountyRepresentativesEmailsArray)
+        });
     },
     handleDistrictChange: function (event) {
         this.setState({district: event.target.value})
@@ -50,6 +57,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
     },
 
     changePossibleCounties: function (event) {
+        console.log(event);
         onlyRequiredCounties = [];
         var self = this;
         var matchFound = false;
@@ -80,7 +88,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
         });
     },
 
-    onSubmit: function () {
+    onSubmit: function (event) {
         var tempName = this.state.name.trim()[0].toUpperCase() + this.state.name.trim().substring(1).toLowerCase();
         var tempSurname = this.state.surname.trim()[0].toUpperCase() + this.state.surname.trim().substring(1).toLowerCase();
         tempSurname[0].toUpperCase();
@@ -91,7 +99,11 @@ var NewRepresentativeSideFormComponent = React.createClass({
         this.setState({email: ''});
         this.setState({district: 'Pasirinkite apygardą'});
         this.setState({county: 'Pasirinkite apylinkę'});
-        this.changePossibleCounties();
+        this.changePossibleCounties(event);
+    },
+
+    springErrors: function() {
+        return Validations.prepareSpringErrors(this.props.springErrors, {marginTop: 10});
     },
 
     render: function () {
@@ -107,6 +119,8 @@ var NewRepresentativeSideFormComponent = React.createClass({
         MakeCountyItem = function(X) {
             return <option key={X.id}>{X.name}</option>;
         };
+
+        var springErrors = (this.props.springErrors.length > 0) ? this.springErrors() : [];
 
         return (
             <form>
@@ -143,6 +157,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
                         this.state.email == ''
                     } className="btn btn-primary btn-md" onClick={this.onSubmit} style={{ marginTop: 10 }} >Sukurti</button>
                 </div>
+                {springErrors}
 
             </form>
         )

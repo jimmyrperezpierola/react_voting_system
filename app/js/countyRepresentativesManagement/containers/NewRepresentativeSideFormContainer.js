@@ -42,6 +42,7 @@ var NewRepresentativeSideFormContainer = React.createClass ({
                     OnlyDistricts={OnlyDistricts}
                     CountyRepresentativesEmailsArray={this.props.CountyRepresentativesEmailsArray}
                     uniqueDistrictAndCountyNameCombinationArray={this.props.uniqueDistrictAndCountyNameCombinationArray}
+                    springErrors={this.props.springErrors}
                 />
             </div>
         )
