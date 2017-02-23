@@ -3,8 +3,9 @@ var ErrorWrapper = require('../components/tiny_components/ErrorWrapper');
 var RootErrorWrapper = require('../components/tiny_components/RootErrorWrapper');
 
 var Vars = {
-    nameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ0-9\s][^qQwWxX]*)$/),
-    partyNameRegex: new RegExp(/^([a-zA-Z][^qQwWxX]*)$/),
+    districtNameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s\-][^qQwWxX0-9]*)$/),
+    countyNameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ0-9\s\-][^qQwWxX]*)$/),
+    partyNameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s\-][^qQwWxX0-9]*)$/),
     min: 3,
     max: 40
 };
@@ -31,7 +32,7 @@ var Validations = {
 
         if (name.length < Vars.min) errors.push("Apygardos pavadinimas " + Errors.toShort);
         if (name.length > Vars.max) errors.push("Apygardos pavadinimas " + Errors.toLong);
-        if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
+        if (!Vars.districtNameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         return errors;
     },
@@ -40,7 +41,7 @@ var Validations = {
 
         if (name.length < Vars.min) errors.push("Apylinkės pavadinimas " + Errors.toShort);
         if (name.length > Vars.max) errors.push("Apylinkės pavadinimas " + Errors.toLong);
-        if (!Vars.nameRegex.test(name)) errors.push(Errors.onlyAlphas);
+        if (!Vars.countyNameRegex.test(name)) errors.push(Errors.onlyAlphas);
 
         switch (true) {
             case (count == undefined):
