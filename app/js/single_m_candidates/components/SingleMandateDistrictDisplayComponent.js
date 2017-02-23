@@ -15,10 +15,10 @@ function SingleMandateDistrictDisplayComponent(props) {
                 body="Duomenų atstatymas neįmanomas."
                 onConfirm={props.deleteCandidates}
             >
-                <p className="remove-units-element" style={{ cursor: 'pointer' }} >
-                    <span className="glyphicon glyphicon-remove-sign">
+                <p className="remove-units-element">
+                    <span className="glyphicon glyphicon-remove-sign" style={{ cursor: 'pointer' }} >
                     </span> &nbsp;
-                    šalinti kandidatus
+                    <span style={{ cursor: 'pointer' }} >Šalinti kandidatus</span>
                 </p>
             </ConfirmAction>
     } else {
@@ -30,7 +30,7 @@ function SingleMandateDistrictDisplayComponent(props) {
     }
     return (
         <div className="unit">
-            <div className="list-group-item active">
+            <div className="list-group-item list-group-item-success">
                 <div onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
                     {props.district.name}
                 </div>
