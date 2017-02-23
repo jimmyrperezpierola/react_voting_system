@@ -14,11 +14,6 @@ var SearchBarComponent = React.createClass({
                               onChange={this.props.changeQuery}
                               value={this.props.query}
                            />
-                           <span className="input-group-btn">
-                               <button className="btn btn-default" onClick={this.props.clearQuery}>
-                                  <i className="glyphicon glyphicon-remove-circle"></i>
-                               </button>
-                           </span>
                        </div>
                    </form>
                </div>
