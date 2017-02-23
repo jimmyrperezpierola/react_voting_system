@@ -4,6 +4,7 @@ var SearchCandidateComponent = require('./SearchCandidateComponent');
 var SearchBarComponent = require('./SearchBarComponent');
 var SearchCandidatesHeaderComponent = require('./SearchCandidatesHeaderComponent');
 var SearchCandidateCardComponent = require('./SearchCandidateCardComponent');
+var EmptySearchCandidateCardComponent = require('./EmptySearchCandidateCardComponent');
 
 var SearchCandidatesListContainer = React.createClass({
     getInitialState: function() {
@@ -64,10 +65,7 @@ var SearchCandidatesListContainer = React.createClass({
                 hideDetails={this.clearActiveCandidate}
             />
         )
-        :
-        (
-            []
-        );
+        : <EmptySearchCandidateCardComponent/>;
         return (
             <div>
                 <SearchBarComponent
