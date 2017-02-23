@@ -15,10 +15,10 @@ function DistrictDisplayComponent(props) {
                         body="Duomenų atstatymas neįmanomas."
                         onConfirm={props.delete}
                     >
-                        <p className="remove-units-element" style={{ cursor: 'pointer' }}>
+                        <p className="remove-units-element">
                             <span className="glyphicon glyphicon-remove-sign">
                             </span> &nbsp;
-                            šalinti apygardą
+                            <span>Šalinti apygardą</span>
                         </p>
                     </ConfirmAction>
                 </div>

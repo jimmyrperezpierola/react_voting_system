@@ -16,9 +16,9 @@ function SingleMandateDistrictDisplayComponent(props) {
                 onConfirm={props.deleteCandidates}
             >
                 <p className="remove-units-element">
-                    <span className="glyphicon glyphicon-remove-sign" style={{ cursor: 'pointer' }} >
+                    <span className="glyphicon glyphicon-remove-sign" >
                     </span> &nbsp;
-                    <span style={{ cursor: 'pointer' }} >Šalinti kandidatus</span>
+                    <span>Šalinti kandidatus</span>
                 </p>
             </ConfirmAction>
     } else {

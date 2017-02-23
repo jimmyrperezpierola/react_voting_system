@@ -35,7 +35,7 @@ function PartyDisplayComponent(props) {
             body="Duomenų atstatymas neįmanomas."
             onConfirm={del}
         >
-            <p className="confirmation-buttons">
+            <p className="remove-units-element confirmation-buttons">
                 <span className="glyphicon glyphicon-remove-sign">
                 </span> &nbsp;
                 šalinti partiją

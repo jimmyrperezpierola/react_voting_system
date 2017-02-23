@@ -260,8 +260,11 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
 /* confirmations */
 
 .confirmation-buttons {
-    cursor: pointer;
     margin-top: 10px;
+}
+
+.remove-units-element {
+    cursor: pointer;
 }
 
 /* COUNTY RESULTS */
