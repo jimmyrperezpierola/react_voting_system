@@ -35,7 +35,7 @@ function CountyDisplayComponent(props) {
                     body="Duomenų atstatymas neįmanomas."
                     onConfirm={del}
                 >
-                    <span className="glyphicon glyphicon-remove-sign popoverCounty confirmation-buttons"
+                    <span className="glyphicon glyphicon-remove-sign popoverCounty confirmation-buttons remove-units-element"
                         id={"remove-county-button-" + props.index}
                         onMouseOver={popup}
                         data-content="Ištrinti"

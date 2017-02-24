@@ -47,6 +47,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
         this.setState({ showCandidates: !this.state.showCandidates });
     },
     render: function() {
+        var candidates = (this.state.showCandidates) ? this.prepareCandidates() : [];
         return (
             <SingleMandateDistrictDisplayComponent
                 index={this.props.index}
@@ -55,7 +56,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
                 deleteCandidates={this.deleteCandidates}
                 district={this.state.district}
                 upload={this.uploadCandidates}
-                candidates={this.prepareCandidates()}
+                candidates={candidates}
                 springErrors={this.state.springErrors}
             />
         );

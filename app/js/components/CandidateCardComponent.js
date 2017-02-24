@@ -1,7 +1,6 @@
 var React = require('react');
 var truncate = require('truncate');
 var CandidateDetails = require('../components/tiny_components/CandidateDetails');
-var text = "Candidato aprasymas turi buti pakankamai ilgas kad galetu butis sutrumpiontas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas labai labai ilgas aprašymas";
 var styles = {"image": {width: 20, height: 20}}
 var partyName;
 
@@ -16,7 +15,7 @@ function CandidateCardComponent(props) {
                         <p>
                             <img src="app/imgs/fingerprint.png" style={ styles.image }/>&nbsp; {props.candidate.personId}
                             <br />
-                            <img src="app/imgs/books.png" style={ styles.image }/>&nbsp; {truncate(text, 50)}
+                            <img src="app/imgs/books.png" style={ styles.image }/>&nbsp; {truncate(props.candidate.description, 50)}
                         </p>
                         <CandidateDetails
                             firstName={props.candidate.firstName}
@@ -24,7 +23,7 @@ function CandidateCardComponent(props) {
                             partyName={partyName}
                             positionInPartyList={props.candidate.positionInPartyList}
                             personId={props.candidate.personId}
-                            about={text}
+                            about={props.candidate.description}
                         />
                     </div>
                 </div>

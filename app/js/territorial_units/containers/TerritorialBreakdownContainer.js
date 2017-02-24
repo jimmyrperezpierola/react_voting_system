@@ -61,7 +61,6 @@ var TerritorialBreakdownContainer = React.createClass({
         var districts = this.state.districts;
         axios.post('http://localhost:8080/api/district/', body)
             .then(function(resp) {
-                console.log(resp);
                 districts.push(resp.data);
                 _this.setState({ districts: districts,
                                  districtName: "",

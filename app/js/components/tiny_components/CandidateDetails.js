@@ -69,16 +69,35 @@ var CandidateDetails = React.createClass({
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-
-
-                    <p><img src="app/imgs/SM_candidate.png" style={ styles.image } alt="candidate-icon"/>&nbsp;<b>Kandidatas:</b>&nbsp; <span ref="subtitle">{this.props.firstName}&nbsp;{this.props.lastName}</span> </p>
-
-                    <p style={ this.state.partyCandidate }><img src="app/imgs/political_party.png" style={ styles.image } alt="party-icon"/>&nbsp;<b>Politinė partija:</b>&nbsp; {this.props.partyName}</p>
-                    <p style={ this.state.independentCandidate }><img src="app/imgs/political_party.png" style={ styles.image } alt="number-icon"/>&nbsp;<b>Nepriklausomas kandidatas</b></p>
-                    <p style={ this.state.partyCandidate }><img src="app/imgs/hash.png" style={ styles.image } alt="number-icon"/>&nbsp;<b>Numeris partijos sąraše:</b>&nbsp; {this.props.positionInPartyList}</p>
-                    <p><img src="app/imgs/fingerprint.png" style={ styles.image } alt="personal-id-icon"/>&nbsp;<b>Asmens kodas:</b>&nbsp; {this.props.personId}</p>
-                    <p><img src="app/imgs/books.png" style={ styles.image } alt="about-candidate-icon"/>&nbsp;<b>Apie kandidatą:</b></p>
-                    <p style={{  textAlign: "justify" }}>{this.props.about}</p>
+                    <p>
+                        <img src="app/imgs/SM_candidate.png" style={ styles.image } alt="candidate-icon"/>&nbsp;
+                        <b>Kandidatas:</b>&nbsp;&nbsp;
+                        <span ref="subtitle">{this.props.firstName}&nbsp;{this.props.lastName}</span>
+                    </p>
+                    <p style={ this.state.partyCandidate }>
+                        <img src="app/imgs/political_party.png" style={ styles.image } alt="party-icon"/>&nbsp;
+                        <b>Politinė partija:</b>&nbsp;&nbsp;
+                        {this.props.partyName}
+                    </p>
+                    <p style={ this.state.independentCandidate }>
+                        <img src="app/imgs/political_party.png" style={ styles.image } alt="number-icon"/>&nbsp;
+                        <b>Išsikėlęs pats</b>
+                    </p>
+                    <p style={ this.state.partyCandidate }>
+                        <img src="app/imgs/hash.png" style={ styles.image } alt="number-icon"/>&nbsp;
+                        <b>Numeris partijos sąraše:</b>&nbsp;&nbsp;
+                        {this.props.positionInPartyList}
+                    </p>
+                    <p>
+                        <img src="app/imgs/fingerprint.png" style={ styles.image } alt="personal-id-icon"/>&nbsp;
+                        <b>Asmens kodas:</b>&nbsp;&nbsp;
+                        {this.props.personId}
+                    </p>
+                    <p>
+                        <img src="app/imgs/books.png" style={ styles.image } alt="about-candidate-icon"/>&nbsp;
+                        <b>Apie kandidatą:</b>
+                    </p>
+                    <p style={{textAlign: "justify", marginLeft: 25}}>{this.props.about}</p>
                     <div style={{display: "flex", justifyContent: "center"}}>
                         <button onClick={this.closeModal} style={ styles.closeButton }>Išjungti</button>
                     </div>

@@ -12,11 +12,8 @@ var DistrictDisplayContainer = React.createClass({
                   countyName: "",
                   countyAddress: "",
                   voterCount: undefined,
-                  counties: [],
+                  counties: this.props.district.counties,
                   springErrors: [] });
-    },
-    componentDidMount: function() {
-        this.setState({ counties: this.props.district.counties });
     },
     toggleCountiesList: function() {
         this.setState({ showCounties: !this.state.showCounties });
@@ -141,9 +138,10 @@ var DistrictDisplayContainer = React.createClass({
         }
     },
     render: function() {
+        var counties = (this.state.showCounties) ? this.prepareCounties() : [];
         return <DistrictDisplayComponent
                     name={this.props.district.name}
-                    counties={this.prepareCounties()}
+                    counties={counties}
                     toggleCountiesList={this.toggleCountiesList}
                     show={this.state.showCounties}
                     delete={this.handleDistrictDestroy}

@@ -8,17 +8,21 @@ var NewCountyInlineForm = React.createClass({
     submit: function() {
         var errors = Validations.checkErrorsCountyForm(this.props.name, this.props.count, this.props.address);
         if (errors.length > 0) {
-            var style={ marginTop: 10 };
-            this.setState({ jsErrors: Validations.prepareJSerrors(errors, ("Klaida registruojant apylinkę " + this.props.name), style) });
+            this.setState({ jsErrors: errors });
         } else {
             if (this.state.jsErrors.length > 0) this.setState({ jsErrors: [] });
             this.props.submit();
         }
     },
+    jsErrors: function() {
+        var style={ marginTop: 10 };
+        return Validations.prepareJSerrors(this.state.jsErrors, "Klaida registruojant apylinkę", style)
+    },
     springErrors: function() {
         return Validations.prepareSpringErrors(this.props.springErrors);
     },
     render: function() {
+        var jsErrors = (this.state.jsErrors.length > 0) ? this.jsErrors() : [];
         var springErrors = (this.props.springErrors.length > 0) ? this.springErrors() : [];
         return (
             <div>
@@ -59,8 +63,8 @@ var NewCountyInlineForm = React.createClass({
                     </div>
                 </form>
                 <div id="inline-form-errors">
-                    {this.state.jsErrors}
-                    {this.springErrors()}
+                    {jsErrors}
+                    {springErrors}
                 </div>
             </div>
         )
