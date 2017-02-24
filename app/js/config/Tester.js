@@ -12,10 +12,14 @@ var Tester = React.createClass({
         $('.geosuggest__suggests').hide();
     },
     clearSuggest: function() {
-        this._geoSuggest.clear();
+        this._geoSuggest.blur();
         this.setState({ address: "" });
     },
+    changeAddress: function(value) {
+        this.setState({ address: value });
+    },
     render: function() {
+        console.log(this.state.address);
         return (
             <div>
                 <p>Address selected:</p>
@@ -32,6 +36,7 @@ var Tester = React.createClass({
                     queryDelay='500'
                     onSuggestSelect={this.onSuggestSelect}
                     onActiveSuggest={this.hideOtherSuggestions}
+                    onChange={this.changeAddress}
                 />
 
                 <button onClick={this.clearSuggest}><span className="glyphicon glyphicon-remove" aria-hidden="true"></span></button>

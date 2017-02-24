@@ -103,8 +103,11 @@ var DistrictDisplayContainer = React.createClass({
     handleVoterCount: function(e) {
         this.setState({ voterCount: e.target.value })
     },
-    handleAddressChange: function(e) {
-        this.setState({ countyAddress: e.target.value })
+    handleAddressChange: function(value) {
+        this.setState({ countyAddress: value});
+    },
+    setSuggest: function(suggest) {
+        this.setState({ countyAddress: suggest.label });
     },
     handleDistrictDestroy() {
         var _this = this;
@@ -126,6 +129,7 @@ var DistrictDisplayContainer = React.createClass({
                       changeName={this.handleNameChange}
                       changeVoterCount={this.handleVoterCount}
                       changeAddress={this.handleAddressChange}
+                      setSuggest={this.setSuggest}
                       name={this.state.countyName}
                       count={this.state.voterCount}
                       address={this.state.countyAddress}

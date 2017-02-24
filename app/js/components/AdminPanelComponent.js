@@ -83,7 +83,6 @@ var AdminPanelComponent = React.createClass({
 
 		},
 	  render: function() {
-				console.log(this.props);
 	  		return (
 						<div>
 								<div className="menu">

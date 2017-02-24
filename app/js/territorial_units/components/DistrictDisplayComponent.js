@@ -3,10 +3,9 @@ var ConfirmAction = require('../../components/tiny_components/ConfirmAction');
 
 function DistrictDisplayComponent(props) {
     var del = function() { props.delete(props.index) };
-    var counties = []; var actions = [];
+    var actions = [];
     var popup = function() { $('.popoverDistrict').popover({ trigger: "hover" }) };
     if (props.show) {
-        counties = props.counties;
         actions = (
             <div>
                 <div className="list-group-item">
@@ -36,7 +35,7 @@ function DistrictDisplayComponent(props) {
                 <div className="unit-name-area">{props.name}</div>
             </div>
             {actions}
-            {counties}
+            {props.counties}
         </div>
     );
 };

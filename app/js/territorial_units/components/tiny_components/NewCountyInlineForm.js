@@ -1,5 +1,6 @@
 var React = require('react');
 var Validations = require('../../../utils/Validations');
+var Geosuggest = require('react-geosuggest').default;
 
 var NewCountyInlineForm = React.createClass({
     getInitialState: function() {
@@ -20,6 +21,9 @@ var NewCountyInlineForm = React.createClass({
     },
     springErrors: function() {
         return Validations.prepareSpringErrors(this.props.springErrors);
+    },
+    hideOtherSuggestions: function() {
+        $('.geosuggest__suggests').hide();
     },
     render: function() {
         var jsErrors = (this.state.jsErrors.length > 0) ? this.jsErrors() : [];
@@ -45,12 +49,15 @@ var NewCountyInlineForm = React.createClass({
                         />
                     </div>
                     <div className="form-group">
-                        <input type="text"
-                            onChange={this.props.changeAddress}
-                            className="form-control"
-                            value={this.props.address}
+                        <Geosuggest
+                            ref={el=>this._geoSuggest=el}
                             placeholder="Adresas"
-                            min={1}
+                            inputClassName="form-control"
+                            country="lt"
+                            queryDelay='500'
+                            onSuggestSelect={this.props.setSuggest}
+                            onActiveSuggest={this.hideOtherSuggestions}
+                            onChange={this.props.changeAddress}
                         />
                     </div>
                     <div className="form-group">
