@@ -69,9 +69,7 @@ var CandidateDetails = React.createClass({
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <p>
-                        <img src="app/imgs/SM_candidate.png" style={ styles.image } alt="candidate-icon"/>&nbsp;
-                        <b>Kandidatas:</b>&nbsp;&nbsp;
+                    <p style={{ textAlign: 'center' }}>
                         <span ref="subtitle">{this.props.firstName}&nbsp;{this.props.lastName}</span>
                     </p>
                     <p style={ this.state.partyCandidate }>
@@ -94,10 +92,15 @@ var CandidateDetails = React.createClass({
                         {this.props.personId}
                     </p>
                     <p>
+                        <img src="app/imgs/cupcake.png" style={ styles.image } alt="birthdate-icon"/>&nbsp;
+                        <b>Gimimo data:</b>&nbsp;&nbsp;
+                        {this.props.birthDate}
+                    </p>
+                    <p>
                         <img src="app/imgs/books.png" style={ styles.image } alt="about-candidate-icon"/>&nbsp;
                         <b>Apie kandidatą:</b>
                     </p>
-                    <p style={{textAlign: "justify", marginLeft: 25}}>{this.props.about}</p>
+                    <p style={{textAlign: "justify", marginLeft: 25, marginBottom: 20}}>{this.props.about}</p>
                     <div style={{display: "flex", justifyContent: "center"}}>
                         <button onClick={this.closeModal} style={ styles.closeButton }>Išjungti</button>
                     </div>

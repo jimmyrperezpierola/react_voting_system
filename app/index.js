@@ -18,6 +18,7 @@ var SM_CountyResultsContainer = require('./js/counties_results/singlemandate/con
 var MM_CountyResultsContainer = require('./js/counties_results/multimandate/containers/MM_CountyResultsContainer');
 var AdminResultsViewContainer = require('./js/admin_results_view/containers/AdminResultsViewContainer');
 var SearchCandidatesListContainer = require('./js/search/SearchCandidatesListContainer');
+var Tester = require('./js/config/Tester');
 
 ReactDOM.render((
   <Router history={ReactRouter.hashHistory}>
@@ -38,6 +39,7 @@ ReactDOM.render((
             {/*<Route path="profilis" component={}/>*/}
         </Route>
         <Route path="paieska" component={SearchCandidatesListContainer}/>
+        <Route path="test" component={Tester}/>
         <Route path="*" component={NoMatch} />
     </Route>
   </Router>
