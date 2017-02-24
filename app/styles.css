@@ -320,6 +320,14 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     display: table-cell;
 }
 
+/* GEO-SUGGEST */
+
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+
 /* OSVALDO */
 
 .firstDivAfterHeader{
