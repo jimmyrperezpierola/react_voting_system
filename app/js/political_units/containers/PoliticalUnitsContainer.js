@@ -11,9 +11,6 @@ var PoliticalUnitsContainer = React.createClass({
                   springErrors: [] });
     },
     componentDidMount: function() {
-        this.partiesAxiosGet();
-    },
-    partiesAxiosGet: function() {
         var _this = this;
         axios.get('http://localhost:8080/api/party')
             .then(function(resp) {
@@ -33,9 +30,7 @@ var PoliticalUnitsContainer = React.createClass({
                     party={p}
                     delete={this.deleteParty}
                     deleteCandidates={this.deleteCandidates}
-                    partiesAxiosGet={this.partiesAxiosGet}
-                    testingFunction={this.testingFunction}
-                    prepareParties={this.prepareParties}
+                    updateParties={this.updateParties}
                 />
             );
         });
@@ -43,14 +38,33 @@ var PoliticalUnitsContainer = React.createClass({
     },
     deleteCandidates: function(party_id) {
         var _this = this;
-        var deleteUrl = "http://localhost:8080/api/party/" + party_id + "/candidates"
+        var deleteUrl = "http://localhost:8080/api/party/" + party_id + "/candidates";
+        var stateParties = this.state.parties;
         axios.delete(deleteUrl)
             .then(function(resp) {
-                _this.partiesAxiosGet();
+                for (var i = 0; i < stateParties.length; i++) {
+                    if (stateParties[i].id == party_id) {
+                        var party = stateParties[i];
+                        party.candidates = [];
+                        stateParties[i] = party;
+                    }
+                }
+                _this.setState({ parties: stateParties });
             })
             .catch(function(err) {
                 console.log(err);
             });
+    },
+    updateParties: function(party) {
+        var _this = this;
+        var stateParties = this.state.parties;
+        for (var i = 0; i < stateParties.length; i++) {
+            if (stateParties[i].id == party.id) {
+                stateParties[i] = party;
+                return;
+            }
+        }
+        this.setState({ parties: stateParties });
     },
     handleNameChange: function(e) {
         this.setState({ partyName: e.target.value });
@@ -81,23 +95,11 @@ var PoliticalUnitsContainer = React.createClass({
                 var parties = _this.state.parties;
                 parties.splice(idx, 1);
                 _this.setState({ parties: parties });
-                this.testingFunction();
             })
             .catch(function(err) {
                console.log(err);
             });
 
-    },
-    deleteCandidates: function(party_id) {
-        var _this = this;
-        var deleteURL = "http://localhost:8080/api/party/" + party_id + "/candidates";
-        axios.delete(deleteURL)
-            .then(function(resp) {
-                _this.partiesAxiosGet();
-            })
-            .catch(function(err) {
-               console.log(err);
-            });
     },
     render: function() {
         return <PoliticalUnitsComponent

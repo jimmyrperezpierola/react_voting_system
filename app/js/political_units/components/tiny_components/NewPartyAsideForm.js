@@ -26,7 +26,6 @@ var NewPartyAsideForm = React.createClass({
         }
     },
     prepareSpringErrors: function() {
-        console.log("SPRING PREPARE");
         return Validations.prepareSpringErrors(this.state.springErrors);
     },
     prepareJSerrors: function() {
