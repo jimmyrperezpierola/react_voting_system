@@ -18,7 +18,7 @@ function PartyDisplayComponent(props) {
                 <p className="remove-units-element confirmation-buttons">
                     <span className="glyphicon glyphicon-remove-sign">
                     </span> &nbsp;
-                    šalinti narius
+                    Šalinti narius
                 </p>
             </ConfirmAction>
     } else {
@@ -38,7 +38,7 @@ function PartyDisplayComponent(props) {
             <p className="remove-units-element confirmation-buttons">
                 <span className="glyphicon glyphicon-remove-sign">
                 </span> &nbsp;
-                šalinti partiją
+                Šalinti partiją
             </p>
         </ConfirmAction>
 
@@ -53,6 +53,8 @@ function PartyDisplayComponent(props) {
                 <div className="list-group-item">
                     {actions}
                     {confirmDeleteParty}
+                    <b style={props.displayLoadingIcon}>Prašome palaukti&nbsp;</b>
+                    <img style={props.displayLoadingIcon} src="app/imgs/axios-loader.gif" alt=""/>
                 </div>
                 {props.candidates}
             </div>

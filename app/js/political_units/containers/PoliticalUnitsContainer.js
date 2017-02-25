@@ -34,6 +34,8 @@ var PoliticalUnitsContainer = React.createClass({
                     delete={this.deleteParty}
                     deleteCandidates={this.deleteCandidates}
                     partiesAxiosGet={this.partiesAxiosGet}
+                    testingFunction={this.testingFunction}
+                    prepareParties={this.prepareParties}
                 />
             );
         });
@@ -79,6 +81,7 @@ var PoliticalUnitsContainer = React.createClass({
                 var parties = _this.state.parties;
                 parties.splice(idx, 1);
                 _this.setState({ parties: parties });
+                this.testingFunction();
             })
             .catch(function(err) {
                console.log(err);

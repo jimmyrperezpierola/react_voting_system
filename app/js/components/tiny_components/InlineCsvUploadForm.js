@@ -37,7 +37,7 @@ var InlineCsvUploadForm = React.createClass({
                         <input type="file" ref="fileCSV" id="inputFile"/>
                     </div>
                     <div className="form-group upload-button-area">
-                        <button type="submit" onClick={this.upload} className="btn btn-primary btn-sm">Siūsti</button>
+                        <button type="submit" onClick={this.upload} className="btn btn-primary btn-sm">Siųsti</button>
                     </div>
                 </form>
                 <div id="inline-form-errors">

@@ -7,12 +7,11 @@ var PartyDisplayContainer = React.createClass({
     getInitialState: function() {
         return ({ showCandidates: false,
                   springErrors: [],
-                  party: this.props.party });
+                  party: this.props.party,
+                  displayLoadingIcon: {display: "none"},});
     },
     componentWillReceiveProps: function(newProps) {
-        if (newProps.party != this.state.party) {
-            this.setState({ party: newProps.party })
-        }
+        this.setState({ party: newProps.party })
     },
     prepareCandidates: function() {
         var cand = [];
@@ -40,9 +39,13 @@ var PartyDisplayContainer = React.createClass({
         var _this = this;
         var errors = [];
         var uploadUrl = "http://localhost:8080/api/party/" + partyID + "/candidates";
+        this.setState({displayLoadingIcon: {display: "inline"}});
         axios.post(uploadUrl, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
                 _this.setState({ springErrors: [], party: resp.data });
+                _this.setState({displayLoadingIcon: {display: "none"}});
+                _this.props.partiesAxiosGet();
+                _this.props.prepareParties();
             })
             .catch(function(err) {
                 console.log(err);
@@ -62,6 +65,7 @@ var PartyDisplayContainer = React.createClass({
                 upload={this.uploadCandidates}
                 candidates={this.prepareCandidates()}
                 springErrors={this.state.springErrors}
+                displayLoadingIcon={this.state.displayLoadingIcon}
             />
         );
     }
