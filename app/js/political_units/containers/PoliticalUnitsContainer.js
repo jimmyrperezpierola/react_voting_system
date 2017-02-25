@@ -7,7 +7,6 @@ var CandidateCardComponent = require('../../components/CandidateCardComponent');
 var PoliticalUnitsContainer = React.createClass({
     getInitialState: function() {
         return ({ parties: [],
-                  partyName: "",
                   springErrors: [] });
     },
     componentDidMount: function() {
@@ -66,11 +65,8 @@ var PoliticalUnitsContainer = React.createClass({
         }
         this.setState({ parties: stateParties });
     },
-    handleNameChange: function(e) {
-        this.setState({ partyName: e.target.value });
-    },
-    handlePartySubmit: function(fd) {
-        var party = { name: this.state.partyName }
+    handlePartySubmit: function(fd, name) {
+        var party = { name: name }
         fd.append("party", JSON.stringify(party));
         var _this = this;
         var parties = this.state.parties;
@@ -79,7 +75,7 @@ var PoliticalUnitsContainer = React.createClass({
         axios.post('http://localhost:8080/api/party', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
                 parties.push(resp.data);
-                _this.setState({ parties: parties, partyName: "", springErrors: [] });
+                _this.setState({ parties: parties, springErrors: [] });
             })
             .catch(function(err) {
                 console.log(err);
@@ -104,8 +100,6 @@ var PoliticalUnitsContainer = React.createClass({
     render: function() {
         return <PoliticalUnitsComponent
                   parties={this.prepareParties()}
-                  changeName={this.handleNameChange}
-                  name={this.state.partyName}
                   create={this.handlePartySubmit}
                   springErrors={this.state.springErrors}
                />

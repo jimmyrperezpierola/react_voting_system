@@ -9,7 +9,6 @@ var styles = {
 var partyName;
 
 function CandidateCardComponent(props) {
-  console.log('render');
   partyName = (props.candidate.partyName == undefined) ? "Išsikėlęs pats" : props.candidate.partyName;
   return (
         <div className="well well-sm candidate-card">

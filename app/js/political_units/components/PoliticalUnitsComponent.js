@@ -1,16 +1,7 @@
 var React = require('react');
-var ReactRouter = require('react-router');
-var NewPartyAsideForm = require('./tiny_components/NewPartyAsideForm');
-//var InlineCsvUploadForm = require('../../components/tiny_components/InlineCsvUploadForm');
+var NewPartyAsideForm = require('../containers/NewPartyAsideForm');
 
 function PoliticalUnitsComponent(props) {
-    var candidates = [];
-    if (props.activePartyId != undefined) {
-        if (props.activeCandidates.length > 0 && props.show) {
-            candidates = props.activeCandidates;
-        }
-    }
-
     return (
         <div className="container">
             <div className="row">
@@ -26,8 +17,6 @@ function PoliticalUnitsComponent(props) {
                     <div className="col-md-11">
                         <NewPartyAsideForm
                             create={props.create}
-                            changeName={props.changeName}
-                            name={props.name}
                             springErrors={props.springErrors}
                         />
                     </div>
