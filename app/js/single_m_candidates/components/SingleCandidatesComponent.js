@@ -1,10 +1,6 @@
 var React = require('react');
 
-function SingleCandidatesComponent(props) {
-    var candidates = [];
-    if (props.activeDistrictId != undefined && props.show) {
-        candidates = props.activeCandidates;
-    }
+function SingleCandidatesComponent(props) {    
     return (
         <div className="container">
             <div className="row">
