@@ -2,6 +2,8 @@ var React = require('react');
 var axios = require('axios');
 var PartyDisplayComponent = require('../components/PartyDisplayComponent');
 var CandidateCardComponent = require('../../components/CandidateCardComponent');
+var ConfirmAction = require('../../components/tiny_components/ConfirmAction');
+var InlineCsvUploadForm = require('../../components/tiny_components/InlineCsvUploadForm');
 
 var PartyDisplayContainer = React.createClass({
     getInitialState: function() {
@@ -56,19 +58,63 @@ var PartyDisplayContainer = React.createClass({
                 _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
             });
     },
+    determineActions: function() {
+        var actions;
+        if (this.state.party.candidates.length > 0) {
+            actions =
+                  <ConfirmAction
+                      title="Ar tikrai norite pašalinti apygardos kandidatų sąrašą?"
+                      body="Duomenų atstatymas neįmanomas."
+                      onConfirm={this.deleteCandidates.bind(this, this.state.party.id)}
+                  >
+                      <p className="remove-units-element confirmation-buttons">
+                          <span className="glyphicon glyphicon-remove-sign">
+                          </span> &nbsp;
+                          Šalinti narius
+                      </p>
+                  </ConfirmAction>
+        } else {
+            actions = <InlineCsvUploadForm
+                          upload={this.uploadCandidates}
+                          associationId={this.state.party.id}
+                          springErrors={this.state.springErrors}
+                      />
+        }
+        console.log(actions);
+        return actions;
+    },
+    determineDisplay: function() {
+        var display;
+        if (!this.state.showCandidates) display = {display: 'none'};
+        return display;
+    },
+    confirmDeleteParty: function() {
+        return (
+            <ConfirmAction
+                title="Ar tikrai norite pašalinti partiją?"
+                body="Duomenų atstatymas neįmanomas."
+                onConfirm={this.deleteParty.bind(this, this.props.index, this.state.party.id)}
+            >
+                <p className="remove-units-element confirmation-buttons">
+                    <span className="glyphicon glyphicon-remove-sign">
+                    </span> &nbsp;
+                    Šalinti partiją
+                </p>
+            </ConfirmAction>
+        );
+    },
     render: function() {
         return (
             <PartyDisplayComponent
-                index={this.props.index}
-                show={this.state.showCandidates}
                 toggleShow={this.toggleShowCandidates}
                 delete={this.deleteParty}
-                deleteCandidates={this.deleteCandidates}
-                party={this.state.party}
-                upload={this.uploadCandidates}
+                name={this.state.party.name}
                 candidates={this.prepareCandidates()}
                 springErrors={this.state.springErrors}
                 displayLoadingIcon={this.state.displayLoadingIcon}
+                actions={this.determineActions()}
+                confirmDeleteParty={this.confirmDeleteParty()}
+                display={this.determineDisplay()}
             />
         );
     }

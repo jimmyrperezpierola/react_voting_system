@@ -40,7 +40,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
     },
 
     handleDeleteRepresentative: function (repId, index) {
-        console.log(repId + " " + index);
         var self = this;
         var deleteUrl = 'http://localhost:8080/api/county-rep/' + repId + "";
         axios.delete(deleteUrl)
@@ -52,15 +51,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
             .catch(function (error) {
                 console.log(error);
             });
-
-        // axios.get('http://localhost:8080/api/district')
-        //     .then(function (response){
-        //         self.setState({districts: response.data});
-        //     })
-        //     .catch(function(error){
-        //         console.log(error);
-        //     });
-
     },
 
     newRep: function (name, surname, email, district, county) {
@@ -91,8 +81,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
                 district.counties.map(function (county, index) {
                     if(county.name == countyName) CountyId = county.id;
                 });
-            } else {
-                // console.log("county name did not match");
             }
         });
         return CountyId;

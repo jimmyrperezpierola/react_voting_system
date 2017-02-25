@@ -57,7 +57,6 @@ var NewRepresentativeSideFormComponent = React.createClass({
     },
 
     changePossibleCounties: function (event) {
-        console.log(event);
         onlyRequiredCounties = [];
         var self = this;
         var matchFound = false;
