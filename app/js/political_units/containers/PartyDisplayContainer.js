@@ -8,21 +8,26 @@ var PartyDisplayContainer = React.createClass({
         return ({ showCandidates: false,
                   springErrors: [],
                   party: this.props.party,
-                  displayLoadingIcon: {display: "none"},});
+                  displayLoadingIcon: {display: "none"}
+               });
     },
     componentWillReceiveProps: function(newProps) {
-        this.setState({ party: newProps.party })
+        if (newProps.party != this.state.party) {
+            this.setState({ party: newProps.party })
+        }
     },
     prepareCandidates: function() {
         var cand = [];
-        this.state.party.candidates.forEach((c, index) => {
-            cand.push(
-                  <CandidateCardComponent
-                      key={index}
-                      candidate={c}
-                  />
-            )
-        });
+        if (this.state.showCandidates) {
+            this.state.party.candidates.forEach((c, index) => {
+                cand.push(
+                      <CandidateCardComponent
+                          key={index}
+                          candidate={c}
+                      />
+                );
+            });
+        }
         return cand;
     },
     deleteCandidates: function() {
@@ -42,10 +47,8 @@ var PartyDisplayContainer = React.createClass({
         this.setState({displayLoadingIcon: {display: "inline"}});
         axios.post(uploadUrl, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
-                _this.setState({ springErrors: [], party: resp.data });
-                _this.setState({displayLoadingIcon: {display: "none"}});
-                _this.props.partiesAxiosGet();
-                _this.props.prepareParties();
+                _this.setState({ springErrors: [], party: resp.data, displayLoadingIcon: {display: "none"} });
+                _this.props.updateParties(resp.data);
             })
             .catch(function(err) {
                 console.log(err);
