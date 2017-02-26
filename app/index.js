@@ -8,7 +8,10 @@ var ReactDOM = require('react-dom');
 var Application = require('./js/Application');
 var HomePageContainer = require('./js/containers/HomePageContainer');
 var AdminPanelComponent = require('./js/components/AdminPanelComponent');
-var RepresentativePanelComponent = require('./js/components/RepresentativePanelComponent');
+// var RepresentativePanelComponent = require('./js/components/RepresentativePanelComponent');
+var RepresentativeHomeContainer = require('./js/containers/RepresentativeHomeContainer');
+var RepresentativeProfileComponent = require('./js/components/RepresentativeProfileComponent');
+
 var TerritorialBreakdownContainer = require('./js/territorial_units/containers/TerritorialBreakdownContainer');
 var PoliticalUnitsContainer = require('./js/political_units/containers/PoliticalUnitsContainer');
 var SingleCandidatesContainer = require('./js/single_m_candidates/containers/SingleCandidatesContainer');
@@ -31,12 +34,14 @@ ReactDOM.render((
 			      <Route path="politinis-suskirstymas" component={PoliticalUnitsContainer}/>
             <Route path="apylinkiu-rezultatai" component={AdminResultsViewContainer}/>
         </Route>
-        <Route path="atstovui/:id" component={RepresentativePanelComponent}>
+        <Route path="atstovui/:id" component={RepresentativeHomeContainer}>
+            <IndexRoute component={RepresentativeProfileComponent}/>
+            <Route path="profilis" component={RepresentativeProfileComponent}/>
             <Route path="rezultatai">
                 <Route path="vienmandaciai" component={SM_CountyResultsContainer}/>
                 <Route path="daugiamandaciai" component={MM_CountyResultsContainer}/>
             </Route>
-            {/*<Route path="profilis" component={}/>*/}
+            
         </Route>
         <Route path="paieska" component={SearchCandidatesListContainer}/>
         <Route path="test" component={Tester}/>

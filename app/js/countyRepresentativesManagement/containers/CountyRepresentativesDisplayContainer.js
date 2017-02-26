@@ -22,21 +22,20 @@ var CountyRepresentativesDisplayContainer = React.createClass({
 
     componentDidMount: function () {
         var self = this;
-        axios.get('http://localhost:8080/api/county-rep')
-            .then(function(response){
-                self.setState({representatives: response.data});
-            })
+        axios
+            .all([
+                axios.get('http://localhost:8080/api/county-rep'),
+                axios.get('http://localhost:8080/api/district')
+            ])
+            .then(axios.spread(function(countyReps, districts) {
+                self.setState({
+                    representatives: countyReps.data,
+                    districts: districts.data
+                });
+            }))
             .catch(function(error){
                 console.log(error);
-            });
-        // gets all districts
-        axios.get('http://localhost:8080/api/district')
-            .then(function (response){
-                self.setState({districts: response.data});
             })
-            .catch(function(error){
-                console.log(error);
-            });
     },
 
     handleDeleteRepresentative: function (repId, index) {

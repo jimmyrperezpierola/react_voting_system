@@ -28,7 +28,6 @@ var SM_CountyResultsComponent = React.createClass({
         return Validations.prepareSpringErrors(this.props.springErrors, {"marginTop": 10});
     },
     render: function() {
-        console.log(this.props.springErrors);
         var jsErrors = (this.state.jsErrors.length > 0) ? this.prepareJSerrors() : [];
         var springErrors = (this.props.springErrors.length > 0) ? this.prepareSpringErrors() : [];
 

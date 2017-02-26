@@ -24,8 +24,8 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
                 />
             );
             CountyRepresentativesEmailsArray.push(rep.email);
-            var RepresentativeIsFromDistrict = rep.county.districtName;
-            var RepresentativeIsFromCounty = rep.county.name;
+            var RepresentativeIsFromDistrict = rep.districtName;
+            var RepresentativeIsFromCounty = rep.countyName;
             var UniqueCombinaitonOfDistrictAndCounty = RepresentativeIsFromDistrict.concat(RepresentativeIsFromCounty);
             ArrayOfUniqueCombinationsOfDistrictAndCountyNames.push(UniqueCombinaitonOfDistrictAndCounty);
         });

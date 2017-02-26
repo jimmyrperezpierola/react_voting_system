@@ -23,35 +23,34 @@ var MM_CountyResultsContainer = React.createClass({
 
         // refactor when login will be implemented
 
-        var _this = this;
-        var repGetUrl = "http://localhost:8080/api/county-rep/" + this.props.params.id + "";
+    },
 
+    componentWillReceiveProps(newProps) {
+        if (newProps.countyId !== null) {
+            this.getMMresults(newProps);
+        }
+    },
+    getMMresults: function(props) {
+        console.log("GETTING RESULTS")
+        var _this = this;
+        var resultsUrl = "http://localhost:8080/api/county-results/" + props.countyId + "/multi-mandate";
+        var partiesUrl = "http://localhost:8080/api/party/"
         axios
             .all([
-                axios.get(repGetUrl),
-                axios.get('http://localhost:8080/api/party/')
+                axios.get(resultsUrl),
+                axios.get(partiesUrl)
             ])
-            .then(axios.spread(function(representative, parties) {
-                var results = _this.getMMresults(representative.data.county);
+            .then(axios.spread(function(results, parties) {
                 var dictionary = _this.formDictionary(parties.data);
-                _this.setState({
-                    representative: representative.data,
-                    activeCountyId: representative.data.county.id,
-                    MMresults: results,
-                    dictionary: dictionary,
-                    parties: parties.data
-                });
+                _this.setState({ 
+                    MMresults: results.data,
+                    parties: parties.data,
+                    dictionary: dictionary
+                })
             }))
             .catch(function(err) {
                 console.log(err);
             });
-    },
-    getMMresults: function(county) {
-        var results = {};
-        county.countyResults.forEach(mm => {
-            if (!mm.singleMandateSystem) results = mm;
-        });
-        return results;
     },
     prepareParties: function() {
         var preparedParties = [];
@@ -114,8 +113,8 @@ var MM_CountyResultsContainer = React.createClass({
                 </div>
                 <div className="list-group-item">
                     <img src="app/imgs/representative.png" style={{ width: 20, height: 20 }}/> &nbsp;
-                    <span>{this.state.representative.firstName}</span> &nbsp;
-                    <span>{this.state.representative.lastName}</span>
+                    <span>{this.props.representative.firstName}</span> &nbsp;
+                    <span>{this.props.representative.lastName}</span>
                 </div>
             </div>
         );
@@ -136,7 +135,7 @@ var MM_CountyResultsContainer = React.createClass({
         var errors = [];
         var body = {
             "spoiledBallots": this.state.spoiled,
-            "countyId": this.state.activeCountyId,
+            "countyId": this.props.countyId,
             "singleMandateSystem": false,
             "unitVotes": partiesVotes
         }
@@ -173,7 +172,7 @@ var MM_CountyResultsContainer = React.createClass({
                                               "Rezultatai patvirtinti"
                                           )}
                             />
-        } else {
+        } else if (this.state.parties.length > 0) {
             formOrResults = <MM_CountyResultsComponent
                                 representative={this.prepareRepresentative()}
                                 parties={this.prepareParties()}
@@ -182,9 +181,11 @@ var MM_CountyResultsContainer = React.createClass({
                                 changeSpoiled={this.handleChangeSpoiled}
                                 submitMMresults={this.handleSubmitMMresults}
                                 springErrors={this.state.springErrors}
-                                activeCountyId={this.state.activeCountyId}
+                                activeCountyId={this.props.countyId}
                                 clearForm={this.clearForm}
                             />
+        } else {
+            return <div></div>
         }
         return formOrResults;
     }

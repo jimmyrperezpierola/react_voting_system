@@ -19,12 +19,12 @@ var CountyRepresentativeListLineComponent = React.createClass ({
 
                         {/*<div className="col-md-2">{this.props.repData.firstName}</div>*/}
                         {/*<div className="col-md-2">{this.props.repData.lastName}</div>*/}
-                        <div className="col-md-4">{this.props.repData.county.name}&nbsp;({this.props.repData.districtName})</div>
+                        <div className="col-md-4">{this.props.repData.countyName}&nbsp;({this.props.repData.districtName})</div>
 
                         <div className="col-md-3">{this.props.repData.email}</div>
                         <div className="col-md-1" style={{ textAlign: 'center' }}>
                             <ConfirmAction
-                                title={"Norite pašalinti " + this.props.repData.firstName + " " + this.props.repData.lastName + " iš apylinkės " + this.props.repData.county.name +" atstovo pareigų ?"}
+                                title={"Norite pašalinti " + this.props.repData.firstName + " " + this.props.repData.lastName + " iš apylinkės " + this.props.repData.countyName +" atstovo pareigų ?"}
                                 body="Duomenų atstatymas bus neįmanomas."
                                 onConfirm={this.onRemoveRep}
                             >
