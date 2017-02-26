@@ -11,6 +11,7 @@ var InlineCsvUploadForm = React.createClass({
         }
     },
     upload: function(e) {
+        this.props.openModal();
         e.preventDefault();
         var file = this.refs.fileCSV.files[0];
         var errors = Validations.validateCsv(file);

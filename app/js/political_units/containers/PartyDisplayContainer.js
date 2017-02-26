@@ -26,6 +26,7 @@ var PartyDisplayContainer = React.createClass({
                       <CandidateCardComponent
                           key={index}
                           candidate={c}
+                          openModal={this.props.openModal}
                       />
                 );
             });
@@ -49,13 +50,15 @@ var PartyDisplayContainer = React.createClass({
         this.setState({displayLoadingIcon: {display: "inline"}});
         axios.post(uploadUrl, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(function(resp) {
+                _this.props.closeModal();
                 _this.setState({ springErrors: [], party: resp.data, displayLoadingIcon: {display: "none"} });
                 _this.props.updateParties(resp.data);
             })
             .catch(function(err) {
                 console.log(err);
                 errors.push(err.response.data.rootMessage);
-                _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages) });
+                _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages),
+                    displayLoadingIcon: {display: "none"}});
             });
     },
     determineActions: function() {
@@ -78,6 +81,7 @@ var PartyDisplayContainer = React.createClass({
                           upload={this.uploadCandidates}
                           associationId={this.state.party.id}
                           springErrors={this.state.springErrors}
+                          openModal={this.props.openModal}
                       />
         }
         console.log(actions);

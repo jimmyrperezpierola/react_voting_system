@@ -11,9 +11,9 @@ function PartyDisplayComponent(props) {
             <div style={ props.display }>
                 <div className="list-group-item">
                     {props.actions}
-                    {props.confirmDeleteParty}
                     <b style={props.displayLoadingIcon}>Prašome palaukti&nbsp;</b>
                     <img style={props.displayLoadingIcon} src="app/imgs/axios-loader.gif" alt=""/>
+                    {props.confirmDeleteParty}
                 </div>
                 {props.candidates}
             </div>

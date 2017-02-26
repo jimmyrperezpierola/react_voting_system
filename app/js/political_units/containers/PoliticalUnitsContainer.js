@@ -3,6 +3,7 @@ var axios = require('axios');
 var PoliticalUnitsComponent = require('../components/PoliticalUnitsComponent');
 var PartyDisplayContainer = require('./PartyDisplayContainer');
 var CandidateCardComponent = require('../../components/CandidateCardComponent');
+var PleaseWaitModal = require('../../components/tiny_components/PleaseWaitModal');
 
 var PoliticalUnitsContainer = React.createClass({
     getInitialState: function() {
@@ -23,7 +24,8 @@ var PoliticalUnitsContainer = React.createClass({
         var parties = [];
         this.state.parties.forEach((p, idx) => {
             parties.push(
-                <PartyDisplayContainer
+
+                <PleaseWaitModal
                     key={idx}
                     index={idx}
                     party={p}
@@ -31,6 +33,16 @@ var PoliticalUnitsContainer = React.createClass({
                     deleteCandidates={this.deleteCandidates}
                     updateParties={this.updateParties}
                 />
+
+
+                // <PartyDisplayContainer
+                //     key={idx}
+                //     index={idx}
+                //     party={p}
+                //     delete={this.deleteParty}
+                //     deleteCandidates={this.deleteCandidates}
+                //     updateParties={this.updateParties}
+                // />
             );
         });
         return parties;
