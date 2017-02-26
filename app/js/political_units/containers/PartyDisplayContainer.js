@@ -55,6 +55,7 @@ var PartyDisplayContainer = React.createClass({
                 _this.props.updateParties(resp.data);
             })
             .catch(function(err) {
+                _this.props.closeModal();
                 console.log(err);
                 errors.push(err.response.data.rootMessage);
                 _this.setState({ springErrors: errors.concat(err.response.data.errorsMessages),
