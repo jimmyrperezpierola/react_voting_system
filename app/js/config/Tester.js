@@ -6,8 +6,8 @@ var Tester = React.createClass({
     downloadCSV() {
         axios.get('http://localhost:8080/api/download/testers')
              .then(resp => {
-                console.log(resp);
                 fileDownload(resp.data, "testData.csv");
+                console.log(resp);
              })
              .catch(err => {
                 console.log(err);
