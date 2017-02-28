@@ -2,6 +2,7 @@ var React = require('react');
 
 var SM_CountyResultsDisplayComponent = React.createClass({
     render: function() {
+        console.log("COMPONENT")
         return (
             <div className="container">
                 <div className="row">

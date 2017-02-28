@@ -9,13 +9,13 @@ var Helpers = require('../../../utils/Helpers');
 
 var SM_CountyResultsContainer = React.createClass({
     getInitialState: function() {
-        return ({ candidates: [],
+        return ({ representative: undefined,
+                  results: undefined,
+                  candidates: undefined,
                   activeCountyId: undefined,
-                  representative: {},
                   dictionary: new Map(),
                   spoiled: "",
-                  springErrors: [],
-                  SMresults: {}
+                  springErrors: []
                 });
     },
     componentDidMount: function() {
@@ -24,77 +24,77 @@ var SM_CountyResultsContainer = React.createClass({
         
     },
     componentWillReceiveProps(newProps) {
+        console.log("NEWPROPS")
         if (newProps.countyId !== null) {
-            this.getSMresults(newProps);
+            this.getResultsOrCandidates(newProps);
         }
     },
-    getSMresults: function(props) {
+    getResultsOrCandidates: function(props) {
         console.log("GETTING RESULTS")
-        var _this = this;
-        var resultsUrl = "http://localhost:8080/api/county-results/" + props.countyId + "/single-mandate";
-        var candidatesUrl = "http://localhost:8080/api/district/" + props.districtId + "/candidates";
+        let _this = this
+        const resultsUrl = "http://localhost:8080/api/results/county/" + props.countyId + "/single-mandate"
         axios
-            .all([
-                axios.get(resultsUrl),
-                axios.get(candidatesUrl)
-            ])
-            .then(axios.spread(function(results, candidates) {
-                var dictionary = _this.formDictionary(candidates.data);
-                _this.setState({ 
-                    SMresults: results.data,
-                    candidates: candidates.data,
-                    dictionary: dictionary
-                })
-            }))
+            .get(resultsUrl)
+            .then(function(response) {
+                console.log("RESULTS DATA")
+                console.log(response.data)
+                if (response.data) {
+                    _this.setState({ results: response.data })
+                } else {
+                    _this.getCandidates(props)
+                }
+            })
             .catch(function(err) {
                 console.log(err);
             });
     },
+    getCandidates(props) {
+        console.log("GETTING CANDIDATES")
+        let _this = this
+        const candidatesUrl = "http://localhost:8080/api/district/" + props.districtId + "/candidates";
+        axios
+            .get(candidatesUrl)
+            .then(function(response) {
+                _this.setState({ 
+                    candidates: response.data,
+                    dictionary: _this.formDictionary(response.data)
+                })
+            })
+            .catch(function(err) {
+                console.log(err)
+            })
+    },
     prepareCandidates() {
-        var preparedCandidates = [];
-        var candidates = this.state.candidates;
-        var stateDictionary = this.state.dictionary;
-
-        candidates.forEach((c, idx) => {
-            preparedCandidates.push(
-                <CandidateDisplayComponent
-                    key={idx}
-                    candidate={c}
-                    changeVotes={this.handleChangeVotes}
-                    votes={stateDictionary.get(c.id)}
-                />
-            );
-        });
-
-        return preparedCandidates;
-    },
-    prepareCandidatesWithResults: function() {
         console.log("PREPARING CANDIDATES")
-        var preparedCandidates = [];
-        var candidates = this.state.candidates;
-        var candidatesVotesList = this.state.SMresults.unitVotesList;
-        var cVotes = {};
-
-        candidates.forEach((c, idx) => {
-            candidatesVotesList.forEach(cv => {
-                if (cv.candidate.id === c.id) cVotes = cv;
+        var dictionary = this.state.dictionary;
+        let preparedCandidates = 
+            this.state.candidates.map((candidate, idx) => {
+                    return <CandidateDisplayComponent
+                                key={idx}
+                                candidate={candidate}
+                                changeVotes={this.handleChangeVotes}
+                                letes={dictionary.get(candidate.id)}
+                            />
             });
-            preparedCandidates.push(
-                <CandidateWithResultsDisplayComponent
-                    key={idx}
-                    candidate={c}
-                    cVotes={cVotes}
-                />
-            );
-        });
-
         return preparedCandidates;
     },
+    prepareCandidatesWithResults() {
+        console.log("PREPARING RESULTS")
+        return this.state.results.votes.map((vote, idx) => {
+                    return <CandidateWithResultsDisplayComponent
+                                key={idx}
+                                candidate={vote.candidate}
+                                voteCount={vote.voteCount}
+                            />
+                })
+    },
+
     formDictionary: function(candidates) {
         var mapped = new Map();
         candidates.forEach(c => mapped.set(c.id, ""));
         return mapped;
     },
+
     clearForm: function() {
         var newDictionary = new Map();
         var tempDictionary = this.state.dictionary;
@@ -120,6 +120,7 @@ var SM_CountyResultsContainer = React.createClass({
         );
     },
     handleChangeSpoiled: function(e) {
+        e.preventDefault()
         this.setState({ spoiled: e.target.value })
     },
     handleChangeVotes: function(candidate_id, votes) {
@@ -139,15 +140,12 @@ var SM_CountyResultsContainer = React.createClass({
             "singleMandateSystem": true,
             "unitVotes": candidatesVotes
         }
-        axios.post('http://localhost:8080/api/county-results/',
-                    body,
-                    { headers: { 'Content-Type': 'application/json' } }
-              )
+        axios.post('http://localhost:8080/api/results/county/single-mandate', body)
               .then(function(resp) {
                   _this.setState({ springErrors: [],
                                    dictionary: new Map(),
                                    spoiled: undefined,
-                                   SMresults: resp.data });
+                                   results: resp.data });
               })
               .catch(function(err) {
                   console.log(err);
@@ -157,22 +155,22 @@ var SM_CountyResultsContainer = React.createClass({
     },
     render: function() {
         var formOrResults;
-        if (Object.keys(this.state.SMresults).length > 0) {
+        if (this.state.results) {
             console.log("PIRMAS")
             formOrResults = <SM_CountyResultsDisplayComponent
                                 representative={this.prepareRepresentative()}
-                                spoiled={this.state.SMresults.spoiledBallots}
+                                spoiled={this.state.results.spoiledBallots}
                                 candidates={this.prepareCandidatesWithResults()}
                                 createdOn={Helpers.dateTimeFormatWithMessage(
-                                              this.state.SMresults.createdOn,
+                                              this.state.results.createdOn,
                                               "Rezultatai pateikti"
                                           )}
                                 confirmedOn={Helpers.dateTimeFormatWithMessage(
-                                              this.state.SMresults.confirmedOn,
+                                              this.state.results.confirmedOn,
                                               "Rezultatai patvirtinti"
                                           )}
                             />
-        } else if (this.state.candidates.length > 0) {
+        } else if (this.state.candidates) {
             console.log("ANTRAS")
             formOrResults = <SM_CountyResultsComponent
                                 representative={this.prepareRepresentative()}

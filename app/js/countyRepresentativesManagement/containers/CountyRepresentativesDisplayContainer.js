@@ -40,7 +40,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
 
     handleDeleteRepresentative: function (repId, index) {
         var self = this;
-        var deleteUrl = 'http://localhost:8080/api/county-rep/' + repId + "";
+        var deleteUrl = 'http://localhost:8080/api/county-rep/' + repId;
         axios.delete(deleteUrl)
             .then(function(response){
                 var representatives = self.state.representatives;
