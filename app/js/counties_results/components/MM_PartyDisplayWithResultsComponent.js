@@ -1,6 +1,5 @@
 var React = require('react');
-var CandidateWithResultsDisplayComponent = require('./CandidateWithResultsDisplayComponent');
-var Validations = require('../../../utils/Validations');
+var Validations = require('../../utils/Validations');
 
 var MM_PartyDisplayWithResultsComponent = React.createClass({
     render: function() {
@@ -14,7 +13,7 @@ var MM_PartyDisplayWithResultsComponent = React.createClass({
                           {this.props.party.name}
                       </div>
                       <div className="col-md-2" style={{ textAlign: 'right' }}><span>Balsai:</span></div>
-                      <div className="col-md-2">{this.props.pVotes.votes}</div>
+                      <div className="col-md-2">{this.props.voteCount}</div>
                     </div>
                   </div>
                 </div>

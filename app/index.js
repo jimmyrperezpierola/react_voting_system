@@ -17,8 +17,7 @@ var PoliticalUnitsContainer = require('./js/political_units/containers/Political
 var SingleCandidatesContainer = require('./js/single_m_candidates/containers/SingleCandidatesContainer');
 var NoMatch = require('./js/config/NoMatch');
 var CountyRepresentativesDisplayContainer = require('./js/countyRepresentativesManagement/containers/CountyRepresentativesDisplayContainer');
-var SM_CountyResultsContainer = require('./js/counties_results/singlemandate/containers/SM_CountyResultsContainer');
-var MM_CountyResultsContainer = require('./js/counties_results/multimandate/containers/MM_CountyResultsContainer');
+var CountyResultsContainer = require('./js/counties_results/containers/CountyResultsContainer');
 var AdminResultsViewContainer = require('./js/admin_results_view/containers/AdminResultsViewContainer');
 var SearchCandidatesListContainer = require('./js/search/SearchCandidatesListContainer');
 var Tester = require('./js/config/Tester');
@@ -38,8 +37,8 @@ ReactDOM.render((
             <IndexRoute component={RepresentativeProfileComponent}/>
             <Route path="profilis" component={RepresentativeProfileComponent}/>
             <Route path="rezultatai">
-                <Route path="vienmandaciai" component={SM_CountyResultsContainer}/>
-                <Route path="daugiamandaciai" component={MM_CountyResultsContainer}/>
+                <Route path="vienmandaciai" component={CountyResultsContainer}/>
+                <Route path="daugiamandaciai" component={CountyResultsContainer}/>
             </Route>
             
         </Route>

@@ -1,13 +1,15 @@
 var React = require('react');
+var RepresentativeCardComponent = require('./RepresentativeCardComponent');
 
-var MM_CountyResultsDisplayComponent = React.createClass({
+var ResultsDisplayComponent = React.createClass({
     render: function() {
+        console.log("RESULTS DISPLAY COMPONENT")
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 units-list-area">
                         <div className="list-group-item active">
-                            <span>Apylinkės partijų rezultatai (DAUGIAMANDAČIAI)</span>
+                            <span>{this.props.header}</span>
                         </div>
                         <div className="list-group-item">
                             <p className="county-results">
@@ -15,12 +17,12 @@ var MM_CountyResultsDisplayComponent = React.createClass({
                             </p>
                         </div>
                         <div className="list-group-item" style={{ height: 'auto' }}>
-                            {this.props.parties}
+                            {this.props.results}
                         </div>
                     </div>
                     <div className="col-md-4 units-create-area">
                         <div className="col-md-11">
-                            {this.props.representative}
+                            <RepresentativeCardComponent representative={this.props.representative} />
                             {this.props.createdOn}
                             {this.props.confirmedOn}
                         </div>
@@ -31,4 +33,4 @@ var MM_CountyResultsDisplayComponent = React.createClass({
     }
 });
 
-module.exports = MM_CountyResultsDisplayComponent;
+module.exports = ResultsDisplayComponent;
