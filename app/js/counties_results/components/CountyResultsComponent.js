@@ -1,20 +1,20 @@
 var React = require('react');
-var MM_ResultsFormComponent = require('./MM_ResultsFormComponent');
-var Validations = require('../../../utils/Validations');
+var ResultsFormComponent = require('./ResultsFormComponent');
+var RepresentativeCardComponent = require('./RepresentativeCardComponent');
+var Validations = require('../../utils/Validations');
 
-var MM_CountyResultsComponent = React.createClass({
+var CountyResultsComponent = React.createClass({
     getInitialState: function() {
         return ({ jsErrors: [] });
     },
     submitResults: function(e) {
         e.preventDefault();
-        var errors = Validations.checkErrorsMMform(this.props.dictionary,
-                                                   this.props.spoiled);
+        var errors = Validations.checkErrorsResultForm(this.props.dictionary, this.props.spoiled);
         if (errors.length > 0) {
             this.setState({ jsErrors: errors });
         } else {
             this.setState({ jsErrors: [] });
-            this.props.submitMMresults();
+            this.props.submitResults();
         }
     },
     clearForm: function() {
@@ -35,15 +35,16 @@ var MM_CountyResultsComponent = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 units-list-area">
-                        <MM_ResultsFormComponent
+                        <ResultsFormComponent
+                            header={this.props.header}
                             spoiled={this.props.spoiled}
                             changeSpoiled={this.props.changeSpoiled}
-                            parties={this.props.parties}
+                            votees={this.props.votees}
                         />
                     </div>
                     <div className="col-md-4 units-create-area">
                         <div className="col-md-11">
-                            {this.props.representative}
+                            <RepresentativeCardComponent representative={this.props.representative} />
                             <div style={{ marginTop: 30 }}>
                                 <button className="btn btn-default btn-md county-results-form-btns" onClick={this.submitResults}>
                                     SIŲSTI REZULTATUS
@@ -52,8 +53,8 @@ var MM_CountyResultsComponent = React.createClass({
                                     IŠVALYTI FORMĄ
                                 </button>
                             </div>
-                                {jsErrors}
-                                {springErrors}
+                            {jsErrors}
+                            {springErrors}
                         </div>
                     </div>
                 </div>
@@ -62,4 +63,4 @@ var MM_CountyResultsComponent = React.createClass({
     }
 });
 
-module.exports = MM_CountyResultsComponent;
+module.exports = CountyResultsComponent;
