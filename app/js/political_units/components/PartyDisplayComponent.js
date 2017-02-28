@@ -5,14 +5,14 @@ function PartyDisplayComponent(props) {
         <div className="unit">
             <div className="list-group-item list-group-item-success">
                 <div onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
-                    {props.username}
+                    {props.name}
                 </div>
             </div>
             <div style={ props.display }>
                 <div className="list-group-item">
                     {props.actions}
                     <b style={props.displayLoadingIcon}>Prašome palaukti&nbsp;</b>
-                    <img style={props.displayLoadingIcon} src="app/imgs/axios-loader.gif" alt=""/>
+                    <img style={props.displayLoadingIcon} src="app/imgs/axios-loader.gif" alt="working-hard"/>
                     {props.confirmDeleteParty}
                 </div>
                 {props.candidates}
