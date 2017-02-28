@@ -8,8 +8,7 @@ var SM_CountyResultsComponent = React.createClass({
     },
     submitResults: function(e) {
         e.preventDefault();
-        var errors = Validations.checkErrorsSMform(this.props.dictionary,
-                                               this.props.spoiled);
+        var errors = Validations.checkErrorsSMform(this.props.dictionary, this.props.spoiled);
         if (errors.length > 0) {
             this.setState({ jsErrors: errors });
         } else {
@@ -25,7 +24,7 @@ var SM_CountyResultsComponent = React.createClass({
         return Validations.prepareJSerrors(this.state.jsErrors, "Klaida rezultatuose", {marginTop: 15});
     },
     prepareSpringErrors: function() {
-        return Validations.prepareSpringErrors(this.props.springErrors, {"marginTop": 10});
+        return Validations.prepareSpringErrors(this.props.springErrors, {marginTop: 10});
     },
     render: function() {
         var jsErrors = (this.state.jsErrors.length > 0) ? this.prepareJSerrors() : [];

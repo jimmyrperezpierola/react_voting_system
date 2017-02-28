@@ -8,8 +8,7 @@ var MM_CountyResultsComponent = React.createClass({
     },
     submitResults: function(e) {
         e.preventDefault();
-        var errors = Validations.checkErrorsMMform(this.props.dictionary,
-                                                   this.props.spoiled);
+        var errors = Validations.checkErrorsMMform(this.props.dictionary, this.props.spoiled);
         if (errors.length > 0) {
             this.setState({ jsErrors: errors });
         } else {
@@ -52,8 +51,8 @@ var MM_CountyResultsComponent = React.createClass({
                                     IŠVALYTI FORMĄ
                                 </button>
                             </div>
-                                {jsErrors}
-                                {springErrors}
+                            {jsErrors}
+                            {springErrors}
                         </div>
                     </div>
                 </div>
