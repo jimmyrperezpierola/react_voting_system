@@ -76,9 +76,9 @@ var CountyRepresentativesDisplayContainer = React.createClass({
     getCountyId: function (districtName, countyName) {
         var CountyId;
         this.state.districts.map(function(district, index){
-            if(district.name == districtName){
+            if(district.username == districtName){
                 district.counties.map(function (county, index) {
-                    if(county.name == countyName) CountyId = county.id;
+                    if(county.username == countyName) CountyId = county.id;
                 });
             }
         });

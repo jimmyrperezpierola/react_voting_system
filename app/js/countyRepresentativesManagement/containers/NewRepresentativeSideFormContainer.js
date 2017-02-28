@@ -14,10 +14,10 @@ var NewRepresentativeSideFormContainer = React.createClass ({
         self = this;
         var DistrictsInformation = this.props.districtsData;
         DistrictsInformation.map(function(district, index) {
-            var currentDistrictName = district.name;
+            var currentDistrictName = district.username;
             var isDistrictRequiredInDistrictList = false;
             district.counties.map(function (county, index){
-                var currentCountyName = county.name;
+                var currentCountyName = county.username;
                 var uniqueCombinationOfDistrictAndCounty = currentDistrictName.concat(currentCountyName);
                 if (!self.props.uniqueDistrictAndCountyNameCombinationArray.includes(uniqueCombinationOfDistrictAndCounty)){
                     isDistrictRequiredInDistrictList = true;

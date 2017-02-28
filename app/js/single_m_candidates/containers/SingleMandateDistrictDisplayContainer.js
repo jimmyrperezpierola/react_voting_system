@@ -83,7 +83,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
         return (
             <SingleMandateDistrictDisplayComponent
                 toggleShow={this.toggleShowCandidates}
-                name={this.state.district.name}
+                name={this.state.district.username}
                 candidates={this.prepareCandidates()}
                 actions={this.determineActions()}
                 display={this.determineDisplay()}

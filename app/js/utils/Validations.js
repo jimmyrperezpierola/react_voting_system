@@ -21,7 +21,7 @@ var Validations = {
         if (file == undefined) {
             errors.push(Errors.noFileError);
         } else {
-            var extension = file.name.split(".").pop().toLowerCase();
+            var extension = file.username.split(".").pop().toLowerCase();
             if (extension.localeCompare("csv") != 0) errors.push(Errors.csvOnly);
         }
 
@@ -165,7 +165,7 @@ var Validations = {
       if (file == undefined) {
           errors.push(Errors.noFileError);
       } else {
-          var extension = file.name.split(".").pop().toLowerCase();
+          var extension = file.username.split(".").pop().toLowerCase();
           if (extension.localeCompare("csv") != 0) errors.push(Errors.csvOnly);
       }
 

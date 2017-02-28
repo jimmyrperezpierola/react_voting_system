@@ -14,7 +14,7 @@ var MM_PartyComponent = React.createClass({
                       <div style={{height: "20px"}}>
                         <div className="col-md-8">
                             <img src="app/imgs/political_party.png" style={{ width: 20, height: 20 }}/> &nbsp;
-                            {this.props.party.name}
+                            {this.props.party.username}
                         </div>
                         <div className="col-md-2" style={{ textAlign: 'right' }}><span>Balsai:</span></div>
                         <div className="col-md-2 candidate-votes-input">

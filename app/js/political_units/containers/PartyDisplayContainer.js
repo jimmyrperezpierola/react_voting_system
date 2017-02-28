@@ -113,7 +113,7 @@ var PartyDisplayContainer = React.createClass({
             <PartyDisplayComponent
                 toggleShow={this.toggleShowCandidates}
                 delete={this.deleteParty}
-                name={this.state.party.name}
+                name={this.state.party.username}
                 candidates={this.prepareCandidates()}
                 springErrors={this.state.springErrors}
                 displayLoadingIcon={this.state.displayLoadingIcon}
