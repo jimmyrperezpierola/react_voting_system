@@ -3,9 +3,7 @@ var axios = require('axios');
 var CountyResultsComponent = require('../components/CountyResultsComponent');
 var ResultsDisplayComponent = require('../components/ResultsDisplayComponent');
 var CandidateDisplayComponent = require('../components/CandidateDisplayComponent');
-var CandidateWithResultsDisplayComponent = require('../components/CandidateWithResultsDisplayComponent');
 var MM_PartyComponent = require('../components/MM_PartyComponent')
-var MM_PartyDisplayWithResultsComponent = require('../components/MM_PartyDisplayWithResultsComponent')
 var Validations = require('../../utils/Validations');
 var Helpers = require('../../utils/Helpers');
 
@@ -41,7 +39,7 @@ var CountyResultsContainer = React.createClass({
         }
     },
     getResultsOrVotees: function(props) {
-        console.log("GETTING RESULTS")
+        // console.log("GETTING RESULTS")
         let _this = this
         let resultsUrl = "http://localhost:8080/api/results/county/" + props.countyId + "/" + this.resultType
         axios
@@ -61,8 +59,8 @@ var CountyResultsContainer = React.createClass({
             });
     },
     getVotees(url) {
-        console.log("GETTING VOTEES")
-        console.log(url)
+        // console.log("GETTING VOTEES")
+        // console.log(url)
         let _this = this
         axios
             .get(url)
@@ -77,14 +75,13 @@ var CountyResultsContainer = React.createClass({
             })
     },
     prepareVotees() {
-        console.log("PREPARING VOTEES")
         let votees = this.resultType === 'single-mandate' ?
                      this.prepareCandidates() :
                      this.prepareParties();
         return votees
     },
     prepareCandidates() {
-        console.log("CANDINDAT")
+        // console.log("PREPARING CANDIDATES")
         let candidates = this.state.votees.map((votee, idx) => {
                             return <CandidateDisplayComponent
                                         key={idx}
@@ -96,7 +93,7 @@ var CountyResultsContainer = React.createClass({
         return candidates
     },
     prepareParties() {
-        console.log("PARTIES")
+        // console.log("PREPARING PARTIES")
         let parties = this.state.votees.map((votee, idx) => {
                         return <MM_PartyComponent
                                     key={idx}
@@ -106,32 +103,6 @@ var CountyResultsContainer = React.createClass({
                                 />
                     });
         return parties
-    },
-    prepareResults() {
-        let results = this.resultType === 'single-mandate' ?
-                     this.prepareSMResults() :
-                     this.prepareMMResults()
-        return results
-    },
-    prepareSMResults() {
-        console.log("PREPARING MM RESULTS")
-        return this.state.results.votes.map((vote, idx) => {
-                    return <CandidateWithResultsDisplayComponent
-                                key={idx}
-                                candidate={vote.candidate}
-                                voteCount={vote.voteCount}
-                            />
-                })
-    },
-    prepareMMResults() {
-        console.log("PREPARING MM RESULTS")
-        return this.state.results.votes.map((vote, idx) => {
-                    return <MM_PartyDisplayWithResultsComponent
-                                key={idx}
-                                party={vote.party}
-                                voteCount={vote.voteCount}
-                            />
-                })
     },
     formDictionary: function(votees) {
         var mapped = new Map();
@@ -186,12 +157,11 @@ var CountyResultsContainer = React.createClass({
     render: function() {
         var formOrResults;
         if (this.state.results) {
-            console.log("RENDER RESULTS")
+            // console.log("RENDER RESULTS")
             formOrResults = <ResultsDisplayComponent
                                 header={this.header}
                                 representative={this.props.representative}
-                                spoiled={this.state.results.spoiledBallots}
-                                results={this.prepareResults()}
+                                results={this.state.results}
                                 createdOn={Helpers.dateTimeFormatWithMessage(
                                               this.state.results.createdOn,
                                               "Rezultatai pateikti"
@@ -202,7 +172,7 @@ var CountyResultsContainer = React.createClass({
                                           )}
                             />
         } else if (this.state.votees) {
-            console.log("RENDER CANDIDATES")
+            // console.log("RENDER RESULT FORM")
             formOrResults = <CountyResultsComponent
                                 header={this.header}
                                 representative={this.props.representative}
@@ -216,7 +186,7 @@ var CountyResultsContainer = React.createClass({
                                 clearForm={this.clearForm}
                             />
         } else {
-            console.log("RENDER EMPTY")
+            // console.log("RENDER EMPTY")
             return <div></div>
         }
         return formOrResults;

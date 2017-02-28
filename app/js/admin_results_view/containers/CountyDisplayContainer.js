@@ -2,7 +2,7 @@ var React = require('react');
 var axios = require('axios');
 var CountyDisplayComponent = require('../components/CountyDisplayComponent');
 var AdminViewCandidateComponent = require('../components/tiny_components/AdminViewCandidateComponent');
-var MM_PartyDisplayWithResultsComponent = require('../../counties_results/components/MM_PartyDisplayWithResultsComponent');
+// var MM_PartyDisplayWithResultsComponent = require('../../counties_results/components/MM_PartyDisplayWithResultsComponent');
 
 var CountyDisplayContainer = React.createClass({
     getInitialState: function() {

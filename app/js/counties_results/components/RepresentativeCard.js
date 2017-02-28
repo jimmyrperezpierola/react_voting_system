@@ -1,6 +1,6 @@
 var React = require('react');
 
-var RepresentativeCardComponent = React.createClass({
+var RepresentativeCard = React.createClass({
     propTypes: {
         representative: React.PropTypes.object.isRequired
     }, 
@@ -21,4 +21,4 @@ var RepresentativeCardComponent = React.createClass({
     }
 });
 
-module.exports = RepresentativeCardComponent;
+module.exports = RepresentativeCard;
