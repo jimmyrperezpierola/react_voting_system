@@ -26,7 +26,6 @@ var PartyDisplayContainer = React.createClass({
                       <CandidateCardComponent
                           key={index}
                           candidate={c}
-                          openModal={this.props.openModal}
                       />
                 );
             });
