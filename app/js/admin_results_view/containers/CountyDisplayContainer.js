@@ -116,6 +116,7 @@ var CountyDisplayContainer = React.createClass({
         } else {
             deleteBtn = undefined
         }
+
         return deleteBtn;
     },
     confirmResults: function(resultId) {
@@ -172,7 +173,7 @@ var CountyDisplayContainer = React.createClass({
                 results={this.prepareResults()}
                 smDisplay={this.state.smDisplay}
                 confirmBtn={this.determineConfirmButton()}
-                deleteBtn={determineDeleteButton}
+                deleteBtn={this.determineDeleteButton()}
                 allConfirmedBtn={this.determineAllConfirmedButton()}
             />
         );
