@@ -10,7 +10,7 @@ var MM_PartyDisplayWithResultsComponent = React.createClass({
                     <div style={{height: "20px"}}>
                       <div className="col-md-8">
                           <img src="app/imgs/political_party.png" style={{ width: 20, height: 20 }}/> &nbsp;
-                          {this.props.party.username}
+                          {this.props.party.name}
                       </div>
                       <div className="col-md-2" style={{ textAlign: 'right' }}><span>Balsai:</span></div>
                       <div className="col-md-2">{this.props.voteCount}</div>
