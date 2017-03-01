@@ -50,6 +50,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
     toggleShowCandidates: function() {
         this.setState({ showCandidates: !this.state.showCandidates });
     },
+    emptyFunction: function () {},
     determineActions: function() {
         var actions;
         if (this.state.district.candidates.length > 0) {
@@ -70,6 +71,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
                           upload={this.uploadCandidates}
                           associationId={this.state.district.id}
                           springErrors={this.state.springErrors}
+                          openModal={this.emptyFunction}
                       />
         }
         return actions;
