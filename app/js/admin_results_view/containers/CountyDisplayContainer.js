@@ -3,6 +3,7 @@ var axios = require('axios');
 var CountyDisplayComponent = require('../components/CountyDisplayComponent');
 var AdminViewCandidateComponent = require('../components/tiny_components/AdminViewCandidateComponent');
 // var MM_PartyDisplayWithResultsComponent = require('../../counties_results/components/MM_PartyDisplayWithResultsComponent');
+var spring = require('../../config/SpringConfig');
 
 var CountyDisplayContainer = React.createClass({
     getInitialState: function() {
@@ -132,7 +133,7 @@ var CountyDisplayContainer = React.createClass({
         params.append('countyId', this.state.county.id);
         params.append('isSingleMandate', singleMandate);
 
-        axios.post('http://localhost:8080/api/county-results/confirm', params)
+        axios.post(spring.localHost.concat('/api/county-results/confirm'), params)
             .then(function(resp) {
                 var stateVar = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
                 _this.setState({ county: resp.data, [stateVar]: true });
@@ -146,7 +147,7 @@ var CountyDisplayContainer = React.createClass({
 
         axios({
             method: 'delete',
-            url: 'http://localhost:8080/api/county-results/county/',
+            url: spring.localHost.concat('/api/county-results/county/'),
             params: {
               countyId: this.state.county.id,
               isSingleMandate: singleMandate

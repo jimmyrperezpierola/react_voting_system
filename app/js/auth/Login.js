@@ -1,6 +1,7 @@
 const React = require('react');
 const axios = require('axios');
 const LoginComponent = require('./LoginComponent');
+var spring = require('../config/SpringConfig');
 
 const Login = React.createClass({
     contextTypes: {
@@ -16,7 +17,11 @@ const Login = React.createClass({
             "username": this.state.username,
             "password": this.state.password
         };
-        axios.post('http://localhost:8080/api/auth/login', loginData, { headers: { 'Content-Type': 'application/json' } })
+        axios.post(
+                spring.localHost.concat('/api/auth/login'),
+                loginData,
+                { headers: { 'Content-Type': 'application/json' } }
+            )
             .then(resp => {
                 console.log(resp.data);
             })
