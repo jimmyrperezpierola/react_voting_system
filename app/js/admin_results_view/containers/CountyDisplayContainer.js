@@ -4,6 +4,7 @@ var CountyDisplayComponent = require('../components/CountyDisplayComponent');
 var AdminViewCandidateComponent = require('../components/tiny_components/AdminViewCandidateComponent');
 var ConfirmButton = require('../components/tiny_components/ConfirmButton');
 var VoteListRow = require('../../counties_results/components/VoteListRow');
+var spring = require('../../config/SpringConfig');
 
 var CountyDisplayContainer = React.createClass({
     getInitialState: function() {
@@ -127,7 +128,7 @@ var CountyDisplayContainer = React.createClass({
         var params = new URLSearchParams();
         params.append('resultId', resultId);
 
-        axios.post('http://localhost:8080/api/results/confirm', params)
+        axios.post(spring.localHost.concat('/api/results/confirm'), params)
             .then(function(resp) {
                 result['confirmed'] = true
                 _this.setState({ [resultType]: result });
@@ -141,7 +142,7 @@ var CountyDisplayContainer = React.createClass({
         var _this = this;
 
         axios
-            .delete('http://localhost:8080/api/results/' + resultId)
+            .delete(spring.localHost.concat('http://localhost:8080/api/results/' + resultId))
             .then(function(resp) {
                 _this.setState({ 
                     [resultType] : undefined,
