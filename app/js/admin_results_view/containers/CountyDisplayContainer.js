@@ -142,7 +142,7 @@ var CountyDisplayContainer = React.createClass({
         var _this = this;
 
         axios
-            .delete(spring.localHost.concat('http://localhost:8080/api/results/' + resultId))
+            .delete(spring.localHost.concat('/api/results/' + resultId))
             .then(function(resp) {
                 _this.setState({ 
                     [resultType] : undefined,
