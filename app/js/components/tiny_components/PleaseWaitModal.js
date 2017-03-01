@@ -85,7 +85,7 @@ var PleaseWaitModal = React.createClass ({
                 >
                 <div>
                     <div ref="subtitle">Prašome palaukti. Sunkiai dirbame...</div>
-                    <img src="app/imgs/idomu.jpg" alt="idomu"/>
+
                 </div>
                 </Modal>
             </div>
