@@ -27,6 +27,7 @@ var PoliticalUnitsContainer = React.createClass({
 
                 <PleaseWaitModal
                     key={idx}
+                    raktas={idx}
                     index={idx}
                     party={p}
                     delete={this.deleteParty}

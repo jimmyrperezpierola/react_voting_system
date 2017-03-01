@@ -96,7 +96,7 @@ var PartyDisplayContainer = React.createClass({
             <ConfirmAction
                 title="Ar tikrai norite pašalinti partiją?"
                 body="Duomenų atstatymas neįmanomas."
-                onConfirm={this.deleteParty.bind(this, this.props.index, this.state.party.id)}
+                onConfirm={this.deleteParty.bind(this, this.props.raktas, this.state.party.id)}
             >
                 <p className="remove-units-element confirmation-buttons">
                     <span className="glyphicon glyphicon-remove-sign">
