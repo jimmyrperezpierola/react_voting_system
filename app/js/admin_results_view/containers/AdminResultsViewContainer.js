@@ -47,7 +47,6 @@ var AdminResultsViewContainer = React.createClass({
 			if (this.state.activeCountyId != 0) {
 				counties.forEach((c, idx) => {
 					if (this.state.activeCountyId == c.id) {
-						console.log("X")
 						preparedCounties.push(
 							<CountyDisplayContainer
 								key={idx}
@@ -60,7 +59,6 @@ var AdminResultsViewContainer = React.createClass({
 				});
 			} else {
 				counties.forEach((c, idx) => {
-					console.log("Y")
 					if (this.state.activeDistrictId == c.districtId) {
 						preparedCounties.push(
 							<CountyDisplayContainer
@@ -75,13 +73,12 @@ var AdminResultsViewContainer = React.createClass({
 			}
 		} else {
 			counties.forEach((c, idx) => {
-				console.log("Z")
 				preparedCounties.push(
 					<CountyDisplayContainer
 						key={idx}
 						index={idx}
 						county={c}
-						parties={this.state.parties}
+						// parties={this.state.parties}
 					/>
 				);
 			});
