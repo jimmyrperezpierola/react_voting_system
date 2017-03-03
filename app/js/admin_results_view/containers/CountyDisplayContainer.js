@@ -8,18 +8,19 @@ var spring = require('../../config/SpringConfig');
 
 var CountyDisplayContainer = React.createClass({
     getInitialState: function() {
+        console.log(this.props);
         return ({
             showResults: false,
             smDisplay: undefined,
-            county: this.props.county,
-            smResult: this.props.county.smResult,
-            mmResult: this.props.county.mmResult,
+            county: this.props.unit,
+            smResult: this.props.unit.smResult,
+            mmResult: this.props.unit.mmResult,
             actveResultId: undefined
         });
     },
     componentWillReceiveProps: function(newProps) {
-        if (newProps.county != this.state.county) {
-            this.setState({ county: newProps.county });
+        if (newProps.unit != this.state.county) {
+            this.setState({ county: newProps.unit });
         }
     },
     toggleShowResults: function() {

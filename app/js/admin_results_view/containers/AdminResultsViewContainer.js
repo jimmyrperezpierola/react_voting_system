@@ -64,7 +64,7 @@ var AdminResultsViewContainer = React.createClass({
 				<CountyDisplayContainer
 					key={idx}
 					index={idx}
-					county={c}
+					unit={c}
 				/>
 			)
 		})

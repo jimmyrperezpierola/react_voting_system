@@ -5,7 +5,7 @@ var ResultsDisplayComponent = require('../components/ResultsDisplayComponent');
 var CandidateDisplayComponent = require('../components/CandidateDisplayComponent');
 var MM_PartyComponent = require('../components/MM_PartyComponent')
 var Validations = require('../../utils/Validations');
-var Helpers = require('../../utils/Helpers');
+var Helpers = require('../../utils/Helper');
 var spring = require('../../config/SpringConfig');
 
 var CountyResultsContainer = React.createClass({
