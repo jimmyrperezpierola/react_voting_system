@@ -98,6 +98,10 @@ adminPanelButton:hover{
     margin-bottom: 0;
 }
 
+.form-group.login {
+    text-align: center;
+}
+
 .inline-add-county-form .form-group:last-child {
     position: relative;
     width: 25%;
@@ -324,6 +328,15 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     display: table-cell;
 }
 
+/* sort buttons */
+
+.no-background {
+    background-color: Transparent;
+    color: #006B96;
+    float: right;
+    margin-right: 20px;
+}
+
 /* OSVALDO */
 
 .firstDivAfterHeader{
@@ -447,8 +460,6 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
 {
     display: table-cell;
 }
-
-
 
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400');

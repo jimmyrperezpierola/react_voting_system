@@ -3,21 +3,23 @@ var axios = require('axios');
 var CountyDisplayComponent = require('../components/CountyDisplayComponent');
 var AdminViewCandidateComponent = require('../components/tiny_components/AdminViewCandidateComponent');
 // var MM_PartyDisplayWithResultsComponent = require('../../counties_results/components/MM_PartyDisplayWithResultsComponent');
+var spring = require('../../config/SpringConfig');
 
 var CountyDisplayContainer = React.createClass({
     getInitialState: function() {
+        console.log(this.props);
         return ({
             showResults: false,
             smDisplay: undefined,
             parties: this.props.parties,
-            county: this.props.county,
+            county: this.props.unit,
             smResultsConfirmed: false,
             mmResultsConfirmed: false
         });
     },
     componentWillReceiveProps: function(newProps) {
-        if (newProps.county != this.state.county || newProps.parties != this.state.parties) {
-            this.setState({ county: newProps.county, parties: newProps.parties });
+        if (newProps.unit != this.state.county || newProps.parties != this.state.parties) {
+            this.setState({ county: newProps.unit, parties: newProps.parties });
         }
     },
     /*componentDidMount: function() {
@@ -132,7 +134,7 @@ var CountyDisplayContainer = React.createClass({
         params.append('countyId', this.state.county.id);
         params.append('isSingleMandate', singleMandate);
 
-        axios.post('http://localhost:8080/api/county-results/confirm', params)
+        axios.post(spring.localHost.concat('/api/county-results/confirm'), params)
             .then(function(resp) {
                 var stateVar = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
                 _this.setState({ county: resp.data, [stateVar]: true });
@@ -146,7 +148,7 @@ var CountyDisplayContainer = React.createClass({
 
         axios({
             method: 'delete',
-            url: 'http://localhost:8080/api/county-results/county/',
+            url: spring.localHost.concat('/api/county-results/county/'),
             params: {
               countyId: this.state.county.id,
               isSingleMandate: singleMandate

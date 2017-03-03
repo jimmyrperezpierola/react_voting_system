@@ -2,6 +2,7 @@ var React = require('react');
 var axios = require('axios');
 var AdminResultsViewComponent = require('../components/AdminResultsViewComponent');
 var CountyDisplayContainer = require('./CountyDisplayContainer');
+var spring = require('../../config/SpringConfig');
 
 var AdminResultsViewContainer = React.createClass({
 	getInitialState: function() {
@@ -16,8 +17,8 @@ var AdminResultsViewContainer = React.createClass({
 
 		axios
 			.all([
-				axios.get('http://localhost:8080/api/district'),
-				axios.get('http://localhost:8080/api/party')
+				axios.get(spring.localHost.concat('/api/district')),
+				axios.get(spring.localHost.concat('/api/party'))
 			])
 			.then(axios.spread(function(districts, parties) {
 				var counties = [];
@@ -58,7 +59,7 @@ var AdminResultsViewContainer = React.createClass({
 							<CountyDisplayContainer
 								key={idx}
 								index={idx}
-								county={c}
+								unit={c}
 								parties={this.state.parties}
 							/>
 						);
@@ -72,7 +73,7 @@ var AdminResultsViewContainer = React.createClass({
 							<CountyDisplayContainer
 								key={idx}
 								index={idx}
-								county={c}
+								unit={c}
 								parties={this.state.parties}
 							/>
 						);
@@ -86,7 +87,7 @@ var AdminResultsViewContainer = React.createClass({
 					<CountyDisplayContainer
 						key={idx}
 						index={idx}
-						county={c}
+						unit={c}
 						parties={this.state.parties}
 					/>
 				);
