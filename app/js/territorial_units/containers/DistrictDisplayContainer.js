@@ -82,7 +82,7 @@ var DistrictDisplayContainer = React.createClass({
         var _this = this;
         var counties = this.state.counties;
 
-        axios.delete(spring.localHost.concat('/api/district/county/') + counties[index].id)
+        axios.delete(spring.localHost.concat('/api/county/') + counties[index].id)
 		    .then(function(resp) {
 		        counties.splice(index, 1);
 		        _this.setState({ counties: counties });
@@ -95,10 +95,10 @@ var DistrictDisplayContainer = React.createClass({
         this.setState({ showInlineForm: !this.state.showInlineForm });
     },
     handleNameChange: function(e) {
-        this.setState({ countyName: e.target.value })
+        this.setState({ countyName: e.target.value });
     },
     handleVoterCount: function(e) {
-        this.setState({ voterCount: e.target.value })
+        this.setState({ voterCount: e.target.value });
     },
     handleAddressChange: function(value) {
         this.setState({ countyAddress: value});
