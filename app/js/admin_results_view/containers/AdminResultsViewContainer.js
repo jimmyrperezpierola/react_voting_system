@@ -59,7 +59,7 @@ var AdminResultsViewContainer = React.createClass({
 							<CountyDisplayContainer
 								key={idx}
 								index={idx}
-								county={c}
+								unit={c}
 								parties={this.state.parties}
 							/>
 						);
@@ -73,7 +73,7 @@ var AdminResultsViewContainer = React.createClass({
 							<CountyDisplayContainer
 								key={idx}
 								index={idx}
-								county={c}
+								unit={c}
 								parties={this.state.parties}
 							/>
 						);
@@ -87,7 +87,7 @@ var AdminResultsViewContainer = React.createClass({
 					<CountyDisplayContainer
 						key={idx}
 						index={idx}
-						county={c}
+						unit={c}
 						parties={this.state.parties}
 					/>
 				);
