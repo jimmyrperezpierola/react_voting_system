@@ -62,7 +62,7 @@ var AdminResultsViewContainer = React.createClass({
 		var preparedCounties = counties.map((c, idx) => {
 			return (
 				<CountyDisplayContainer
-					key={idx}
+					key={c.district.id + "." + c.id}
 					index={idx}
 					unit={c}
 				/>
@@ -78,7 +78,7 @@ var AdminResultsViewContainer = React.createClass({
 			districtOptions.push(
 				<option 
 					value={k} 
-					key={k}
+					key={k + "-" + v.name}
 				> 
 					{k} 
 				</option>
@@ -104,11 +104,11 @@ var AdminResultsViewContainer = React.createClass({
 
 		if (activeDistrict == 0) return undefined;
 
-		dict.get(activeDistrict).forEach((c, idx) => {
+		dict.get(activeDistrict).forEach(c => {
 			countyOptions.push(
 				<option
 					value={c.name}
-					key={idx}
+					key={activeDistrict + '-' + c.name}
 				>
 					{c.name}
 				</option>

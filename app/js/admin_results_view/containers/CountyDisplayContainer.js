@@ -8,7 +8,6 @@ var spring = require('../../config/SpringConfig');
 
 var CountyDisplayContainer = React.createClass({
     getInitialState: function() {
-        console.log(this.props);
         return ({
             showResults: false,
             smDisplay: undefined,
