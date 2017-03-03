@@ -21,12 +21,7 @@ var CountyResultsContainer = React.createClass({
         });
     },
     componentWillMount() {
-        this.resultType = this.props.location.pathname.includes('vienmandaciai') ?
-                            'single-mandate' : 'multi-mandate';
-        this.resultPostUrl =  spring.localHost.concat('/api/results/county/') + this.resultType;
-        this.header = this.resultType === 'single-mandate' ?
-                        "Apylinkės kandidatų rezultatai (VIENMANDAČIAI)" :
-                        "Partijų sąrašas (DAUGIAMANDAČIAI)"
+        this.determineResultType(this.props.location.pathname);
     },
     componentDidMount: function() {
         if (this.props.county) {
@@ -34,14 +29,23 @@ var CountyResultsContainer = React.createClass({
         }
 
         // refactor when login will be implemented
-        
+
     },
     componentWillReceiveProps(newProps) {
+        if (this.props.location.pathname != newProps.location.pathname) {
+            this.determineResultType(newProps.location.pathname)
+        }
         if (newProps.county) {
             this.getResultsOrVotees(newProps);
         }
     },
+    determineResultType(pathname) {
+        this.resultType = pathname.includes('vienmandaciai') ?
+                          'single-mandate' : 
+                          'multi-mandate';
+    },
     getResultsOrVotees: function(props) {
+
         let _this = this
         let resultsUrl = spring.localHost.concat("/api/results/county/") + props.county.id + "/" + this.resultType;
         axios
@@ -66,8 +70,9 @@ var CountyResultsContainer = React.createClass({
             .get(url)
             .then(function(response) {
                 _this.setState({ 
+                    results: undefined,
                     votees: response.data,
-                    dictionary: _this.formDictionary(response.data)
+                    dictionary: _this.formDictionary(response.data),
                 })
             })
             .catch(function(err) {
@@ -137,7 +142,8 @@ var CountyResultsContainer = React.createClass({
             "countyId": this.props.county.id,
             "unitVotes": voteList
         }
-        axios.post(this.resultPostUrl, body)
+        var resultPostUrl =  spring.localHost.concat('/api/results/county/') + this.resultType;
+        axios.post(resultPostUrl, body)
             .then(function(resp) {
                 _this.setState({ 
                     springErrors: [],
@@ -153,10 +159,15 @@ var CountyResultsContainer = React.createClass({
             });
     },
     render: function() {
+        var header = this.resultType === 'single-mandate' ?
+                    "Apylinkės kandidatų rezultatai (VIENMANDAČIAI)" :
+                    "Partijų sąrašas (DAUGIAMANDAČIAI)"
+
         var formOrResults;
+
         if (this.state.results) {
             formOrResults = <ResultsDisplayComponent
-                                header={this.header}
+                                header={header}
                                 representative={this.props.representative}
                                 results={this.state.results}
                                 createdOn={Helpers.dateTimeFormatWithMessage(
@@ -170,7 +181,7 @@ var CountyResultsContainer = React.createClass({
                             />
         } else if (this.state.votees) {
             formOrResults = <CountyResultsComponent
-                                header={this.header}
+                                header={header}
                                 representative={this.props.representative}
                                 votees={this.prepareVotees()}
                                 spoiled={this.state.spoiled}
