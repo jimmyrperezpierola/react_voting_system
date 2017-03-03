@@ -17,7 +17,7 @@ function DistrictDisplayComponent(props) {
                         <p className="remove-units-element">
                             <span className="glyphicon glyphicon-remove-sign">
                             </span> &nbsp;
-                            <span>Šalinti apygardą</span>
+                            <span id="remove-county-button">Šalinti apygardą</span>
                         </p>
                     </ConfirmAction>
                 </div>
@@ -28,11 +28,11 @@ function DistrictDisplayComponent(props) {
 
     return (
 	     <div className="unit">
-            <div className="list-group-item active" id="unit-header"
+            <div className="list-group-item active" id={"district-" + props.name}
                 onClick={props.toggleCountiesList}
                 style={{ cursor: 'pointer' }}
             >
-                <div className="unit-name-area">{props.name}</div>
+                <div className="unit-name-area-">{props.name}</div>
             </div>
             {actions}
             {props.counties}

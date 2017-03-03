@@ -19,13 +19,13 @@ function CountyDisplayComponent(props) {
 
     return (
         <div className="list-group-item">
-            <p style={{ display: 'inline-block', width: '30%' }} id={"county-title-" + props.index}>
+            <p style={{ display: 'inline-block', width: '30%' }} id={"county-title-" + props.county.name}>
                 <span className="glyphicon glyphicon-list-alt"></span>&nbsp;{props.county.name}
             </p>
-            <p style={{ display: 'inline-block', width: '15%' }} id={"county-voters-count-" + props.index}>
+            <p style={{ display: 'inline-block', width: '15%' }} id={"county-voters-count-" + props.county.name}>
                 <span className="glyphicon glyphicon-user"></span>&nbsp;{props.county.voterCount}
             </p>
-            <p style={{ display: 'inline-block', width: '40%' }} id={"county-address-" + props.index}>
+            <p style={{ display: 'inline-block', width: '40%' }} id={"county-address-" + props.county.name}>
                 <span className="glyphicon glyphicon-map-marker"></span>&nbsp;
                 <span
                     className={"popoverAddress-" + props.index}
@@ -40,7 +40,7 @@ function CountyDisplayComponent(props) {
             </p>
             <p className="unit-actions-area">
                 <span className="glyphicon glyphicon-edit popoverCounty remove-units-element"
-                    id={"edit-county-button-" + props.index}
+                    id={"edit-county-button-" + props.county.name}
                     style={{ cursor: 'pointer' }}
                     onClick={edit}
                     onMouseOver={popup}
@@ -55,7 +55,7 @@ function CountyDisplayComponent(props) {
                     onConfirm={del}
                 >
                     <span className="glyphicon glyphicon-remove-sign popoverCounty remove-units-element"
-                        id={"remove-county-button-" + props.index}
+                        id={"remove-county-button-" + props.county.name}
                         onMouseOver={popup}
                         data-content="Ištrinti"
                         rel="popover"

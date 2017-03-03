@@ -22,8 +22,9 @@ var TerritorialBreakdownComponent = React.createClass({
                         <div className="list-group-item active">
                             <span>Apygardų sąrašas</span>
                             <span
+                                id="sorting-button"
                                 className="btn btn-sm btn-primary no-background"
-                                style={{ color: '#FFFFFF', borderColor: '#FFFFFF' }}
+                                style={{ color: '#FFFFFF', borderColor: '#FFFFFF'}}
                                 onClick={this.toggleSortOrder}>
                                 Rušiuoti {rotation}
                             </span>
