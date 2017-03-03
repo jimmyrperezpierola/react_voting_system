@@ -29,18 +29,21 @@ var CountyResultsContainer = React.createClass({
                         "Partijų sąrašas (DAUGIAMANDAČIAI)"
     },
     componentDidMount: function() {
+        if (this.props.county) {
+            this.getResultsOrVotees(this.props);
+        }
 
         // refactor when login will be implemented
         
     },
     componentWillReceiveProps(newProps) {
-        if (newProps.countyId !== null) {
+        if (newProps.county) {
             this.getResultsOrVotees(newProps);
         }
     },
     getResultsOrVotees: function(props) {
         let _this = this
-        let resultsUrl = spring.localHost.concat("/api/results/county/") + props.countyId + "/" + this.resultType;
+        let resultsUrl = spring.localHost.concat("/api/results/county/") + props.county.id + "/" + this.resultType;
         axios
             .get(resultsUrl)
             .then(function(response) {
@@ -48,7 +51,7 @@ var CountyResultsContainer = React.createClass({
                     _this.setState({ results: response.data })
                 } else {
                     let getUrl = _this.resultType === 'single-mandate' ?
-                                    spring.localHost.concat('/api/district/') + props.districtId + '/candidates' :
+                                    spring.localHost.concat('/api/district/') + props.district.id + '/candidates' :
                                     spring.localHost.concat('/api/party/');
                     _this.getVotees(getUrl);
                 }
@@ -131,7 +134,7 @@ var CountyResultsContainer = React.createClass({
         var errors = [];
         var body = {
             "spoiledBallots": this.state.spoiled,
-            "countyId": this.props.countyId,
+            "countyId": this.props.county.id,
             "unitVotes": voteList
         }
         axios.post(this.resultPostUrl, body)
@@ -175,7 +178,7 @@ var CountyResultsContainer = React.createClass({
                                 changeSpoiled={this.handleChangeSpoiled}
                                 submitResults={this.handleSubmitResults}
                                 springErrors={this.state.springErrors}
-                                activeCountyId={this.props.countyId}
+                                activeCountyId={this.props.county.id}
                                 clearForm={this.clearForm}
                             />
         } else {
