@@ -38,6 +38,7 @@ var RepresentativesPanelComponent = React.createClass({
 		this.setState({ tagIds: newState });
 	},
    componentWillReceiveProps: function(nextProps) {
+   	// TODO : fix
 		// if (nextProps.location.pathname === '/atstovui') {
 		// 	this.resetButtonBackgrounds();
 		// }
@@ -77,7 +78,7 @@ var RepresentativesPanelComponent = React.createClass({
 							to="atstovui/profilis"
 							className="adminPanelButton"
 							id="location3"
-							style={this.state.tagIds.location5}>
+							style={this.state.tagIds.location3}>
 							<img src="app/imgs/user.png" style={ styles.image }/>
 							<p style={{ marginBottom: 0 }}>Atstovo</p>
 							<p>profilis</p>
