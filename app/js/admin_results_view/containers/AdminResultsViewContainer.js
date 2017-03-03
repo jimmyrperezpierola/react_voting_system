@@ -25,7 +25,7 @@ var AdminResultsViewContainer = React.createClass({
 					if (optionsMap.get(district)) {
 						optionsMap.get(district).push(county)
 					} else {
-						optionsMap.set(district, [])
+						optionsMap.set(district, [county])
 					}
 				});
 
@@ -38,7 +38,7 @@ var AdminResultsViewContainer = React.createClass({
 
 	},
 	setActiveDistrict: function(e) {
-		this.setState({ activeDistrict: e.target.value });
+		this.setState({ activeDistrict: e.target.value, activeCounty: 0 });
 	},
 	setActiveCounty: function(e) {
 		this.setState({ activeCounty: e.target.value });
@@ -54,7 +54,7 @@ var AdminResultsViewContainer = React.createClass({
 		var preparedCounties = [];
 
 		if (this.state.activeCounty != 0) {
-			counties = counties.filter(this.filterByCounty)
+			counties = counties.filter(this.filterByDistrict).filter(this.filterByCounty)
 		} else if (this.state.activeDistrict != 0) {
 			counties = counties.filter(this.filterByDistrict)
 		}
