@@ -242,7 +242,7 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
 
 /* validations */
 
-#inline-form-errors {
+.inline-form-errors {
     display: block;
     max-width: 50%;
     margin-top: 10px;

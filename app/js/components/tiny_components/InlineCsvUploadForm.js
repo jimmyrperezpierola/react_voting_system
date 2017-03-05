@@ -41,7 +41,7 @@ var InlineCsvUploadForm = React.createClass({
                         <button type="submit" onClick={this.upload} className="btn btn-primary btn-sm" id={"send-csv-file-button-" + this.props.name}>Siųsti</button>
                     </div>
                 </form>
-                <div id="inline-form-errors">
+                <div className="inline-form-errors">
                     {this.state.jsErrors}
                     {springErrors}
                 </div>

@@ -4,13 +4,13 @@ var Helper = require('../../utils/Helper');
 
 var TerritorialBreakdownComponent = React.createClass({
     getInitialState() {
-        return ({ ASC: true });
+        return ({ ASC: true, needToSort: false });
     },
     toggleSortOrder() {
-        this.setState({ ASC: !this.state.ASC });
+        this.setState({ ASC: !this.state.ASC, needToSort: true });
     },
     sortDistricts() {
-        return Helper.sort(this.props.districts, this.state.ASC);
+        return (this.state.needToSort) ? Helper.sort(this.props.districts, this.state.ASC) : this.props.districts;
     },
     render() {
         var rotation = (this.state.ASC) ? " Z-A" : "A-Z";

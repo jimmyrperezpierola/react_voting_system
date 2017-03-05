@@ -52,9 +52,10 @@ var NewCountyInlineForm = React.createClass({
                         <Geosuggest
                             ref={el=>this._geoSuggest=el}
                             placeholder="Adresas"
+                            initialValue={this.props.address}
                             inputClassName="form-control"
                             country="lt"
-                            queryDelay='500'
+                            queryDelay={500}
                             onSuggestSelect={this.props.setSuggest}
                             onActiveSuggest={this.hideOtherSuggestions}
                             onChange={this.props.changeAddress}
@@ -69,7 +70,7 @@ var NewCountyInlineForm = React.createClass({
                         </button>
                     </div>
                 </form>
-                <div id="inline-form-errors">
+                <div className="inline-form-errors">
                     {jsErrors}
                     {springErrors}
                 </div>

@@ -23,7 +23,7 @@ function NewCountyAsideForm(props) {
                     placeholder=""
                     inputClassName="form-control"
                     country="LTU"
-                    queryDelay='500'
+                    queryDelay={500}
                     onSuggestSelect={props.setSuggest}
                     onActiveSuggest={hideOtherSuggestions}
                     onChange={props.changeAddress}
