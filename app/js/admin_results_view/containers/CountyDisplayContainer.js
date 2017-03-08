@@ -2,165 +2,138 @@ var React = require('react');
 var axios = require('axios');
 var CountyDisplayComponent = require('../components/CountyDisplayComponent');
 var AdminViewCandidateComponent = require('../components/tiny_components/AdminViewCandidateComponent');
-// var MM_PartyDisplayWithResultsComponent = require('../../counties_results/components/MM_PartyDisplayWithResultsComponent');
+var ConfirmButton = require('../components/tiny_components/ConfirmButton');
+var VoteListRow = require('../../counties_results/components/VoteListRow');
 var spring = require('../../config/SpringConfig');
 
 var CountyDisplayContainer = React.createClass({
     getInitialState: function() {
-        console.log(this.props);
         return ({
             showResults: false,
             smDisplay: undefined,
-            parties: this.props.parties,
             county: this.props.unit,
-            smResultsConfirmed: false,
-            mmResultsConfirmed: false
+            smResult: this.props.unit.smResult,
+            mmResult: this.props.unit.mmResult,
+            actveResultId: undefined
         });
     },
     componentWillReceiveProps: function(newProps) {
-        if (newProps.unit != this.state.county || newProps.parties != this.state.parties) {
-            this.setState({ county: newProps.unit, parties: newProps.parties });
+        if (newProps.unit != this.state.county) {
+            this.setState({ county: newProps.unit });
         }
     },
-    /*componentDidMount: function() {
-        var county = this.state.county;
-        // var smResult = this.getResults(county, true);
-        // var mmResult = this.getResults(county, false);
-
-        this.setState({
-            smResultsConfirmed: (smResult != undefined) ? smResult.confirmed : false,
-            mmResultsConfirmed: (mmResult != undefined) ? mmResult.confirmed : false
-        });
-    },*/
     toggleShowResults: function() {
         this.setState({ showResults: !this.state.showResults });
     },
     displaySMresults: function() {
-        this.setState({ smDisplay: true });
+        activeResultId = this.state.smResult ? this.state.smResult.id : undefined
+        this.setState({ 
+            smDisplay: true, 
+            activeResultId: activeResultId
+        });
     },
     displayMMresults: function() {
-        this.setState({ smDisplay: false });
+        activeResultId = this.state.mmResult ? this.state.mmResult.id : undefined
+        this.setState({ 
+            smDisplay: false, 
+            activeResultId: activeResultId
+         });
     },
-    getResults: function(county, singleMandate) {
-        var results;
-        county.countyResults.forEach(cr => {
-            if (cr.singleMandateSystem == singleMandate) results = cr;
-        });
-        return results;
-    },
-    prepareSMresults: function() {
-      var results = this.getResults(this.state.county, true);
-      var preparedResults = [];
+    prepareResult: function() {
+        if (this.state.smDisplay == undefined) return undefined;
+        var result = (this.state.smDisplay) ? this.state.smResult : this.state.mmResult
+        if (result == undefined) return result;
 
-      if (results == undefined) return results;
+        var preparedResult = [];
 
-      preparedResults.push(
-          <div className="list-group-item" key={results.unitVotesList.length}>
-              <p>Sugadinti biuleteniai: {results.spoiledBallots}</p>
-          </div>
-      );
-      results.unitVotesList.forEach((cv, idx) => {
-          var partyName = (cv.candidate.partyName) ? cv.candidate.partyName : "Išsikėlęs pats";
-          preparedResults.push(
-              <AdminViewCandidateComponent
-                  key={idx}
-                  firstName={cv.candidate.firstName}
-                  lastName={cv.candidate.lastName}
-                  partyName={partyName}
-                  votes={cv.votes}
-              />
-          );
-      });
-      return preparedResults;
-    },
-    prepareMMresults: function() {
-        var results = this.getResults(this.state.county, false);
-        var preparedResults = [];
-
-        if (results == undefined) return results;
-
-        preparedResults.push(
-            <div className="list-group-item" key={results.unitVotesList.length}>
-                <p>Sugadinti biuleteniai: {results.spoiledBallots}</p>
+        preparedResult.push(
+            <div className="list-group-item" key={result.votes.length}>
+                <p>Sugadinti biuleteniai: {result.spoiledBallots}</p>
             </div>
         );
-        results.unitVotesList.forEach((uv, idx) => {
-            preparedResults.push(
-                <MM_PartyDisplayWithResultsComponent
+        result.votes.forEach((vote, idx) => {
+            preparedResult.push(
+                <VoteListRow
                     key={idx}
-                    party={uv.party}
-                    pVotes={uv}
+                    vote={vote}
                 />
             );
         });
-        return preparedResults;
-    },
-    determineResults: function() {
-        if (this.state.smDisplay == undefined) return undefined;
-        return (this.state.smDisplay) ? this.prepareSMresults() : this.prepareMMresults();
+        return preparedResult;
     },
     determineConfirmButton: function() {
-        var confirmBtn = (
-            <button className="btn btn-default btn-sm floaters-right">
-                Patvirtinta &nbsp;
-                <span className="glyphicon glyphicon-ok-sign"></span>
-            </button>
-        );
         var smDisplay = this.state.smDisplay;
+        var activeResultId = this.state.activeResultId;
 
-        if (smDisplay === undefined) return confirmBtn;
+        if (smDisplay === undefined || activeResultId === undefined) {
+            return undefined
+        } 
 
-        if (smDisplay && !this.state.smResultsConfirmed) {
-            confirmBtn = (
-                <button className="btn btn-default btn-sm floaters-right" onClick={this.confirmResults.bind(this, true)}>
-                    Patvirtinti rezultatus &nbsp;
-                    <span className="glyphicon glyphicon-exclamation-sign"></span>
-                </button>
-            );
-        } else if (!smDisplay && !this.state.mmResultsConfirmed) {
-            confirmBtn = (
-                <button className="btn btn-default btn-sm floaters-right" onClick={this.confirmResults.bind(this, false)}>
-                    Patvirtinti rezultatus &nbsp;
-                    <span className="glyphicon glyphicon-exclamation-sign"></span>
-                </button>
-            );
+        var result = smDisplay ? this.state.smResult : this.state.mmResult
+
+        if (result.confirmed) {
+            confirmBtn = 
+                <ConfirmButton
+                    text="Patvirtinta "
+                    spanClass="glyphicon glyphicon-ok-sign"
+                />
+        } else {
+            confirmBtn = 
+                <ConfirmButton
+                    onClick={this.confirmResults.bind(this, result.id)}
+                    text="Patvirtinti rezultatus "
+                    spanClass="glyphicon glyphicon-exclamation-sign"
+                />
         }
-
         return confirmBtn;
     },
-    confirmResults: function(singleMandate) {
+    determineDeleteButton: function() {
+        if (this.state.activeResultId) {
+            deleteBtn = <button 
+                            className="btn btn-default btn-sm floaters-right" 
+                            onClick={this.handleDelete.bind(this, this.state.activeResultId)}
+                        >
+                            Pašalinti 
+                            <span className="glyphicon glyphicon-remove"></span>
+                        </button>    
+        } else {
+            deleteBtn = undefined
+        }
+
+        return deleteBtn;
+    },
+    confirmResults: function(resultId) {
+        var resultType = this.state.smDisplay ? 'smResult' : 'mmResult';
+        var result = (resultType === 'smResult') ? this.state.smResult : this.state.mmResult;
+
         var _this = this;
         var params = new URLSearchParams();
-        params.append('countyId', this.state.county.id);
-        params.append('isSingleMandate', singleMandate);
+        params.append('resultId', resultId);
 
-        axios.post(spring.localHost.concat('/api/county-results/confirm'), params)
+        axios.post(spring.localHost.concat('/api/results/confirm'), params)
             .then(function(resp) {
-                var stateVar = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
-                _this.setState({ county: resp.data, [stateVar]: true });
+                result['confirmed'] = true
+                _this.setState({ [resultType]: result });
             })
             .catch(function(err) {
                 console.log(err);
             });
     },
-    handleResultsDelete: function(singleMandate) {
+    handleDelete: function(resultId) {
+        var resultType = this.state.smDisplay ? 'smResult' : 'mmResult';
         var _this = this;
 
-        axios({
-            method: 'delete',
-            url: spring.localHost.concat('/api/county-results/county/'),
-            params: {
-              countyId: this.state.county.id,
-              isSingleMandate: singleMandate
-            }
-        })
-        .then(function(resp) {
-            var updatedState = (singleMandate) ? 'smResultsConfirmed' : 'mmResultsConfirmed';
-            _this.setState({ smDisplay: undefined, [updatedState]: false, county: resp.data });
-        })
-        .catch(function(err) {
-            console.log(err);
-        })
+        axios
+            .delete(spring.localHost.concat('/api/results/' + resultId))
+            .then(function(resp) {
+                _this.setState({ 
+                    [resultType] : undefined,
+                    activeResultId: undefined
+                 })
+            })
+            .catch(function(err) {
+                console.log(err);
+            })
     },
     determineAllConfirmedButton: function() {
         var btn = (
@@ -168,7 +141,9 @@ var CountyDisplayContainer = React.createClass({
                 Patvirtinta &nbsp; <span className="glyphicon glyphicon-flag"></span>
             </span>
         );
-        return (this.state.smResultsConfirmed && this.state.mmResultsConfirmed) ? btn : undefined;
+        let smResult = this.state.smResult,
+            mmResult = this.state.mmResult;
+        return (smResult && mmResult && smResult.confirmed && mmResult.confirmed) ? btn : undefined;
     },
     render: function() {
         return (
@@ -179,10 +154,10 @@ var CountyDisplayContainer = React.createClass({
                 county={this.state.county}
                 displaySM={this.displaySMresults}
                 displayMM={this.displayMMresults}
-                results={this.determineResults()}
+                results={this.prepareResult()}
                 smDisplay={this.state.smDisplay}
                 confirmBtn={this.determineConfirmButton()}
-                delete={this.handleResultsDelete}
+                deleteBtn={this.determineDeleteButton()}
                 allConfirmedBtn={this.determineAllConfirmedButton()}
             />
         );

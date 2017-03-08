@@ -9,7 +9,7 @@ var truncLength = 20;
 
 var CountyRepresentativeListLineComponent = React.createClass ({
     territorialTitle() {
-        return this.props.unit.countyName.concat(" (" + this.props.unit.districtName + ")");
+        return this.props.unit.county.name.concat(" (" + this.props.unit.district.name + ")");
     },
     unitCredentials() {
         return this.props.unit.firstName + " " + this.props.unit.lastName;
@@ -18,7 +18,7 @@ var CountyRepresentativeListLineComponent = React.createClass ({
         this.props.onDeleteRepresentative(this.props.unit.id, this.props.index);
     },
     popupTruncated(title, clazz) {
-        console.log(clazz);
+        // console.log(clazz);
         if (title.length > truncLength) {
             $("." + clazz).popover({ trigger: "click" })
         }

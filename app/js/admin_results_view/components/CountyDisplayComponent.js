@@ -1,7 +1,6 @@
 var React = require('react');
 
 function CountyDisplayComponent(props) {
-    var del = function() { props.delete(props.smDisplay) }
     var display = (!props.show) ? {display: 'none'} : {};
     var smBtn = 'btn btn-default btn-sm';
     var mmBtn = 'btn btn-default btn-sm';
@@ -18,11 +17,7 @@ function CountyDisplayComponent(props) {
     }
 
     if (props.results != undefined) {
-        deleteBtn = (
-            <button className="btn btn-default btn-sm floaters-right" onClick={del}>
-                Pašalinti <span className="glyphicon glyphicon-remove"></span>
-            </button>
-        );
+        deleteBtn = props.deleteBtn;
         confirmBtn = props.confirmBtn;
         results = props.results;
     }
@@ -31,7 +26,7 @@ function CountyDisplayComponent(props) {
         <div className="unit">
             <div className="list-group-item active">
                 <div onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
-                    <strong>{props.county.name}</strong> (Apygarda: {props.county.districtName})
+                    <strong>{props.county.name}</strong> (Apygarda: {props.county.district.name})
                     {props.allConfirmedBtn}
                 </div>
             </div>

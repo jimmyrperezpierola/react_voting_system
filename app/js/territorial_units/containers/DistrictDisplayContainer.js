@@ -101,7 +101,7 @@ var DistrictDisplayContainer = React.createClass({
         var _this = this;
         var counties = this.state.counties;
 
-        axios.delete(spring.localHost.concat('/api/district/county/') + counties[index].id)
+        axios.delete(spring.localHost.concat('/api/county/') + counties[index].id)
 		    .then(function(resp) {
 		        counties.splice(index, 1);
 		        _this.setState({ counties: counties });

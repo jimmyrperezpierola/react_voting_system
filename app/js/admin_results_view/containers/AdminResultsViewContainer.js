@@ -6,151 +6,124 @@ var spring = require('../../config/SpringConfig');
 
 var AdminResultsViewContainer = React.createClass({
 	getInitialState: function() {
-		return ({ districts: [],
+		return ({ optionsMap: new Map(),
 				  counties: [],
-				  parties: [],
-				  activeDistrictId: undefined,
-				  activeCountyId: undefined });
+				  activeDistrict: 0,
+				  activeCounty: 0 });
 	},
 	componentDidMount: function() {
 		var _this = this;
 
-		axios
-			.all([
-				axios.get(spring.localHost.concat('/api/district')),
-				axios.get(spring.localHost.concat('/api/party'))
-			])
-			.then(axios.spread(function(districts, parties) {
-				var counties = [];
-				districts.data.forEach(d => {
-					d.counties.forEach(c => counties.push(c));
+		axios.get(spring.localHost.concat('/api/county'))
+			.then(function(response) {
+				
+				var counties = response.data;
+				var optionsMap = new Map();
+
+				counties.forEach(county => {
+					var district = county.district.name
+					if (optionsMap.get(district)) {
+						optionsMap.get(district).push(county)
+					} else {
+						optionsMap.set(district, [county])
+					}
 				});
-				_this.setState({ districts: districts.data,
-								 counties: counties,
-								 parties: parties.data });
-			}))
+
+				_this.setState({ optionsMap: optionsMap,
+								 counties: counties });
+			})
 			.catch(function(err) {
 				console.log(err);
 			})
 
 	},
-	setActiveDistrict: function(districtId) {
-		this.setState({ activeDistrictId: districtId });
+	setActiveDistrict: function(e) {
+		this.setState({ activeDistrict: e.target.value, activeCounty: 0 });
 	},
-	clearActiveDistrict: function() {
-		this.setState({ activeDistrictId: undefined });
+	setActiveCounty: function(e) {
+		this.setState({ activeCounty: e.target.value });
 	},
-	setActiveCounty: function(countyId) {
-		this.setState({ activeCountyId: countyId });
+	filterByCounty(county) {
+		return county.name === this.state.activeCounty
 	},
-	clearActiveCounty: function() {
-		this.setState({ activeCountyId: undefined });
+	filterByDistrict(county) {
+		return county.district.name === this.state.activeDistrict
 	},
 	prepareCounties() {
 		var counties = this.state.counties;
 		var preparedCounties = [];
 
-		if (this.state.activeDistrictId != undefined) {
-			if (this.state.activeCountyId != undefined) {
-				counties.forEach((c, idx) => {
-					if (this.state.activeCountyId == c.id) {
-						console.log("X")
-						preparedCounties.push(
-							<CountyDisplayContainer
-								key={idx}
-								index={idx}
-								unit={c}
-								parties={this.state.parties}
-							/>
-						);
-					}
-				});
-			} else {
-				counties.forEach((c, idx) => {
-					console.log("Y")
-					if (this.state.activeDistrictId == c.districtId) {
-						preparedCounties.push(
-							<CountyDisplayContainer
-								key={idx}
-								index={idx}
-								unit={c}
-								parties={this.state.parties}
-							/>
-						);
-					}
-				});
-			}
-		} else {
-			counties.forEach((c, idx) => {
-				console.log("Z")
-				preparedCounties.push(
-					<CountyDisplayContainer
-						key={idx}
-						index={idx}
-						unit={c}
-						parties={this.state.parties}
-					/>
-				);
-			});
+		if (this.state.activeCounty != 0) {
+			counties = counties.filter(this.filterByDistrict).filter(this.filterByCounty)
+		} else if (this.state.activeDistrict != 0) {
+			counties = counties.filter(this.filterByDistrict)
 		}
+
+		var preparedCounties = counties.map((c, idx) => {
+			return (
+				<CountyDisplayContainer
+					key={c.district.id + "." + c.id}
+					index={idx}
+					unit={c}
+				/>
+			)
+		})
+
 		return preparedCounties;
 	},
 	districtsSelect: function() {
-		var districts = this.state.districts;
-		var preparedDistricts = [];
+		var districtOptions = [];
 
-		districts.forEach((d, idx) => {
-			preparedDistricts.push(
+		this.state.optionsMap.forEach((v, k) => {
+			districtOptions.push(
+				<option 
+					value={k} 
+					key={k + "-" + v.name}
+				> 
+					{k} 
+				</option>
+			);			
+		})
+
+		return (
+			<select value={this.state.activeDistrict} onChange={this.setActiveDistrict}>
 				<option
-					value={d.id}
-					key={idx}
-					onClick={this.setActiveDistrict.bind(this, d.id)}>
-					{d.name}
+					value={0}
+					key={districtOptions.length}
+				>
+					Visos apygardos
+				</option>
+				{districtOptions}
+			</select>
+		);
+	},
+	countiesSelect: function() {
+		var countyOptions = [];
+		var dict = this.state.optionsMap
+		var activeDistrict = this.state.activeDistrict
+
+		if (activeDistrict == 0) return undefined;
+
+		dict.get(activeDistrict).forEach(c => {
+			countyOptions.push(
+				<option
+					value={c.name}
+					key={activeDistrict + '-' + c.name}
+				>
+					{c.name}
 				</option>
 			);
 		});
 
 		return (
-			<select>
+			<select value={this.state.activeCounty} onChange={this.setActiveCounty}>
 				<option
-					value={undefined}
-					key={districts.length}
-					onClick={this.clearActiveDistrict}>
-					Visos apygardos
-				</option>
-				{preparedDistricts}
-			</select>
-		);
-	},
-	countiesSelect: function() {
-		var counties = this.state.counties;
-		var filteredCounties = [];
-
-		if (this.state.activeDistrictId == undefined) return undefined;
-		else {
-			counties.forEach((c, idx) => {
-				if (c.districtId == this.state.activeDistrictId) {
-					filteredCounties.push(
-						<option
-							value={c.id}
-							key={idx}
-							onClick={this.setActiveCounty.bind(this, c.id)}>
-							{c.name}
-						</option>
-					);
-				}
-			});
-		}
-
-		return (
-			<select>
-				<option
-					value={undefined}
-					key={counties.length}
-					onClick={this.clearActiveCounty}>
+					value={0}
+					key={countyOptions.length}
+				>
 					Visos apylinkės
 				</option>
-				{filteredCounties}
+				{countyOptions}
 			</select>
 		);
 	},
