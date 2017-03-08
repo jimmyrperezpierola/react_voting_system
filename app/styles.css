@@ -236,13 +236,17 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     box-sizing: border-box;
 }
 
+.row-autoheight {
+    height: auto;
+}
+
 .candidate-card-wide {
     width: 100%;
 }
 
 /* validations */
 
-#inline-form-errors {
+.inline-form-errors {
     display: block;
     max-width: 50%;
     margin-top: 10px;

@@ -13,14 +13,14 @@ const Login = React.createClass({
     doLogin(e) {
         e.preventDefault();
         const _this = this;
-        const loginData = {
-            "username": this.state.username,
-            "password": this.state.password
-        };
+        let fd = new FormData();
+        fd.append("username", this.state.username);
+        fd.append("password", this.state.password);
+
         axios.post(
-                spring.localHost.concat('/api/auth/login'),
-                loginData,
-                { headers: { 'Content-Type': 'application/json' } }
+                spring.localHost.concat('/login'),
+                fd,
+                { headers: { 'Content-Type': 'multipart/form-data' } }
             )
             .then(resp => {
                 console.log(resp.data);

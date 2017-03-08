@@ -73,6 +73,7 @@ var SingleMandateDistrictDisplayContainer = React.createClass({
                           associationId={this.state.district.id}
                           springErrors={this.state.springErrors}
                           openModal={this.emptyFunction}
+                          name={this.state.district.name}
                       />
         }
         return actions;
