@@ -1,6 +1,5 @@
 var React = require('react');
 var InlineEditComponent = require('../../components/tiny_components/InlineEditComponent');
-var InfiniteScroll = require('react-infinite-scroll')(React);
 
 var PartyDisplayComponent = React.createClass({
     getInitialState() {
