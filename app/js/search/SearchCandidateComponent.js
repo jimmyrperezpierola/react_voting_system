@@ -6,7 +6,8 @@ var SearchCandidateComponent = React.createClass({
         this.props.showDetails(this.props.candidate);
     },
     render: function() {
-        var partyName = (this.props.candidate.partyName == undefined) ? "Išsikėlęs pats" : this.props.candidate.partyName;
+
+        var partyName = (this.props.candidate.party == null) ? "Išsikėlęs pats" : this.props.candidate.party.name;
         return (
             <div className="unit">
                   <div className="list-group-item" style={{ cursor: "pointer" }} onClick={this.showDetails}>

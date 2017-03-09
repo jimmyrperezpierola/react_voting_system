@@ -11,8 +11,9 @@ var SearchBarComponent = React.createClass({
                               className="form-control"
                               id="system-search"
                               placeholder="Ieškoti kandidato"
-                              onChange={this.props.changeQuery}
-                              value={this.props.query}
+                              //onChange={this.props.changeQuery}
+                              onChange={this.props.onKeyDown}
+                              //value={this.props.query}
                            />
                        </div>
                    </form>

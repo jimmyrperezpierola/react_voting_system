@@ -9,7 +9,7 @@ var representative = {
     "lastName": "Rep",
     "username": "rep.rep",
     "email": "email@email.lt",
-    "county": { "id": 1, "name": "TEST COUNTY", "link": "http://dummy" },
+    "county": { "id": 1, "name": "TEST COUNTY", "voterCount": 10000, "address": "TEST ADDRESS" },
     "district": { "id": 1, "name": "TEST DISTRICT", "link": "http://dummy" },
     "roles": ["ROLE_REPRESENTATIVE"]
 };
