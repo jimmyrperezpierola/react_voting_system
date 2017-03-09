@@ -150,10 +150,12 @@ var DistrictDisplayContainer = React.createClass({
                       count={this.state.voterCount}
                       address={this.state.countyAddress}
                       springErrors={this.state.springErrors}
+                      districtName={this.props.unit.name}
                    />
         } else {
             return <NewCountyFormButton
                 renderCountyForm={this.toggleShowInlineState}
+                districtName={this.props.unit.name}
             />
         }
     },

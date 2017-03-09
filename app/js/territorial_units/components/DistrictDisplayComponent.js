@@ -46,10 +46,10 @@ var DistrictDisplayComponent = React.createClass({
                             <p className="remove-units-element confirmation-buttons">
                                 <span className="glyphicon glyphicon-remove-sign">
                                 </span>&nbsp;
-                                <span id="remove-county-button">Šalinti apygardą</span>
+                                <span id={"remove-district-" + this.state.unit.name}>Šalinti apygardą</span>
                             </p>
                         </ConfirmAction>
-                        <p className="remove-units-element confirmation-buttons"
+                        <p  id={"edit-district-"+this.state.unit.name} className="remove-units-element confirmation-buttons"
                             onClick={this.toggleEdit}
                         >
                             <span className="glyphicon glyphicon-edit">
@@ -60,9 +60,9 @@ var DistrictDisplayComponent = React.createClass({
                     <div
                         className="list-group-item"
                         style={{ textAlign: 'center' }}>
-                        <strong>Apylinkės</strong>
+                        <strong id={"counties-header-" + this.state.unit.name}>Apylinkės</strong>
                         <span
-                            id="sorting-button"
+                            id={"sorting-button-" + this.state.unit.name}
                             className="btn btn-sm btn-default"
                             style={{ marginLeft: 10 }}
                             onClick={this.props.toggleSortOrder}>
