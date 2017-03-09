@@ -86,14 +86,13 @@ var DistrictDisplayContainer = React.createClass({
             .catch(function(err) {
                 console.log(err);
                 var finalErrors = [];
-                
+
                 if (err.response == undefined) {
                     finalErrors.push("Tinklo klaida");
                 } else {
-                    errors.push(err.response.data.rootMessage);
-                    errors.concat(err.response.data.errorsMessages);
+                    finalErrors.push(err.response.data.rootMessage);
+                    finalErrors = finalErrors.concat(err.response.data.errorsMessages);
                 }
-
                 _this.setState({ springErrors: finalErrors });
             });
     },

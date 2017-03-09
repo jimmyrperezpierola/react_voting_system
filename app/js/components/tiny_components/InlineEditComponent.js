@@ -41,13 +41,13 @@ var InlineEditComponent = React.createClass({
                     var finalErrors = [];
                     
                     if (err.response == undefined) {
-                        finalErrors.push("Tinklo klaida");
+                        errors.push("Tinklo klaida");
                     } else {
                         errors.push(err.response.data.rootMessage);
-                        errors.concat(err.response.data.errorsMessages);
+                        errors = errors.concat(err.response.data.errorsMessages);
                     }
 
-                    _this.setState({ springErrors: finalErrors, jsErrors: [] });
+                    _this.setState({ springErrors: errors, jsErrors: [] });
                 });
         }
         
@@ -68,7 +68,7 @@ var InlineEditComponent = React.createClass({
         return Validations.prepareJSerrors(this.state.jsErrors, "Klaida registruojant apylinkę", style)
     },
     springErrors() {
-        return Validations.prepareSpringErrors(this.props.springErrors);
+        return Validations.prepareSpringErrors(this.state.springErrors);
     },
     render() {
         var jsErrors = (this.state.jsErrors.length > 0) ? this.jsErrors() : [];

@@ -92,7 +92,6 @@ var TerritorialBreakdownContainer = React.createClass({
         this.setState({ counties: counties });
     },
     render: function() {
-        console.log("RENDERING TERRITORIALBREAKDOWNCONTAINER")
         return <TerritorialBreakdownComponent
                   districts={this.prepareDistricts()}
                   delete={this.handleDistrictRemove}

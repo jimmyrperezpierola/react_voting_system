@@ -4,10 +4,12 @@ var Validations = require('../../utils/Validations');
 
 var NewDistrictAsideForm = React.createClass({
     getInitialState: function() {
-        return ({ jsErrors: [] });
+        return ({ jsErrors: [], springErrors: [] });
     },
-    componentDidUpdate() {
-        //$('.toggleInput').bootstrapToggle();
+    componentWillReceiveProps: function(newProps) {
+        if (newProps.springErrors != this.state.springErrors) {
+            this.setState({ springErrors: newProps.springErrors })
+        }
     },
     reportCountyErrors: function(errors, countyName) {
         if (errors.length == 0) {
@@ -21,7 +23,10 @@ var NewDistrictAsideForm = React.createClass({
         e.preventDefault();
         var errors = Validations.checkErrorsDistrictAsideForm(this.props.name);
         if (errors.length > 0) {
-            this.setState({ jsErrors: Validations.prepareJSerrors(errors, "Klaida registruojant apygardą " + this.props.name) });
+            this.setState({
+                jsErrors: Validations.prepareJSerrors(errors, "Klaida registruojant apygardą " + this.props.name),
+                springError: []
+            });
         } else {
             this.setState({ jsErrors: [] });
             this.props.create();

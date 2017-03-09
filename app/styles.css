@@ -120,6 +120,10 @@ adminPanelButton:hover{
     margin-left: 15px;
 }
 
+.form-group button {
+    margin-left: 10px;
+}
+
 .aside-county-form .form-control {
     font-size: 1.2em;
     height: auto;
