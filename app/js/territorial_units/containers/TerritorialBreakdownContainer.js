@@ -11,7 +11,9 @@ var TerritorialBreakdownContainer = React.createClass({
         return ({ districts: [],
                   districtName: "",
                   counties: [],
-                  springErrors: [] });
+                  springErrors: [],
+                  clearCountyForm: false
+        });
     },
     componentDidMount: function() {
         var _this = this;
@@ -42,7 +44,7 @@ var TerritorialBreakdownContainer = React.createClass({
         this.state.counties.forEach((c, index) => {
             counties.push(
                 <AddedCountyDisplayComponent
-                    key={c.name}
+                    key={c.name + "" + index}
                     index={index}
                     county={c}
                     remove={this.handleAddedCountyRemove}
@@ -68,7 +70,9 @@ var TerritorialBreakdownContainer = React.createClass({
                 _this.setState({ districts: districts,
                                  districtName: "",
                                  counties: [],
-                                 springErrors: [] });
+                                 springErrors: [],
+                                 clearCountyForm: true
+                });
             })
             .catch(function(err) {
                 console.log(err);
@@ -101,6 +105,7 @@ var TerritorialBreakdownContainer = React.createClass({
                   addCounty={this.handleAddCounty}
                   counties={this.prepareCounties()}
                   springErrors={this.state.springErrors}
+                  clearCountyForm={this.state.clearCountyForm}
                />
     }
 });

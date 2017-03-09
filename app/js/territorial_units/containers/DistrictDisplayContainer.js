@@ -150,6 +150,7 @@ var DistrictDisplayContainer = React.createClass({
                       address={this.state.countyAddress}
                       springErrors={this.state.springErrors}
                       districtName={this.props.unit.name}
+                      btnName="Sukurti"
                    />
         } else {
             return <NewCountyFormButton

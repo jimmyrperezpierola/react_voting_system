@@ -52,6 +52,8 @@ var NewDistrictAsideForm = React.createClass({
                     <NewCountyAsideFormContainer
                         addCounty={this.props.addCounty}
                         reportCountyErrors={this.reportCountyErrors}
+                        toggle={this.state.toggleCountyAsideForm}
+                        clearCountyForm={this.props.clearCountyForm}
                     />
                     <button type="submit" id="create-district-button" className="btn btn-primary btn-md" style={{ marginTop: 10 }} onClick={this.create}>Sukurti</button>
                 </form>

@@ -7,7 +7,7 @@ var Vars = {
     countyNameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ0-9\s\-][^qQwWxX]*)$/),
     partyNameRegex: new RegExp(/^([a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s\-][^qQwWxX0-9]*)$/),
     min: 3,
-    max: 40
+    max: 70
 };
 
 var Validations = {
@@ -68,7 +68,7 @@ var Validations = {
             errors.push("Adresas - " + Errors.blankField);
         } else {
             if (address.length < Vars.min) errors.push("Adresas " + Errors.toShort);
-            if (address.length > Vars.max) errors.push("Adresas " + Errors.toLong);
+            if (address.length > Vars.max + 30) errors.push("Adresas " + Errors.toLong);
         }
 
         return errors;

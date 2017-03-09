@@ -97,6 +97,7 @@ var CountyDisplayComponent = React.createClass({
                     count={this.state.newCount}
                     address={this.state.newAddress}
                     springErrors={this.state.springErrors}
+                    btnName="Atnaujinti"
                 />
             ); 
         } else {

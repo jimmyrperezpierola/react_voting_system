@@ -43,6 +43,7 @@ var TerritorialBreakdownComponent = React.createClass({
                                 name={this.props.name}
                                 create={this.props.create}
                                 springErrors={this.props.springErrors}
+                                clearCountyForm={this.props.clearCountyForm}
                             />
                         </div>
                     </div>

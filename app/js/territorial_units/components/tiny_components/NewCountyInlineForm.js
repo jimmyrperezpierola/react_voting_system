@@ -67,7 +67,7 @@ var NewCountyInlineForm = React.createClass({
                     </div>
                     <div className="form-group">
                         <button id={"create-county-btn-" + this.props.districtName} className="btn btn-default btn-sm" onClick={this.submit}>
-                            Sukurti
+                            {this.props.btnName}
                         </button>
                         <button id={"cancel-county-creation-btn-" + this.props.districtName} className="btn btn-default btn-sm" onClick={this.props.cancel}>
                             Atšaukti
