@@ -19,8 +19,8 @@ var TerritorialBreakdownComponent = React.createClass({
                 {/*<nav className="navbar navbar-inverse" data-spy="affix" data-offset-top="197">*/}
                 <div className="row">
                     <div className="col-md-8 units-list-area">
-                        <div className="list-group-item active">
-                            <span>Apygardų sąrašas</span>
+                        <div className="list-group-item active" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
+                            <span style={{display: "inline-block", verticalAlign: "middle"}}>Apygardų sąrašas</span>
                             <span
                                 id="sorting-button"
                                 className="btn btn-sm btn-primary no-background"

@@ -79,6 +79,7 @@ var InlineEditComponent = React.createClass({
                     <form className="inline-add-county-form" style={{ minHeight: 45, marginBottom: 0, display: 'table-cell' }}>
                         <div className="form-group" style={{ width: '40%' }}>
                             <input type="text"
+                                id={"edit-district-name-field-" + this.state.newName}
                                 onChange={this.handleNameChange}
                                 className="form-control"
                                 value={this.state.newName}
@@ -86,10 +87,10 @@ var InlineEditComponent = React.createClass({
                             />
                         </div>
                         <div className="form-group">
-                            <button id="inline-create-btn" className="btn btn-default btn-sm" onClick={this.handleUnitUpdate}>
+                            <button id={"inline-confirm-btn-" + this.state.newName} className="btn btn-default btn-sm" onClick={this.handleUnitUpdate}>
                                 Atnaujinti
                             </button>
-                            <button id="inline-cancel-btn" className="btn btn-default btn-sm" onClick={this.cancelUpdate}>
+                            <button id={"inline-cancel-btn-" + this.state.newName} className="btn btn-default btn-sm" onClick={this.cancelUpdate}>
                                 Atšaukti
                             </button>
                         </div>
