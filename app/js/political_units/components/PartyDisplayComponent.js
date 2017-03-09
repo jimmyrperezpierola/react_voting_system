@@ -1,6 +1,5 @@
 var React = require('react');
 var InlineEditComponent = require('../../components/tiny_components/InlineEditComponent');
-var InfiniteScroll = require('react-infinite-scroll')(React);
 
 var PartyDisplayComponent = React.createClass({
     getInitialState() {
@@ -58,9 +57,10 @@ var PartyDisplayComponent = React.createClass({
                         <b style={this.props.displayLoadingIcon}>Prašome palaukti&nbsp;</b>
                         <img style={this.props.displayLoadingIcon} src="app/imgs/axios-loader.gif" alt="working-hard"/>
                     </div>
-                    <div id="scroller" style={{ maxHeight: 200, overflow: 'scroll' }}>
+                    <div>
+                        <buttton className="btn btn-default btn-sm" style={{ width: '100%' }}></buttton>
                         {this.props.candidates}
-                        <buttton id="load-more" className="btn btn-default btn-sm" style={{ width: '100%' }}></buttton>
+                        <buttton className="btn btn-default btn-sm" style={{ width: '100%' }}></buttton>
                     </div>
                     <buttton className="btn btn-default btn-sm" onClick={this.scrollUp}>UP</buttton>
                 </div>
