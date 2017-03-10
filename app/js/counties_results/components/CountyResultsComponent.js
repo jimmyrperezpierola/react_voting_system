@@ -9,7 +9,7 @@ var CountyResultsComponent = React.createClass({
     },
     submitResults: function(e) {
         e.preventDefault();
-        var errors = Validations.checkErrorsResultForm(this.props.dictionary, this.props.spoiled);
+        var errors = Validations.checkErrorsResultForm(this.props.dictionary, this.props.spoiled, this.props.representative.county.voterCount);
         if (errors.length > 0) {
             this.setState({ jsErrors: errors });
         } else {
@@ -30,6 +30,8 @@ var CountyResultsComponent = React.createClass({
     render: function() {
         var jsErrors = (this.state.jsErrors.length > 0) ? this.prepareJSerrors() : [];
         var springErrors = (this.props.springErrors.length > 0) ? this.prepareSpringErrors() : [];
+
+        console.log(this.props.representative)
 
         return (
             <div className="container">
