@@ -17,12 +17,13 @@ var SingleCandidatesComponent = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 units-list-area">
-                        <div className="list-group-item list-group-item-success">
-                            <span>Apygardų sąrašas</span>
+                        <div className="list-group-item list-group-item-success" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
+                            <span id="district-list-header">Apygardų sąrašas</span>
                             <span
+                                id="sort-districts-button"
                                 className="btn btn-sm btn-success no-background"
                                 onClick={this.toggleSortOrder}>
-                                Rušiuoti {rotation}
+                                Rūšiuoti {rotation}
                             </span>
                         </div>
                         <div className="list-group-item" style={{ height: 'auto' }}>

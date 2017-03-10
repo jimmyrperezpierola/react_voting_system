@@ -18,12 +18,13 @@ var PoliticalUnitsComponent = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 units-list-area">
-                        <div className="list-group-item list-group-item-success">
-                            <span>Partijų sąrašas</span>
+                        <div className="list-group-item list-group-item-success" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
+                            <span id = "party-list-header">Partijų sąrašas</span>
                             <span
+                                id="sorting-button"
                                 className="btn btn-sm btn-success no-background"
                                 onClick={this.toggleSortOrder}>
-                                Rušiuoti {rotation}
+                                Rūšiuoti {rotation}
                             </span>
                         </div>
                         <div className="list-group-item" style={{ height: 'auto' }}>
