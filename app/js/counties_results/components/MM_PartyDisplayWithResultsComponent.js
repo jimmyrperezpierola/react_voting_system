@@ -1,5 +1,4 @@
 var React = require('react');
-var Validations = require('../../utils/Validations');
 
 var MM_PartyDisplayWithResultsComponent = React.createClass({
     render: function() {
