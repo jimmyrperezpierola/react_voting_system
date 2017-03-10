@@ -13,13 +13,14 @@ var MM_PartyComponent = React.createClass({
                   <div className="list-group-item">
                     <div>
                       <div style={{height: "20px"}}>
-                        <div className="col-md-8">
+                        <div id={"party-name-" + this.props.party.name} className="col-md-8">
                             <img src="app/imgs/political_party.png" style={ styles.image }/> &nbsp;
                             {this.props.party.name}
                         </div>
                         <div className="col-md-2" style={{ textAlign: 'right' }}><span>Balsai:</span></div>
                         <div className="col-md-2 candidate-votes-input">
                             <input
+                                id={"party-votes-input-" + this.props.party.name}
                                 type="text"
                                 className="form-control county-results-input"
                                 onChange={this.changeVotes}
