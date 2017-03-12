@@ -14,7 +14,7 @@ var CountyDisplayContainer = React.createClass({
             county: this.props.unit,
             smResult: this.props.unit.smResult,
             mmResult: this.props.unit.mmResult,
-            actveResultId: undefined
+            activeResultId: undefined
         });
     },
     componentWillReceiveProps: function(newProps) {
@@ -90,6 +90,13 @@ var CountyDisplayContainer = React.createClass({
         return confirmBtn;
     },
     determineDeleteButton: function() {
+        if (this.props.unit.smResult != null) {
+            if (this.state.smDisplay && this.props.unit.smResult.confirmed) return undefined;
+        }
+        if (this.props.unit.mmResult != null) {
+            if (!this.state.smDisplay && this.props.unit.mmResult.confirmed) return undefined;
+        }
+
         if (this.state.activeResultId) {
             deleteBtn = <button 
             				id={"delete-results-button-" + this.state.county.name + "-" + this.state.county.district.name}
