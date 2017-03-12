@@ -379,6 +379,10 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
 
 /* COUNTY RESULTS */
 
+#sort-select-district select, #sort-select-county select {
+    width: 100%;
+}
+
 .county-results {
     margin-bottom: 0;
     margin-left: 30px;

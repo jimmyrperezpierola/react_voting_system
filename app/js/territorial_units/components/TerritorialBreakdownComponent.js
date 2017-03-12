@@ -23,7 +23,7 @@ var TerritorialBreakdownComponent = React.createClass({
                             <span id="district-list-header">Apygardų sąrašas</span>
                             <span
                                 id="sorting-button"
-                                className="btn btn-sm btn-primary no-background"
+                                className="btn btn-sm btn-success no-background"
                                 style={{ color: '#FFFFFF', borderColor: '#FFFFFF'}}
                                 onClick={this.toggleSortOrder}>
                                 Rūšiuoti {rotation}

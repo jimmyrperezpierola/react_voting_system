@@ -11,7 +11,7 @@ var timer = null;
 
 var SearchCandidatesListContainer = React.createClass({
     getInitialState: function() {
-        return ({ candidates: [], query: "", activeCandidate: undefined });
+        return ({ candidates: [], query: '', activeCandidate: undefined });
     },
     componentDidMount: function() {
         var _this = this;
@@ -61,7 +61,7 @@ var SearchCandidatesListContainer = React.createClass({
     handleChangeQuery: function(value) {
         this.setState({ query: value });
     },
-    onKeyDown() {
+    onKeyUp() {
         var value = document.getElementById("system-search").value;
         var _this = this;
 
@@ -71,7 +71,7 @@ var SearchCandidatesListContainer = React.createClass({
         })
     },
     clearQuery: function() {
-        this.setState({ query: "" });
+        this.setState({ query: '' });
     },
     render() {
         var activeCandidate = (this.state.activeCandidate != undefined) ?
@@ -85,10 +85,9 @@ var SearchCandidatesListContainer = React.createClass({
         return (
             <div>
                 <SearchBarComponent
-                    query={this.state.query}
                     changeQuery={this.handleChangeQuery}
                     clearQuery={this.clearQuery}
-                    onKeyDown={this.onKeyDown}
+                    onKeyUp={this.onKeyUp}
                 />
                 <div className="col-md-8">
                     {this.prepareCandidates()}
