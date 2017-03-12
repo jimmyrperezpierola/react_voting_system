@@ -47,14 +47,14 @@ var PartyDisplayComponent = React.createClass({
                     <div className="list-group-item">
                         {this.props.actions}
                         {this.props.confirmDeleteParty}
-                        <p className="remove-units-element confirmation-buttons"
+                        <p id = {"edit-party-" + this.state.unit.name} className="remove-units-element confirmation-buttons"
                             onClick={this.toggleEdit}    
                         >
                             <span className="glyphicon glyphicon-edit">
                             </span> &nbsp;
                             Redaguoti partiją
                         </p>
-                        <b style={this.props.displayLoadingIcon}>Prašome palaukti&nbsp;</b>
+                        <b id = "wait-screen" style={this.props.displayLoadingIcon}>Prašome palaukti&nbsp;</b>
                         <img style={this.props.displayLoadingIcon} src="app/imgs/axios-loader.gif" alt="working-hard"/>
                     </div>
                     <div>
@@ -62,7 +62,7 @@ var PartyDisplayComponent = React.createClass({
                         {this.props.candidates}
                         <buttton className="btn btn-default btn-sm" style={{ width: '100%' }}></buttton>
                     </div>
-                    <buttton className="btn btn-default btn-sm" onClick={this.scrollUp}>UP</buttton>
+                    <buttton id = {"scroll-up-button-" + this.state.unit.name} className="btn btn-default btn-sm" onClick={this.scrollUp}>UP</buttton>
                 </div>
             </div>
         );

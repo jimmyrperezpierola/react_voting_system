@@ -9,9 +9,9 @@ function ResultsFormComponent(props) {
                 changeSpoiled={props.changeSpoiled}
             />
             <div className="list-group-item active">
-                <span>{props.header}</span>
+                <span id="header-title-result-form">{props.header}</span>
             </div>
-            <div className="list-group-item" style={{ height: 'auto' }}>
+            <div id="candidates-list" className="list-group-item" style={{ height: 'auto' }}>
                 {props.votees}
             </div>
         </form>

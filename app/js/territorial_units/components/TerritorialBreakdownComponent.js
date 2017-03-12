@@ -20,13 +20,13 @@ var TerritorialBreakdownComponent = React.createClass({
                 <div className="row">
                     <div className="col-md-8 units-list-area">
                         <div className="list-group-item active" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
-                            <span style={{display: "inline-block", verticalAlign: "middle"}}>Apygardų sąrašas</span>
+                            <span id="district-list-header">Apygardų sąrašas</span>
                             <span
                                 id="sorting-button"
                                 className="btn btn-sm btn-primary no-background"
                                 style={{ color: '#FFFFFF', borderColor: '#FFFFFF'}}
                                 onClick={this.toggleSortOrder}>
-                                Rušiuoti {rotation}
+                                Rūšiuoti {rotation}
                             </span>
                         </div>
                         <div className="list-group-item" style={{ height: 'auto' }}>

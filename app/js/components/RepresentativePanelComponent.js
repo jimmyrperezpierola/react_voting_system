@@ -70,7 +70,7 @@ var RepresentativesPanelComponent = React.createClass({
 						<Link
 							to={"atstovui/rezultatai/vienmandaciai"}
 							className="adminPanelButton"
-							id="location1"
+							id="county-results-single-mandate"
 							style={this.state.tagIds.location1}>
 							<img src="app/imgs/results_chart.png" style={ styles.image }/>
 							<p>Apylinkės rezultatai (VIENMANDAČIAI)</p>
@@ -80,7 +80,7 @@ var RepresentativesPanelComponent = React.createClass({
 						<Link
 							to={"atstovui/rezultatai/daugiamandaciai"}
 							className="adminPanelButton"
-							id="location2"
+							id="county-results-multi-mandate"
 							style={this.state.tagIds.location2}>
 							<img src="app/imgs/results_chart.png" style={ styles.image }/>
 							<p>Apylinkės rezultatai (DAUGIAMANDAČIAI)</p>
@@ -90,7 +90,7 @@ var RepresentativesPanelComponent = React.createClass({
 						<Link
 							to={"atstovui/profilis"}
 							className="adminPanelButton"
-							id="location3"
+							id="representative-profile-button"
 							style={this.state.tagIds.location3}>
 							<img src="app/imgs/user.png" style={ styles.image }/>
 							<p style={{ marginBottom: 0 }}>Atstovo</p>

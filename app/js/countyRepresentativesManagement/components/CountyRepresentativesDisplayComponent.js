@@ -81,7 +81,8 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
             return (
                 <div>
                     <div className="container">
-                        <button onClick={this.toggleFullRepresentativesList}>Rodyti - nerodyti</button>
+                        <button id="show-hide-button"
+                                onClick={this.toggleFullRepresentativesList}>Rodyti - nerodyti</button>
                         <div className="row">
                             <div className="col-md-8 units-list-area" style={this.state.showFullListStyle}>
 
@@ -96,11 +97,15 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
                                         <div style={{height: "20px"}}>
                                             <div className="col-md-4">
                                                 Atstovas &nbsp;
-                                                <small onClick={this.toggleNameSortOrder}>[Rūšiuoti {rotationName}]</small>
+                                                <small style={{cursor: "pointer" }}
+                                                       id="representatives-sorting-button"
+                                                       onClick={this.toggleNameSortOrder} >[Rūšiuoti {rotationName}]</small>
                                             </div>
                                             <div className="col-md-4">
                                                 Apylinkė &nbsp;
-                                                <small onClick={this.toggleCountySortOrder}>[Rūšiuoti {rotationCounty}]</small>
+                                                <small style={{cursor: "pointer" }}
+                                                       id="county-sorting-button"
+                                                       onClick={this.toggleCountySortOrder}>[Rūšiuoti {rotationCounty}]</small>
                                             </div>
                                             <div className="col-md-3">El. paštas</div>
                                             <div className="col-md-1">Trinti</div>
@@ -133,7 +138,8 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-8 units-list-area" style={this.state.showFullListStyle}>
-                                    <button onClick={this.props.toggleFullRepresentativesList}>Rodyti visus atstovus</button>
+                                    <button id="show-button"
+                                            onClick={this.props.toggleFullRepresentativesList}>Rodyti visus atstovus</button>
                                 </div>
                                 <div className="col-md-4 units-create-area">
                                     <div className="col-md-11">

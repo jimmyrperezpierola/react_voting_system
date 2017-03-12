@@ -25,15 +25,15 @@ function CountyDisplayComponent(props) {
     return (
         <div className="unit">
             <div className="list-group-item active">
-                <div onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
+                <div id={"county-tab-" + props.county.name + "-" + props.county.district.name} onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
                     <strong>{props.county.name}</strong> (Apygarda: {props.county.district.name})
                     {props.allConfirmedBtn}
                 </div>
             </div>
             <div style={ display }>
                 <div className="list-group-item">
-                    <button onClick={props.displaySM} className={smBtn}>1-MANDATINIAI</button>
-                    <button onClick={props.displayMM} className={mmBtn}>M-MANDATINIAI</button>
+                    <button id={props.county.name + "-" + props.county.district.name + "-single-mandate"} onClick={props.displaySM} className={smBtn}>1-MANDATINIAI</button>
+                    <button id={props.county.name + "-" + props.county.district.name + "-multi-mandate"} onClick={props.displayMM} className={mmBtn}>M-MANDATINIAI</button>
                     {deleteBtn}
                     {confirmBtn}
                 </div>

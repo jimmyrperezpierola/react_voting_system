@@ -19,9 +19,10 @@ var AdminResultsViewComponent = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 units-list-area">
-                        <div className="list-group-item active">
+                        <div className="list-group-item active" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
                             <span>Apylinkių rezultatai</span>
                             <span
+                                id="sort-districts-button"
                                 className="btn btn-sm btn-primary no-background"
                                 style={{ color: '#FFFFFF', borderColor: '#FFFFFF' }}
                                 onClick={this.toggleSortOrder}>
@@ -39,10 +40,10 @@ var AdminResultsViewComponent = React.createClass({
                             </div>
                             <div className="list-group-item">
                                 <p>Pasirinkite apygardą</p>
-                                <p>{this.props.districtsSelect}</p>
+                                <p id="sort-select-district">{this.props.districtsSelect}</p>
                                 <div className="counties" style={ display }>
                                     <p>Pasirinkite apylinkę</p>
-                                    <p>{this.props.countiesSelect}</p>
+                                    <p id="sort-select-county">{this.props.countiesSelect}</p>
                                 </div>
                             </div>
                         </div>

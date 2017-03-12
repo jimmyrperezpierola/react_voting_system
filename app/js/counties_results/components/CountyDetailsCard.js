@@ -40,6 +40,7 @@ var CountyDetailsCard = React.createClass({
                         </div>
                         <div className="col col-md-7" style={{ padding: 0 }}>
                             <span
+                                id="county-title-info"
                                 className="popoverCountyName"
                                 onMouseOver={this.popupInfo}
                                 data-content={rep.county.name}
@@ -49,8 +50,9 @@ var CountyDetailsCard = React.createClass({
                             >
                                 {truncate(rep.county.name, truncateLength)}
                             </span><br />
-                            <span>{rep.county.voterCount}</span> <br />
+                            <span id="voters-count-info">{rep.county.voterCount}</span> <br />
                             <span
+                                id="county-address-info"
                                 className="popoverAddress"
                                 onMouseOver={this.popupInfo}
                                 data-content={rep.county.address}
@@ -64,6 +66,7 @@ var CountyDetailsCard = React.createClass({
                             <hr style={{ margin: 10 }} />
 
                             <span
+                                id="district-title-info"
                                 className="popoverDistrictName"
                                 onMouseOver={this.popupInfo}
                                 data-content={rep.district.name}

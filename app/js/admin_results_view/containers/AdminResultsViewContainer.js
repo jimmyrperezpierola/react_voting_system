@@ -76,8 +76,8 @@ var AdminResultsViewContainer = React.createClass({
 
 		this.state.optionsMap.forEach((v, k) => {
 			districtOptions.push(
-				<option 
-					value={k} 
+				<option
+					value={k}
 					key={k + "-" + v.name}
 				> 
 					{k} 

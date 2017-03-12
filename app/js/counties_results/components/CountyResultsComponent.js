@@ -48,10 +48,10 @@ var CountyResultsComponent = React.createClass({
                         <div className="col-md-11">
                             <RepresentativeCard representative={this.props.representative} />
                             <div style={{ marginTop: 30 }}>
-                                <button className="btn btn-default btn-md county-results-form-btns" onClick={this.submitResults}>
+                                <button id="send-county-results-button" className="btn btn-default btn-md county-results-form-btns" onClick={this.submitResults}>
                                     SIŲSTI REZULTATUS
                                 </button>
-                                <button className="btn btn-default btn-md county-results-form-btns" onClick={this.clearForm}>
+                                <button id="clear-form-button" className="btn btn-default btn-md county-results-form-btns" onClick={this.clearForm}>
                                     IŠVALYTI FORMĄ
                                 </button>
                             </div>
