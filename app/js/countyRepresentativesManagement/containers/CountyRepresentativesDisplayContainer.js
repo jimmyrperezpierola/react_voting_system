@@ -59,7 +59,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
     },
 
     newRep: function (name, surname, email, district, county) {
-        //e.preventDefault();
         var self = this;
         var errors = [];
         var countyId = this.getCountyId(district, county);
@@ -70,7 +69,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
             .then(function(response){
                 var actualRepresentatives = self.state.representatives;
                 actualRepresentatives.push(response.data);
-                self.setState({ representatives: actualRepresentatives, newRepresentative: response.data });
+                self.setState({ representatives: actualRepresentatives, newRepresentative: response.data, springErrors: [] });
             })
             .catch(function(error){
                 console.log(error);

@@ -4,11 +4,9 @@
 var React = require('react');
 var ValidationsOR = require("../../utils/ValidationsOR");
 var Validations = require("../../utils/Validations");
-
 var onlyRequiredCounties = [];
 
 var NewRepresentativeSideFormComponent = React.createClass({
-
     getInitialState: function () {
         return {
             countiesOfDistrict: [],
@@ -17,13 +15,11 @@ var NewRepresentativeSideFormComponent = React.createClass({
             email: '',
             district: 'Pasirinkite apygardą',
             county: 'Pasirinkite apylinkę',
-
             nameErrors: [],
             surnameErrors: [],
             emailErrors: [],
         }
     },
-
     componentWillMount: function () {
         onlyRequiredCounties = [];
     },
@@ -55,7 +51,6 @@ var NewRepresentativeSideFormComponent = React.createClass({
         this.changePossibleCounties(event);
         this.handleDistrictChange(event);
     },
-
     changePossibleCounties: function (event) {
         onlyRequiredCounties = [];
         var self = this;
@@ -65,6 +60,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
         var currentDistrictName = '';
         var currentCountyName = '';
         var uniqueCombinationOfDistrictAndCounty = '';
+
         this.props.OnlyDistricts.map(function(district, index){
             currentDistrictObject = district;
             currentDistrictName = district.name;
@@ -86,41 +82,36 @@ var NewRepresentativeSideFormComponent = React.createClass({
             }
         });
     },
-
     onSubmit: function (event) {
         event.preventDefault();
-        var tempName = this.state.name.trim()[0].toUpperCase() + this.state.name.trim().substring(1).toLowerCase();
-        var tempSurname = this.state.surname.trim()[0].toUpperCase() + this.state.surname.trim().substring(1).toLowerCase();
+        var tempName = this.state.name.trim()[0].toUpperCase() +
+            this.state.name.trim().substring(1).toLowerCase();
+        var tempSurname = this.state.surname.trim()[0].toUpperCase() +
+            this.state.surname.trim().substring(1).toLowerCase();
         tempSurname[0].toUpperCase();
         var tempEmail = this.state.email.toLowerCase();
+
         this.props.newRep(tempName, tempSurname, tempEmail, this.state.district, this.state.county);
-        this.setState({name: ''});
-        this.setState({surname: ''});
-        this.setState({email: ''});
-        this.setState({district: 'Pasirinkite apygardą'});
-        this.setState({county: 'Pasirinkite apylinkę'});
+        this.setState({
+            name: '',
+            surname: '',
+            email: '',
+            district: 'Pasirinkite apygardą',
+            county: 'Pasirinkite apylinkę'
+        });
         this.changePossibleCounties(event);
     },
-
     springErrors: function() {
-        return Validations.prepareSpringErrors(this.props.springErrors, {marginTop: 10});
+        return (this.props.springErrors.length > 0) ?
+            Validations.prepareSpringErrors(this.props.springErrors, {marginTop: 10}) :
+            [];
     },
-
     render: function () {
-
         {this.changePossibleCounties}
-
         var DistrictNames = [];
         DistrictNames = this.props.OnlyDistricts;
-
-        MakeDistrictItem = function(X) {
-            return <option key={X.id}>{X.name}</option>;
-        };
-        MakeCountyItem = function(X) {
-            return <option key={X.id}>{X.name}</option>;
-        };
-
-        var springErrors = (this.props.springErrors.length > 0) ? this.springErrors() : [];
+        MakeDistrictItem = function(X) { return <option key={X.id}>{X.name}</option> };
+        MakeCountyItem = function(X) { return <option key={X.id}>{X.name}</option> };
 
         return (
             <form>
@@ -157,12 +148,10 @@ var NewRepresentativeSideFormComponent = React.createClass({
                         this.state.email == ''
                     } className="btn btn-primary btn-md" onClick={this.onSubmit} style={{ marginTop: 10 }} >Sukurti</button>
                 </div>
-                {springErrors}
-
+                {this.springErrors()}
             </form>
         )
     }
-
 });
 
 module.exports = NewRepresentativeSideFormComponent;

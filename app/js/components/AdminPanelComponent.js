@@ -12,13 +12,13 @@ var styles = {
 
 var AdminPanelComponent = React.createClass({
     getInitialState() {
-        //return ({ tagIds: this.setBackgroundsByLocation(), admin: false });
-        return ({ tagIds: this.setBackgroundsByLocation(), admin: true });
+        //return ({ tagIds: this.setBackgroundsByLocation(), currentUser: this.props.currentUser, admin: false });
+        return ({ tagIds: this.setBackgroundsByLocation(), currentUser: this.props.currentUser, admin: true });
     },
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
-    componentWillMount() {
+    componentDidMount() {
         /*const _this = this;
         let fd = new FormData();
         fd.append("role", "ROLE_ADMIN");
@@ -33,6 +33,13 @@ var AdminPanelComponent = React.createClass({
             .catch(err => {
                 console.log(err);
             });*/
+    },
+    componentWillReceiveProps(newProps) {
+        let loggedOut = Object.keys(newProps.currentUser).length == 0;
+        if (newProps.currentUser != this.state.currentUser || loggedOut) {
+            this.context.router.push('/');
+            this.setState({ admin: false });
+        }
     },
     resetButtonBackgrounds: function() {
         this.setState({
