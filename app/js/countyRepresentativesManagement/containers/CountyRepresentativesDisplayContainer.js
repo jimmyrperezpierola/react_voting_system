@@ -62,6 +62,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         var self = this;
         var errors = [];
         var countyId = this.getCountyId(district, county);
+        let success = false;
 
         var RequestBody = {"firstName": name, "lastName": surname, "email": email, "countyId": countyId};
 
@@ -70,12 +71,15 @@ var CountyRepresentativesDisplayContainer = React.createClass({
                 var actualRepresentatives = self.state.representatives;
                 actualRepresentatives.push(response.data);
                 self.setState({ representatives: actualRepresentatives, newRepresentative: response.data, springErrors: [] });
+                success = true;
             })
             .catch(function(error){
                 console.log(error);
                 errors.push(error.response.data.rootMessage);
                 self.setState({ springErrors: errors.concat(error.response.data.errorsMessages) });
             });
+
+        return success;
     },
 
     getCountyId: function (districtName, countyName) {

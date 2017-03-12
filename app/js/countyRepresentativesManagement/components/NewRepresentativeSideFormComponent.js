@@ -91,15 +91,18 @@ var NewRepresentativeSideFormComponent = React.createClass({
         tempSurname[0].toUpperCase();
         var tempEmail = this.state.email.toLowerCase();
 
-        this.props.newRep(tempName, tempSurname, tempEmail, this.state.district, this.state.county);
-        this.setState({
-            name: '',
-            surname: '',
-            email: '',
-            district: 'Pasirinkite apygardą',
-            county: 'Pasirinkite apylinkę'
-        });
-        this.changePossibleCounties(event);
+        const success = this.props.newRep(tempName, tempSurname, tempEmail, this.state.district, this.state.county);
+
+        if (success) {
+            this.setState({
+                name: '',
+                surname: '',
+                email: '',
+                district: 'Pasirinkite apygardą',
+                county: 'Pasirinkite apylinkę'
+            });
+            this.changePossibleCounties(event);
+        }
     },
     springErrors: function() {
         return (this.props.springErrors.length > 0) ?
