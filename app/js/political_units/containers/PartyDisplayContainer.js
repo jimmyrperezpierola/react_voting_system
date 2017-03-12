@@ -25,7 +25,7 @@ var PartyDisplayContainer = React.createClass({
             this.state.party.candidates.forEach((c, index) => {
                 cand.push(
                       <CandidateCardComponent
-                          key={index}
+                          key={c.personId}
                           candidate={c}
                       />
                 );
@@ -109,7 +109,6 @@ var PartyDisplayContainer = React.createClass({
         );
     },
     render: function() {
-        console.log(this.props.party);
         return (
             <PartyDisplayComponent
                 toggleShow={this.toggleShowCandidates}
