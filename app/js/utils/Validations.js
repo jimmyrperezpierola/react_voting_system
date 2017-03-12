@@ -110,8 +110,9 @@ var Validations = {
         }
 
         var countyVoters = voters;
+        var total = 0;
 
-        dictionary.forEach(function(value, voters) {
+        dictionary.forEach(function(value, key) {
             if (value == "" || value == undefined) {
                 emptyFields += 1;
             } else if (isNaN(value)) {
@@ -120,8 +121,12 @@ var Validations = {
                 errors.push(value + " " + Errors.negativeNumError);
             } else if (parseInt(value) > countyVoters) {
                 errors.push(value + " " + Errors.positiveInfiniteNumError + " " + countyVoters);
+            } else {
+                total += parseInt(value);
             }
         });
+        if (total > (voters-spoiled) || total > voters) errors.push(Errors.votersOverflowError);
+
         if (emptyFields > 0) errors.push(Errors.emptyFieldsError + "(" + emptyFields + ")");
         if (emptyFields == dictionary.size + 1) {
             var emptyForm = new Array();
@@ -180,7 +185,8 @@ var Errors = {
     emptyValueError: "Balsų įvedimo laukas liko tuščias",
     emptyFieldsError: "Formoje liko tuščių laukų ",
     positiveInfiniteNumError: "netinkamas skaičius. Apylinkės gyventojų tik",
-    emptyFormError: "Forma tuščia"
+    emptyFormError: "Forma tuščia",
+    votersOverflowError: "Suminis biuletenių skaičius viršija apylinkės balsuotojų skaičių"
 };
 
 module.exports = Validations;

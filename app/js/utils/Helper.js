@@ -9,7 +9,7 @@ var Helpers = {
         if (millis == null) {
             return (
                 <div>
-                    <div className="list-group-item active" style={{'marginTop': 10}}>
+                    <div className="list-group-item active location6" style={{'marginTop': 10}}>
                         {message}
                     </div>
                     <div className="list-group-item">
@@ -34,7 +34,7 @@ var Helpers = {
 
         return (
             <div>
-                <div className="list-group-item active" style={{'marginTop': 10}}>
+                <div className="list-group-item active location6" style={{'marginTop': 10}}>
                     {message}
                 </div>
                 <div className="list-group-item">

@@ -18,12 +18,12 @@ var CountyDetailsCard = React.createClass({
         let rep = this.props.representative;
         return (
             <div>
-                <div className="list-group-item active">
+                <div className="list-group-item active location6">
                     Apylinkės duomenys
                 </div>
                 <div className="list-group-item">
-                    <div className="row narrowed">
-                        <div className="col col-md-5" style={{ padding: 0 }}>
+                    <div className="row narrowed" style={{ backgroundColor: 'white' }}>
+                        <div className="col col-md-5" style={{ padding: 0, textAlign: 'left' }}>
                             <span className="glyphicon glyphicon-list-alt"></span> &nbsp;
                             <span><u>Pavadinimas</u></span> <br />
 
@@ -38,7 +38,7 @@ var CountyDetailsCard = React.createClass({
                             <span className="glyphicon glyphicon-list-alt"></span> &nbsp;
                             <span><u>Apygarda</u></span> <br />
                         </div>
-                        <div className="col col-md-7" style={{ padding: 0 }}>
+                        <div className="col col-md-7" style={{ padding: 0, textAlign: 'left' }}>
                             <span
                                 id="county-title-info"
                                 className="popoverCountyName"

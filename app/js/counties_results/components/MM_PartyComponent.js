@@ -1,7 +1,6 @@
 var React = require('react');
 const styles = {"image": {width: 20, height: 20}};
 
-
 var MM_PartyComponent = React.createClass({
     changeVotes: function(e) {
         this.props.changeVotes(this.props.party.id, e.target.value);
@@ -10,7 +9,7 @@ var MM_PartyComponent = React.createClass({
 
         return (
             <div className="unit">
-                  <div className="list-group-item">
+                  <div className="list-group-item location6">
                     <div>
                       <div style={{height: "20px"}}>
                         <div id={"party-name-" + this.props.party.name} className="col-md-8">

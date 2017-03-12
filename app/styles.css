@@ -2,6 +2,7 @@ body {
     font-family: 'open sans';
     overflow-y: scroll;
     max-height: 100vh;
+
 }
 
 #app, .container {
@@ -28,11 +29,23 @@ body {
     text-align: center;
 }
 
+#bootstrap-overrides-nav-tabs.nav.nav-tabs.narrow {
+    width: 90%;
+}
+
 #bootstrap-overrides-nav-tabs .tab {
     width: 20%;
     height: 100%;
     text-align: center;
     display: table;
+    padding: 15px 0;
+    margin: 0;
+}
+
+#bootstrap-overrides-nav-tabs .tab.centered.widened {
+    height: 100%;
+    text-align: center;
+    display: table-cell;
     padding: 15px 0;
     margin: 0;
 }
@@ -101,6 +114,22 @@ body {
     background-color: #C47752;
 }
 
+.list-group-item.active.location6 {
+    background-color: #77A0AA;
+}
+
+.location6 {
+    background-color: #77A0AA;
+}
+
+.list-group-item.active.location8 {
+    background-color: #77A0AA;
+}
+
+.location8 {
+    background-color: #77A0AA;
+}
+
 .big-glyph {
     font-size: 2.5em;
 }
@@ -120,12 +149,17 @@ adminPanelButton:hover{
 .row {
     margin: 0;
     height: 100vh;
-    background-color: #CDEBF7;
+    background-color: #E7E9EB;
 }
 
 .row.narrowed {
   height: auto;
-  background-color: white;
+  background-color: #E7E9EB;
+}
+
+.row.narrowed.whitened {
+    height: auto;
+    background-color: white;
 }
 
 .container {
@@ -205,7 +239,7 @@ adminPanelButton:hover{
 }
 
 .unit {
-    padding: 5px 0;
+    padding: 1px 0;
 }
 
 .unit.narrowed {

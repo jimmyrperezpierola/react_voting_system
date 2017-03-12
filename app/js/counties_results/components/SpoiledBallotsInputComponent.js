@@ -4,7 +4,7 @@ var SpoiledBallotsInputComponent = React.createClass({
     render: function() {
         return (
             <div className="unit">
-                <div className="list-group-item active">
+                <div className="list-group-item active location6">
                     <div id="header-title-spoiled-votes">
                         Apylinkės sugadintų biuletenių skaičius
                     </div>

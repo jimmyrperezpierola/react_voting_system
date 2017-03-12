@@ -10,7 +10,7 @@ var styles = {
     "active-location3": {backgroundColor: '#77A0AA', color:"white"},
     "active-location4": {backgroundColor: '#8AB28D', color:"white"},
     "active-location5": {backgroundColor: '#C47752', color:"white"},
-    "passive": {backgroundColor: '#e7e9eb', color:"#006B96"},
+    "passive": {backgroundColor: '#D8DADB', color:"#006B96"},
     "image": {width: 60, height: 60, marginBottom: 10}
 }
 
@@ -129,7 +129,6 @@ var AdminPanelComponent = React.createClass({
 									id="location1"
 									style={this.state.tagIds.location1}>
                                     <span className="glyphicon glyphicon-globe big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
-									{/*<img src="app/imgs/planet-earth.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Teritoriniai</p>
                                     <p>vienetai</p>
 								</Link>
@@ -141,7 +140,6 @@ var AdminPanelComponent = React.createClass({
 									id="location2"
 									style={this.state.tagIds.location2}>
                                     <span className="glyphicon glyphicon-apple big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
-									{/*<img src="app/imgs/SM_candidate.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Apygardų</p>
                                     <p>kandidatai</p>
 								</Link>
@@ -153,7 +151,6 @@ var AdminPanelComponent = React.createClass({
 									id="location3"
 									style={this.state.tagIds.location3}>
                                     <span className="glyphicon glyphicon-grain big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
-									{/*<img src="app/imgs/representative1.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Apylinkių</p>
                                     <p>atstovai</p>
 								</Link>
@@ -165,7 +162,6 @@ var AdminPanelComponent = React.createClass({
 									id="location4"
 									style={this.state.tagIds.location4}>
                                     <span className="glyphicon glyphicon-piggy-bank big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
-									{/*<img src="app/imgs/political_party.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Politiniai</p>
                                     <p>vienetai</p>
 								</Link>
@@ -177,7 +173,6 @@ var AdminPanelComponent = React.createClass({
 									id="location5"
 									style={this.state.tagIds.location5}>
                                     <span className="glyphicon glyphicon-stats big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
-									{/*<img src="app/imgs/results_chart.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Apylinkių</p>
                                     <p>rezultatai</p>
 								</Link>

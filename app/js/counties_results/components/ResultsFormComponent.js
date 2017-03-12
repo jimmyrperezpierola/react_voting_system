@@ -8,7 +8,7 @@ function ResultsFormComponent(props) {
                 spoiled={props.spoiled}
                 changeSpoiled={props.changeSpoiled}
             />
-            <div className="list-group-item active">
+            <div className="list-group-item active location6">
                 <span id="header-title-result-form">{props.header}</span>
             </div>
             <div id="candidates-list" className="list-group-item" style={{ height: 'auto' }}>

@@ -9,6 +9,7 @@ var CountyResultsComponent = React.createClass({
     },
     submitResults: function(e) {
         e.preventDefault();
+
         var errors = Validations.checkErrorsResultForm(this.props.dictionary, this.props.spoiled, this.props.representative.county.voterCount);
         if (errors.length > 0) {
             this.setState({ jsErrors: errors });
@@ -31,8 +32,6 @@ var CountyResultsComponent = React.createClass({
         var jsErrors = (this.state.jsErrors.length > 0) ? this.prepareJSerrors() : [];
         var springErrors = (this.props.springErrors.length > 0) ? this.prepareSpringErrors() : [];
 
-        console.log(this.props.representative)
-
         return (
             <div className="container">
                 <div className="row">
@@ -44,8 +43,8 @@ var CountyResultsComponent = React.createClass({
                             votees={this.props.votees}
                         />
                     </div>
-                    <div className="col-md-4 units-create-area">
-                        <div className="col-md-11">
+                    <div className="col-md-4 units-create-area" style={{ textAlign: 'center' }}>
+                        <div className="col-md-12">
                             <RepresentativeCard representative={this.props.representative} />
                             <div style={{ marginTop: 30 }}>
                                 <button id="send-county-results-button" className="btn btn-default btn-md county-results-form-btns" onClick={this.submitResults}>
