@@ -98,6 +98,7 @@ var CountyDisplayComponent = React.createClass({
                     address={this.state.newAddress}
                     springErrors={this.state.springErrors}
                     btnName="Atnaujinti"
+                    districtName={this.props.unit.name}
                 />
             ); 
         } else {

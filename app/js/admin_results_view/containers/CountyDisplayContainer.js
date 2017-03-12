@@ -74,13 +74,15 @@ var CountyDisplayContainer = React.createClass({
         if (result.confirmed) {
             confirmBtn = 
                 <ConfirmButton
-                    text="Patvirtinta "
+                    id={"confirmed-results-button-" + this.state.county.name + "-" + this.state.county.district.name}
+                	text="Patvirtinta "
                     spanClass="glyphicon glyphicon-ok-sign"
                 />
         } else {
             confirmBtn = 
                 <ConfirmButton
-                    onClick={this.confirmResults.bind(this, result.id)}
+                	id={"confirm-results-button-" + this.state.county.name + "-" + this.state.county.district.name}
+                	onClick={this.confirmResults.bind(this, result.id)}
                     text="Patvirtinti rezultatus "
                     spanClass="glyphicon glyphicon-exclamation-sign"
                 />
@@ -90,7 +92,8 @@ var CountyDisplayContainer = React.createClass({
     determineDeleteButton: function() {
         if (this.state.activeResultId) {
             deleteBtn = <button 
-                            className="btn btn-default btn-sm floaters-right" 
+            				id={"delete-results-button-" + this.state.county.name + "-" + this.state.county.district.name}
+            				className="btn btn-default btn-sm floaters-right" 
                             onClick={this.handleDelete.bind(this, this.state.activeResultId)}
                         >
                             Pašalinti 
