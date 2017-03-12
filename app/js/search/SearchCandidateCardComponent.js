@@ -11,7 +11,7 @@ function SearchCandidateCardComponent(props) {
                 <div className="row candidate-card-low">
                     <div className="col-sm-8 col-md-12" style={{backgroundColor: "white"}}>
                         <p style={{ marginTop: 15 }}>
-                            <p style={ styles.marginLeft, {fontSize: "22"} }>
+                            <p style={ styles.marginLeft, {fontSize: 22} }>
                                 <span id={"candidate-info-tab-name-" + props.candidate.personId} >
                                     <span style={{color:'#1c9312', fontWeight:"bold"}}>
                                         {props.candidate.firstName} &nbsp; {props.candidate.lastName}

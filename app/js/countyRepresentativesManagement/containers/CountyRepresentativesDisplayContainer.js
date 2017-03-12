@@ -7,7 +7,6 @@ var CountyRepresentativesDisplayComponent = require('../components/CountyReprese
 var spring = require('../../config/SpringConfig');
 
 var CountyRepresentativesDisplayContainer = React.createClass({
-
     getInitialState: function () {
         return ({
             representatives: [],
@@ -21,11 +20,9 @@ var CountyRepresentativesDisplayContainer = React.createClass({
             toggleFullRepresentativesDisplayView: false,
         });
     },
-
     toggleFullRepresentativesList: function () {
         this.setState({ toggleFullRepresentativesDisplayView: !this.state.toggleFullRepresentativesDisplayView });
     },
-
     componentDidMount: function () {
         var self = this;
         axios
@@ -43,7 +40,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
                 console.log(error);
             })
     },
-
     handleDeleteRepresentative: function (repId, index) {
         var self = this;
         var deleteUrl = spring.localHost.concat('/api/county-rep/') + repId;
@@ -57,7 +53,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
                 console.log(error);
             });
     },
-
     newRep: function (name, surname, email, district, county) {
         var self = this;
         var errors = [];
@@ -81,7 +76,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
 
         return success;
     },
-
     getCountyId: function (districtName, countyName) {
         var CountyId;
         this.state.districts.map(function(district, index){
@@ -93,7 +87,6 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         });
         return CountyId;
     },
-
     render: function () {
             return (
                     <CountyRepresentativesDisplayComponent
@@ -104,6 +97,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
                         springErrors={this.state.springErrors}
                         toggleFullRepresentativesList={this.toggleFullRepresentativesList}
                         toggleFullRepresentativesDisplayView={this.state.toggleFullRepresentativesDisplayView}
+
                     />
             )
     }
