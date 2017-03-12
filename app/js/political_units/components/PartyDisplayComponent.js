@@ -40,7 +40,7 @@ var PartyDisplayComponent = React.createClass({
     render() {
         return (
             <div className="unit">
-                <div className="list-group-item list-group-item-success" id={"party-" + this.state.unit.name}>
+                <div className="list-group-item active location4" id={"party-" + this.state.unit.name}>
                     {this.updateOrDisplay()}
                 </div>
                 <div style={ this.props.display }>

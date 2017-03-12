@@ -91,7 +91,7 @@ var NavigationBarComponent = React.createClass ({
         var b3 = (this.props.thirdMenu == '') ? {display : 'none'} : {display : 'inline'};
 
         return (
-            <nav className="navbar navbar-default">
+            <nav className="navbar navbar-default" id="navigation">
                 <div className="container-fluid">
 
                     <div className="navbar-header">
@@ -103,7 +103,13 @@ var NavigationBarComponent = React.createClass ({
                             {/*<li><a id="homePageButton" onClick={this.props.homePageButtonPressed} href="#"><span className="glyphicon glyphicon-home" aria-hidden="true"></span> Pradžia </a></li>*/}
                             <li><div id="website-page-title" className="navBarTitle">{this.state.pageTitle}</div></li>
                             <Link to="/">
-                                <button id="homeButton" onClick={this.props.homePageButtonPressed} ><span className="glyphicon glyphicon-home" aria-hidden="true"></span> {this.state.homeButtonText}</button>
+                                <button
+                                    id="homeButton"
+                                    style={{ backgroundColor: '#273B51' }}
+                                    onClick={this.props.homePageButtonPressed}>
+                                    <span className="glyphicon glyphicon-home" aria-hidden="true"></span>
+                                    {this.state.homeButtonText}
+                                </button>
                             </Link>
                         </ul>
 

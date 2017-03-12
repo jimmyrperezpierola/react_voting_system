@@ -24,7 +24,7 @@ function CountyDisplayComponent(props) {
 
     return (
         <div className="unit">
-            <div className="list-group-item active">
+            <div className="list-group-item active location5">
                 <div id={"county-tab-" + props.county.name + "-" + props.county.district.name} onClick={props.toggleShow} style={{ cursor: 'pointer' }}>
                     <strong>{props.county.name}</strong> (Apygarda: {props.county.district.name})
                     {props.allConfirmedBtn}

@@ -19,7 +19,7 @@ var AdminResultsViewComponent = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 units-list-area">
-                        <div className="list-group-item active" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
+                        <div className="list-group-item active location5" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
                             <span>Apylinkių rezultatai</span>
                             <span
                                 id="sort-districts-button"
@@ -35,7 +35,7 @@ var AdminResultsViewComponent = React.createClass({
                     </div>
                     <div className="col-md-4 units-create-area">
                         <div className="col-md-11">
-                            <div className="list-group-item active">
+                            <div className="list-group-item active location5">
                                 Susiaurinti rezultatus
                             </div>
                             <div className="list-group-item">

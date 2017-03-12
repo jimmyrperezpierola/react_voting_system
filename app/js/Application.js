@@ -54,7 +54,7 @@ var Application = React.createClass({
     },
     render() {
         return (
-			<div className="container">
+			<div className="container" id="app">
 				<NavigationBarComponent
 					currentUser={ this.state.currentUser }
 					manageUser={this.manageUser}

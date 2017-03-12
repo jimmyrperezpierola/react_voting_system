@@ -5,8 +5,12 @@ var axios = require('axios');
 var spring = require('../config/SpringConfig');
 
 var styles = {
-    "active": {backgroundColor: '#006B96', color:"white"},
-    "passive": {backgroundColor: '#CDEBF7', color:"#006B96"},
+    "active-location1": {backgroundColor: '#9D9FB5', color:"white"},
+    "active-location2": {backgroundColor: '#B8A668', color:"white"},
+    "active-location3": {backgroundColor: '#77A0AA', color:"white"},
+    "active-location4": {backgroundColor: '#8AB28D', color:"white"},
+    "active-location5": {backgroundColor: '#C47752', color:"white"},
+    "passive": {backgroundColor: '#e7e9eb', color:"#006B96"},
     "image": {width: 60, height: 60, marginBottom: 10}
 }
 
@@ -57,7 +61,7 @@ var AdminPanelComponent = React.createClass({
         var newState = {};
 
         Object.keys(stateObj.tagIds).forEach(key => {
-            var value = (key === tag.id) ? styles.active : styles.passive;
+            var value = (key === tag.id) ? styles["active-" + key] : styles.passive;
             newState[key] = value;
         });
         this.setState({ tagIds: newState });
@@ -93,19 +97,19 @@ var AdminPanelComponent = React.createClass({
 
         switch (this.props.location.pathname) {
             case '/administravimas/teritorinis-suskirstymas':
-                tagIds.location1 = styles.active;
+                tagIds.location1 = styles["active-location1"];
                 break;
             case '/administravimas/apygardu-kandidatai':
-                tagIds.location2 = styles.active;
+                tagIds.location2 = styles["active-location2"];
                 break;
             case '/administravimas/apylinkiu-atstovai':
-                tagIds.location3 = styles.active;
+                tagIds.location3 = styles["active-location3"];
                 break;
             case '/administravimas/politinis-suskirstymas':
-                tagIds.location4 = styles.active;
+                tagIds.location4 = styles["active-location4"];
                 break;
             case '/administravimas/apylinkiu-rezultatai':
-                tagIds.location5 = styles.active;
+                tagIds.location5 = styles["active-location5"];
         }
 
         return tagIds;

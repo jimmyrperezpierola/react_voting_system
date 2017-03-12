@@ -81,18 +81,22 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
             return (
                 <div>
                     <div className="container">
+
+
                         <button id="show-hide-button"
-                                onClick={this.toggleFullRepresentativesList}>Rodyti - nerodyti</button>
+                                onClick={this.toggleFullRepresentativesList}
+                        >
+                            Rodyti - nerodyti
+                        </button>
+
+
                         <div className="row">
                             <div className="col-md-8 units-list-area" style={this.state.showFullListStyle}>
-
-
-
                             <div >
-                                <div className="list-group-item active">
+                                <div className="list-group-item active location3">
                                     <div style={{textAlign:"center"}}><b>RINKIMŲ APYLINKIŲ ATSTOVAI</b></div>
                                 </div>
-                                <div className="list-group-item active">
+                                <div className="list-group-item active location3">
                                     <div>
                                         <div style={{height: "20px"}}>
                                             <div className="col-md-4">

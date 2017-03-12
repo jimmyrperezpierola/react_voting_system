@@ -20,7 +20,7 @@ var DistrictDisplayComponent = React.createClass({
         } else {
             return (
                 <div>
-                    <div className="unit-name-area-"
+                    <div className="unit-name-area- location1"
                         onClick={this.props.toggleCountiesList}
                         style={{ cursor: 'pointer' }}
                     >
@@ -78,7 +78,7 @@ var DistrictDisplayComponent = React.createClass({
     render() {
         return (
             <div className="unit">
-                <div className="list-group-item active" id={"district-" + this.state.unit.name}>
+                <div className="list-group-item active location1" id={"district-" + this.state.unit.name}>
                     {this.updateOrDisplay()}
                 </div>
                 {this.actions()}
