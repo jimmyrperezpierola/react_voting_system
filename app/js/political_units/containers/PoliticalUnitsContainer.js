@@ -27,7 +27,7 @@ var PoliticalUnitsContainer = React.createClass({
             parties.push(
 
                 <PleaseWaitModal
-                    key={idx}
+                    key={p.id + '.' + p.name}
                     raktas={idx}
                     index={idx}
                     unit={p}
