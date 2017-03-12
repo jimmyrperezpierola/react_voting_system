@@ -90,7 +90,7 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
                         </button>
 
 
-                        <div className="row">
+                        <div className="row grayed">
                             <div className="col-md-8 units-list-area" style={this.state.showFullListStyle}>
                             <div >
                                 <div className="list-group-item active location3">
@@ -140,7 +140,7 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
             return (
                     <div>
                         <div className="container">
-                            <div className="row">
+                            <div className="row grayed">
                                 <div className="col-md-8 units-list-area" style={this.state.showFullListStyle}>
                                     <button id="show-button"
                                             onClick={this.props.toggleFullRepresentativesList}>Rodyti visus atstovus</button>

@@ -17,7 +17,7 @@ var AdminResultsViewComponent = React.createClass({
         var rotation = (this.state.ASC) ? " Z-A" : "A-Z";
         return (
             <div className="container">
-                <div className="row">
+                <div className="row grayed">
                     <div className="col-md-8 units-list-area">
                         <div className="list-group-item active location5" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
                             <span>Apylinkių rezultatai</span>

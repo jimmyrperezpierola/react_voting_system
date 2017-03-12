@@ -4,8 +4,12 @@ body {
     max-height: 100vh;
 }
 
-#app {
+#app, .container {
     min-height: 100vh;
+    background-color: #e7e9eb;
+}
+
+.container, .row.grayed {
     background-color: #e7e9eb;
 }
 
@@ -18,8 +22,9 @@ body {
 #bootstrap-overrides-nav-tabs {
     color: #5875db;
     background-color: #e7e9eb;
-    width: 100%;
+    width: 95%;
     height: auto;
+    margin: auto;
     text-align: center;
 }
 
@@ -94,6 +99,10 @@ body {
 
 .location5 {
     background-color: #C47752;
+}
+
+.big-glyph {
+    font-size: 2.5em;
 }
 
 /*admin panel buttons*/

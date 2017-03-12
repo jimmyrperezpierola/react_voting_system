@@ -17,7 +17,7 @@ var TerritorialBreakdownComponent = React.createClass({
         return (
             <div className="container">
                 {/*<nav className="navbar navbar-inverse" data-spy="affix" data-offset-top="197">*/}
-                <div className="row">
+                <div className="row grayed">
                     <div className="col-md-8 units-list-area">
                         <div className="list-group-item active location1" style={{display: "inline-block", verticalAlign: "middle", width: "100%"}}>
                             <span id="district-list-header">Apygardų sąrašas</span>

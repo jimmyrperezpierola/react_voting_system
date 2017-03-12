@@ -128,7 +128,8 @@ var AdminPanelComponent = React.createClass({
 									className="adminPanelButton"
 									id="location1"
 									style={this.state.tagIds.location1}>
-									<img src="app/imgs/planet-earth.png" style={ styles.image }/>
+                                    <span className="glyphicon glyphicon-globe big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
+									{/*<img src="app/imgs/planet-earth.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Teritoriniai</p>
                                     <p>vienetai</p>
 								</Link>
@@ -139,7 +140,8 @@ var AdminPanelComponent = React.createClass({
 									className="adminPanelButton"
 									id="location2"
 									style={this.state.tagIds.location2}>
-									<img src="app/imgs/SM_candidate.png" style={ styles.image }/>
+                                    <span className="glyphicon glyphicon-apple big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
+									{/*<img src="app/imgs/SM_candidate.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Apygardų</p>
                                     <p>kandidatai</p>
 								</Link>
@@ -150,7 +152,8 @@ var AdminPanelComponent = React.createClass({
 									className="adminPanelButton"
 									id="location3"
 									style={this.state.tagIds.location3}>
-									<img src="app/imgs/representative1.png" style={ styles.image }/>
+                                    <span className="glyphicon glyphicon-grain big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
+									{/*<img src="app/imgs/representative1.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Apylinkių</p>
                                     <p>atstovai</p>
 								</Link>
@@ -161,7 +164,8 @@ var AdminPanelComponent = React.createClass({
 									className="adminPanelButton"
 									id="location4"
 									style={this.state.tagIds.location4}>
-									<img src="app/imgs/political_party.png" style={ styles.image }/>
+                                    <span className="glyphicon glyphicon-piggy-bank big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
+									{/*<img src="app/imgs/political_party.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Politiniai</p>
                                     <p>vienetai</p>
 								</Link>
@@ -172,7 +176,8 @@ var AdminPanelComponent = React.createClass({
 									className="adminPanelButton"
 									id="location5"
 									style={this.state.tagIds.location5}>
-									<img src="app/imgs/results_chart.png" style={ styles.image }/>
+                                    <span className="glyphicon glyphicon-stats big-glyph" aria-hidden="true" style={{ marginBottom: 10 }}></span>
+									{/*<img src="app/imgs/results_chart.png" style={ styles.image }/>*/}
                                     <p style={{ marginBottom: 0 }}>Apylinkių</p>
                                     <p>rezultatai</p>
 								</Link>
