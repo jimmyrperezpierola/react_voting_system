@@ -777,3 +777,26 @@ Modal {
     z-index: 1000000;
     opacity: 1.00;
 }
+
+/* PUBLIC RESULTS */
+
+h3, h4 {
+    font-weight: 900;
+    text-align: center;
+}
+
+.h4-election {
+    margin-bottom: 20px;
+}
+
+.small-p {
+    font-size: 0.8em;
+    text-align: left;
+    margin-bottom: 2px;
+}
+
+.centered-p {
+    font-size: 0.9em;
+    text-align: center;
+    margin: 10px 0;
+}
