@@ -795,6 +795,10 @@ h3, h4 {
     margin-bottom: 2px;
 }
 
+.small-p.indented {
+    margin-left: 10px;
+}
+
 .centered-p {
     font-size: 0.9em;
     text-align: center;

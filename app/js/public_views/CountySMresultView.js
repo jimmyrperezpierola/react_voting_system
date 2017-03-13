@@ -35,7 +35,8 @@ var CountySMresultView = React.createClass({
 
         this.state.collection.votes.forEach(v => {
             const candName = <Link to="">{v.candidate.firstName.concat(' ').concat(v.candidate.lastName)}</Link>;
-            const partyName = <Link to="">{(v.candidate.party == null) ? 'Išsikėlęs pats' : v.candidate.party.name}</Link>;
+            const partyName = (v.candidate.party == null) ?
+                ('Išsikėlęs pats') : (<Link to="">{v.candidate.party.name}</Link>);
             const percFromValid = v.voteCount / (this.state.collection.validBallots * 1.0) * 100;
             const percFromTotal = v.voteCount / (this.state.collection.totalBallots * 1.0) * 100;
             totalPercentageOfTotalBallots += percFromTotal;
@@ -51,7 +52,9 @@ var CountySMresultView = React.createClass({
             );
         });
 
-        rows.push(
+        let sortedRows = Helper.sortSMresultDesc(rows);
+
+        sortedRows.push(
             {
                 candidate: '',
                 partyName: <strong style={{ float: 'right', marginRight: 10 }}>Iš viso:</strong>,
@@ -118,6 +121,20 @@ var CountySMresultView = React.createClass({
     getPercentOfSpoiled() {
         return (this.state.collection.spoiledBallots * 1.0 / this.state.collection.voterCount * 100).toFixed(2);
     },
+    getOptions() {
+        const array = [5, 10];
+        const max = (Object.keys(this.state.collection).length > 0) ? this.state.collection.votes.length + 1 : 1;
+        array.push(max);
+
+        return Array.from(new Set(array)).sort((a, b) => {
+            if (a > b) {
+                return 1;
+            } else if (a < b) {
+                return -1;
+            }
+            return 0;
+        });
+    },
     render() {
         return (
             <div>
@@ -127,10 +144,10 @@ var CountySMresultView = React.createClass({
                 <div className="row narrowed" style={{ margin: '30px 0px 30px 0px' }}>
                     <div className="col-md-4"></div>
                     <div className="col-md-5">
-                        <p className="small-p">Rinkėjų skaičius apylinkėje: <strong>{this.state.collection.voterCount}</strong></p>
-                        <p className="small-p">Iš viso rinkimų apylinkėje dalyvavusių rinkėjų skaičius: &nbsp;
+                        <p className="small-p">Rinkėjų skaičius apylinkėje - <strong>{this.state.collection.voterCount}</strong></p>
+                        <p className="small-p">Iš viso rinkimų apylinkėje dalyvavusių rinkėjų skaičius - &nbsp;
                             <strong>{this.state.collection.totalBallots} ({this.getPercentOfTotal()}%)</strong></p>
-                        <p className="small-p">Iš viso negaliojančių rinkimų apylinkėje biuletenių skaičius: &nbsp;
+                        <p className="small-p">Iš viso negaliojančių rinkimų apylinkėje biuletenių skaičius - &nbsp;
                             <strong>{this.state.collection.spoiledBallots} ({this.getPercentOfSpoiled()}%)</strong></p>
                     </div>
                     <div className="col-md-12">
@@ -145,7 +162,8 @@ var CountySMresultView = React.createClass({
                     <ReactTable
                         data={this.prepareData()}
                         columns={this.getColumns()}
-                        defaultPageSize={20}
+                        defaultPageSize={5}
+                        pageSizeOptions={this.getOptions()}
                         showPageJump={false}
                         previousText='Ankstesnis'
                         nextText='Kitas'
