@@ -766,3 +766,9 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     overflow: hidden;
     border-width: 0;
 }
+
+Modal {
+    position: relative;
+    z-index: 1000000;
+    opacity: 1.00;
+}
