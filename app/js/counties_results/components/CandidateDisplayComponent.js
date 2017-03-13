@@ -7,7 +7,7 @@ var CandidateDisplayComponent = React.createClass({
         this.props.changeVotes(this.props.candidate.id, e.target.value);
     },
     render: function() {
-        partyName = (this.props.candidate.partyName == undefined) ? "Išsikėlęs pats" : this.props.candidate.partyName;
+        partyName = (this.props.candidate.party) ? this.props.candidate.party.name : "Išsikėlęs pats";
         return (
             <div className="unit">
                   <div className="list-group-item">
