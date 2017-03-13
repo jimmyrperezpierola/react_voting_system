@@ -18,7 +18,7 @@ function AddedCountyDisplayComponent(props) {
                 <span className="glyphicon glyphicon-map-marker"></span>&nbsp;{props.county.address}
             </p>
             <p style={{ }}>
-                <hr/>
+                <hr id="hr-narrow-around"/>
             </p>
 
         </div>

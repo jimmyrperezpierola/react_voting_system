@@ -37,6 +37,7 @@ var PoliticalUnitsComponent = React.createClass({
                             <NewPartyAsideForm
                                 create={this.props.create}
                                 springErrors={this.props.springErrors}
+                                popupAlert={this.props.popupAlert}
                             />
                         </div>
                     </div>

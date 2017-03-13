@@ -183,6 +183,11 @@ adminPanelButton:hover{
     vertical-align: middle;
 }
 
+#hr-narrow-around {
+    border: 1px solid #9D9FB5;
+    margin: 0;
+}
+
 .inline-add-county-form .form-group {
     display: table-cell;
     width: 23%;
@@ -207,6 +212,7 @@ adminPanelButton:hover{
 
 .form-group.errors-area {
     padding-top: 10px;
+    margin-bottom: 0;
 }
 
 .form-group.county-aside {
@@ -586,7 +592,6 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
 {
     display: table-cell;
 }
-
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400');
 

@@ -1,6 +1,14 @@
 var React = require('react');
 
 var NewPartyAsideFormComponent = React.createClass({
+    componentWillReceiveProps: function(newProps) {
+        // denotes that axios POST returned 201
+        if (newProps.popupAlert) {
+            var element = document.getElementById("party-success-alert");
+            element.classList.remove('hide');
+            setTimeout(function() { element.classList.add('hide') }, 3000);
+        }
+    },
     render() {
         return (
             <div>
@@ -20,6 +28,9 @@ var NewPartyAsideFormComponent = React.createClass({
                 <div className="form-group errors-area">
                     {this.props.jsErrors}
                     {this.props.springErrors}
+                </div>
+                <div className="alert alert-success hide" id="party-success-alert">
+                    <span>Partija sukurta!</span>
                 </div>
             </div>
         )

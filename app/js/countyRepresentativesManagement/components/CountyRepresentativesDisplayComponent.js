@@ -188,6 +188,7 @@ var CountyRepresentativesDisplayComponent = React.createClass ({
                                         CountyRepresentativesEmailsArray={CountyRepresentativesEmailsArray}
                                         uniqueDistrictAndCountyNameCombinationArray={ArrayOfUniqueCombinationsOfDistrictAndCountyNames}
                                         springErrors={this.props.springErrors}
+                                        popupAlert={this.props.popupAlert}
                                     />
                                 </div>
                             </div>

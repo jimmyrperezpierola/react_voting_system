@@ -47,6 +47,7 @@ var NewPartyAsideForm = React.createClass({
                 create={this.create}
                 jsErrors={this.state.jsErrors}
                 springErrors={this.prepareSpringErrors()}
+                popupAlert={this.props.popupAlert}
             />
         );
     }

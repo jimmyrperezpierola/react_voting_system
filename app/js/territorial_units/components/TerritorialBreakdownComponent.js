@@ -44,6 +44,7 @@ var TerritorialBreakdownComponent = React.createClass({
                                 create={this.props.create}
                                 springErrors={this.props.springErrors}
                                 clearCountyForm={this.props.clearCountyForm}
+                                popupAlert={this.props.popupAlert}
                             />
                         </div>
                     </div>

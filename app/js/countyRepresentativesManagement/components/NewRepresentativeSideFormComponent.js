@@ -7,7 +7,7 @@ var Validations = require("../../utils/Validations");
 var onlyRequiredCounties = [];
 
 var NewRepresentativeSideFormComponent = React.createClass({
-    getInitialState: function () {
+    getInitialState() {
         return {
             countiesOfDistrict: [],
             name: '',
@@ -17,41 +17,49 @@ var NewRepresentativeSideFormComponent = React.createClass({
             county: 'Pasirinkite apylinkę',
             nameErrors: [],
             surnameErrors: [],
-            emailErrors: [],
+            emailErrors: []
         }
     },
-    componentWillMount: function () {
+    componentWillMount() {
         onlyRequiredCounties = [];
     },
-    handleNameChange: function (event) {
+    componentWillReceiveProps: function(newProps) {
+        // denotes that axios POST returned 201
+        if (newProps.popupAlert) {
+            var element = document.getElementById("rep-success-alert");
+            element.classList.remove('hide');
+            setTimeout(function() { element.classList.add('hide') }, 300000);
+        }
+    },
+    handleNameChange(event) {
         this.setState({
             name: event.target.value,
             nameErrors: ValidationsOR.nameValidation(event.target.value.trim())
         });
     },
-    handleSurnameChange: function (event) {
+    handleSurnameChange(event) {
         this.setState({
             surname: event.target.value,
             surnameErrors: ValidationsOR.nameValidation(event.target.value.trim())
         });
     },
-    hendleEmailChange: function (event) {
+    hendleEmailChange(event) {
         this.setState({
             email: event.target.value,
             emailErrors: ValidationsOR.emailValidation(event.target.value.trim(), this.props.CountyRepresentativesEmailsArray)
         });
     },
-    handleDistrictChange: function (event) {
+    handleDistrictChange(event) {
         this.setState({district: event.target.value})
     },
-    handleCountyChange: function (event) {
+    handleCountyChange(event) {
         this.setState({county: event.target.value});
     },
-    callHelperFunction: function (event) {
+    callHelperFunction(event) {
         this.changePossibleCounties(event);
         this.handleDistrictChange(event);
     },
-    changePossibleCounties: function (event) {
+    changePossibleCounties(event) {
         onlyRequiredCounties = [];
         var self = this;
         var matchFound = false;
@@ -82,7 +90,7 @@ var NewRepresentativeSideFormComponent = React.createClass({
             }
         });
     },
-    onSubmit: function (event) {
+    onSubmit(event) {
         event.preventDefault();
         var tempName = this.state.name.trim()[0].toUpperCase() +
             this.state.name.trim().substring(1).toLowerCase();
@@ -90,26 +98,23 @@ var NewRepresentativeSideFormComponent = React.createClass({
             this.state.surname.trim().substring(1).toLowerCase();
         tempSurname[0].toUpperCase();
         var tempEmail = this.state.email.toLowerCase();
+        this.props.newRep(tempName, tempSurname, tempEmail, this.state.district, this.state.county);
 
-        const success = this.props.newRep(tempName, tempSurname, tempEmail, this.state.district, this.state.county);
-
-        if (success) {
-            this.setState({
-                name: '',
-                surname: '',
-                email: '',
-                district: 'Pasirinkite apygardą',
-                county: 'Pasirinkite apylinkę'
-            });
-            this.changePossibleCounties(event);
-        }
+        this.setState({
+            name: '',
+            surname: '',
+            email: '',
+            district: 'Pasirinkite apygardą',
+            county: 'Pasirinkite apylinkę'
+        });
+        this.changePossibleCounties(event);
     },
-    springErrors: function() {
+    springErrors() {
         return (this.props.springErrors.length > 0) ?
             Validations.prepareSpringErrors(this.props.springErrors, {marginTop: 10}) :
             [];
     },
-    render: function () {
+    render() {
         {this.changePossibleCounties}
         var DistrictNames = [];
         DistrictNames = this.props.OnlyDistricts;
@@ -139,19 +144,31 @@ var NewRepresentativeSideFormComponent = React.createClass({
                         {onlyRequiredCounties.map(MakeCountyItem)}
                     </select>
                 </div>
-                <div>
-                    <button id="create-representative-button" type="submit" disabled={
-                        this.state.nameErrors.length > 0 ||
-                        this.state.surnameErrors.length > 0 ||
-                        this.state.emailErrors.length > 0 ||
-                        this.state.district == 'Pasirinkite apygardą' ||
-                        this.state.county == 'Pasirinkite apylinkę' ||
-                        this.state.name == '' ||
-                        this.state.surname == '' ||
-                        this.state.email == ''
-                    } className="btn btn-primary btn-md" onClick={this.onSubmit} style={{ marginTop: 10 }} >Sukurti</button>
+                <div style={{ marginBottom: 15 }}>
+                    <button
+                        id="create-representative-button"
+                        type="submit"
+                        disabled={
+                            this.state.nameErrors.length > 0 ||
+                            this.state.surnameErrors.length > 0 ||
+                            this.state.emailErrors.length > 0 ||
+                            this.state.district == 'Pasirinkite apygardą' ||
+                            this.state.county == 'Pasirinkite apylinkę' ||
+                            this.state.name == '' ||
+                            this.state.surname == '' ||
+                            this.state.email == ''
+                        }
+                        className="btn btn-primary btn-md"
+                        onClick={this.onSubmit}
+                        style={{ marginTop: 10 }}
+                    >
+                        Sukurti
+                    </button>
                 </div>
                 {this.springErrors()}
+                <div className="alert alert-success hide" id="rep-success-alert">
+                    <span>Atstovas sukurtas!</span>
+                </div>
             </form>
         )
     }

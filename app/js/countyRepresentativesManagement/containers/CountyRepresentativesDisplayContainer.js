@@ -18,6 +18,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
             },
             springErrors: [],
             toggleFullRepresentativesDisplayView: false,
+            popupAlert: false
         });
     },
     toggleFullRepresentativesList: function () {
@@ -54,27 +55,26 @@ var CountyRepresentativesDisplayContainer = React.createClass({
             });
     },
     newRep: function (name, surname, email, district, county) {
-        var self = this;
         var errors = [];
         var countyId = this.getCountyId(district, county);
-        let success = false;
-
         var RequestBody = {"firstName": name, "lastName": surname, "email": email, "countyId": countyId};
 
         axios.post(spring.localHost.concat('/api/county-rep'), RequestBody)
             .then(function(response){
-                var actualRepresentatives = self.state.representatives;
+                let actualRepresentatives = this.state.representatives;
                 actualRepresentatives.push(response.data);
-                self.setState({ representatives: actualRepresentatives, newRepresentative: response.data, springErrors: [] });
-                success = true;
-            })
+                this.setState({
+                    representatives: actualRepresentatives,
+                    newRepresentative: response.data,
+                    springErrors: [],
+                    popupAlert: true
+                });
+            }.bind(this))
             .catch(function(error){
                 console.log(error);
                 errors.push(error.response.data.rootMessage);
-                self.setState({ springErrors: errors.concat(error.response.data.errorsMessages) });
-            });
-
-        return success;
+                this.setState({ springErrors: errors.concat(error.response.data.errorsMessages) });
+            }.bind(this));
     },
     getCountyId: function (districtName, countyName) {
         var CountyId;
@@ -87,6 +87,10 @@ var CountyRepresentativesDisplayContainer = React.createClass({
         });
         return CountyId;
     },
+    popupAlert() {
+        if (this.state.popupAlert) this.setState({ popupAlert: false });
+        return this.state.popupAlert;
+    },
     render: function () {
             return (
                     <CountyRepresentativesDisplayComponent
@@ -97,7 +101,7 @@ var CountyRepresentativesDisplayContainer = React.createClass({
                         springErrors={this.state.springErrors}
                         toggleFullRepresentativesList={this.toggleFullRepresentativesList}
                         toggleFullRepresentativesDisplayView={this.state.toggleFullRepresentativesDisplayView}
-
+                        popupAlert={this.popupAlert()}
                     />
             )
     }

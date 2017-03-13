@@ -12,7 +12,8 @@ var TerritorialBreakdownContainer = React.createClass({
                   districtName: "",
                   counties: [],
                   springErrors: [],
-                  clearCountyForm: false
+                  clearCountyForm: false,
+                  popupAlert: false
         });
     },
     componentDidMount: function() {
@@ -71,7 +72,8 @@ var TerritorialBreakdownContainer = React.createClass({
                                  districtName: "",
                                  counties: [],
                                  springErrors: [],
-                                 clearCountyForm: true
+                                 clearCountyForm: true,
+                                 popupAlert: true
                 });
             })
             .catch(function(err) {
@@ -95,6 +97,10 @@ var TerritorialBreakdownContainer = React.createClass({
         counties.splice(idx, 1);
         this.setState({ counties: counties });
     },
+    popupAlert() {
+        if (this.state.popupAlert) this.setState({ popupAlert: false });
+        return this.state.popupAlert;
+    },
     render: function() {
         return <TerritorialBreakdownComponent
                   districts={this.prepareDistricts()}
@@ -106,6 +112,7 @@ var TerritorialBreakdownContainer = React.createClass({
                   counties={this.prepareCounties()}
                   springErrors={this.state.springErrors}
                   clearCountyForm={this.state.clearCountyForm}
+                  popupAlert={this.popupAlert()}
                />
     }
 });
