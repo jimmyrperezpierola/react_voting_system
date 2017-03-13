@@ -110,6 +110,20 @@ var Helpers = {
         } else {
             return (state.ASCcounty) ? collection : collection.reverse();
         }
+    },
+    sortCountySm(collection) {
+        collection.sort(function(a, b) {
+            let aa; let bb;
+            aa = a.voteCount;
+            bb = b.voteCount;
+
+            if (aa > bb) {
+                return 1;
+            } else if (aa < bb) {
+                return -1;
+            }
+            return 0;
+        });
     }
 };
 

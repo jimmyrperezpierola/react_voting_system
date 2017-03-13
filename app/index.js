@@ -22,6 +22,8 @@ var SearchCandidatesListContainer = require('./js/search/SearchCandidatesListCon
 var Tester = require('./js/config/Tester');
 const Login = require('./js/auth/Login');
 
+var CountySMresultsView = require('./js/public_views/CountySMresultsView');
+
 ReactDOM.render((
     <Router history={ReactRouter.hashHistory}>
         <Route path="/" component={Application}>
@@ -46,6 +48,7 @@ ReactDOM.render((
             <Route path="paieska" component={SearchCandidatesListContainer}/>
             <Route path="prisijungti" component={Login}/>
             <Route path="test" component={Tester}/>
+            <Route path="smres" component={CountySMresultsView}/>
             <Route path="*" component={NoMatch} />
         </Route>
     </Router>
