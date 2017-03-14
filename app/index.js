@@ -25,6 +25,9 @@ const Login = require('./js/auth/Login');
 var CountySMresultView = require('./js/public_views/CountySMresultView');
 var DistrictSMresultView = require('./js/public_views/DistrictSMresultView');
 
+var CountyMMResultsView = require('./js/public_views/CountyMMResultsView');
+var DistrictMMResultsView = require('./js/public_views/DistrictMMResultsView');
+
 ReactDOM.render((
     <Router history={ReactRouter.hashHistory}>
         <Route path="/" component={Application}>
@@ -51,6 +54,8 @@ ReactDOM.render((
             <Route path="test" component={Tester}/>
             <Route path="csmres" component={CountySMresultView}/>
             <Route path="dsmres" component={DistrictSMresultView}/>
+            <Route path="cmmres" component={CountyMMResultsView}/>
+            <Route path="dmmres" component={DistrictMMResultsView}/>
             <Route path="*" component={NoMatch} />
         </Route>
     </Router>
