@@ -7,12 +7,12 @@ function ConfirmAction(props) {
     if(props.confirmText != null){
         confirmText = props.confirmText;
     } else {
-        confirmText = "Atšaukti";
+        confirmText = "Tęsti veiksmą";
     }
     if(props.cancelText != null){
         cancelText = props.cancelText
     } else {
-        cancelText = "Atšaukti"
+        cancelText = "Nutraukti veiksmą"
     }
     return (
         <Confirm

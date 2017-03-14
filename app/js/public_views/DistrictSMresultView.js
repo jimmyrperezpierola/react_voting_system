@@ -76,7 +76,55 @@ var DistrictSMresultView = React.createClass({
         return rows;
     },
     prepareCountiesData() {
-        //TODO code needed
+        if (Object.keys(this.state.collection).length == 0) return [];
+        var rows = [];
+        let totalVoterCount = 0;
+        let grandTotalBallots = 0;
+        let percentGrandTotalBallots  = 0.0;
+        let totalSpoiledBallots = 0;
+        let percentTotalSpoiledBallots = 0.0;
+        let totalValidBallots = 0;
+        let percentTotalValidBallots = 0.0;
+
+        this.state.collection.countyResults.forEach(r => {
+            const county = <Link to="">{r.county.name}</Link>;
+            const voterCount = r.voterCount;
+            const totalBallotsAndPercent = r.totalBallots + " (" + ((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2)) + "%)";
+            const spoiledBallotsAndPercent = r.spoiledBallots + " (" + ((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
+            const validBallotsAndPercent = r.validBallots + " (" + ((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
+
+            totalVoterCount += voterCount;
+            grandTotalBallots += r.totalBallots;
+            percentGrandTotalBallots += parseFloat((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2));
+            totalSpoiledBallots += r.spoiledBallots;
+            percentTotalSpoiledBallots += parseFloat((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            totalValidBallots += r.validBallots;
+            percentTotalValidBallots += parseFloat((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+
+            rows.push(
+                {
+                    county: county,
+                    voterCount: voterCount,
+                    totalBallotsAndPercent: totalBallotsAndPercent,
+                    spoiledBallotsAndPercent: spoiledBallotsAndPercent,
+                    validBallotsAndPercent: validBallotsAndPercent
+                }
+            );
+        });
+
+        let sortedRows = Helper.sortSMresultDesc(rows);
+
+        sortedRows.push(
+            {
+                county: <strong style={{ float: 'right', marginRight: 10 }}>Iš viso:</strong>,
+                voterCount: <strong>{totalVoterCount}</strong>,
+                totalBallotsAndPercent: <strong>{grandTotalBallots + " / " + percentGrandTotalBallots + "%"}</strong>,
+                spoiledBallotsAndPercent: <strong>{totalSpoiledBallots + " / " + percentTotalSpoiledBallots + "%"}</strong>,
+                validBallotsAndPercent: <strong>{totalValidBallots + " / " + percentTotalValidBallots + "%"}</strong>
+            }
+        );
+
+        return rows;
     },
     getColumns() {
         return (
@@ -119,6 +167,47 @@ var DistrictSMresultView = React.createClass({
             ]
         );
     },
+    getCountyColumns() {
+        return (
+            [
+                {
+                    header: 'Apylinkė',
+                    accessor: 'county',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { marginLeft: 5 },
+                    id: 1
+                },
+                {
+                    header: 'Rinkėjų skaičius',
+                    accessor: 'voterCount',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { marginLeft: 5 },
+                    id: 2
+                },
+                {
+                    header: 'Dalyvavo',
+                    accessor: 'totalBallotsAndPercent',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { textAlign: 'center' },
+                    id: 3
+                },
+                {
+                    header: 'Negaliojantys biuleteniai',
+                    accessor: 'spoiledBallotsAndPercent',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { textAlign: 'center' },
+                    id: 4
+                },
+                {
+                    header: 'Galiojantys biuleteniai',
+                    accessor: 'validBallotsAndPercent',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { textAlign: 'center' },
+                    id: 5
+                }
+            ]
+        );
+    },
     getDistrictName() {
         return (Object.keys(this.state.collection).length == 0) ?
             '' : this.state.collection.votes[0].candidate.district.name;
@@ -130,24 +219,14 @@ var DistrictSMresultView = React.createClass({
         return (this.state.collection.spoiledBallots * 1.0 / this.state.collection.voterCount * 100).toFixed(2);
     },
     getOptions() {
-        const array = [5, 10];
-        let max;
+        const array = [5, 10, 20];
         if (Object.keys(this.state.collection).length > 0) {
-            max = this.state.collection.votes.length + 1;
+            const max = this.state.collection.votes.length + 1;
+            array.push(max);
+            return Array.from(new Set(array.filter(i => { return i <= max })));
         } else {
             return array;
         }
-        array.push(max);
-
-        return Array.from(new Set(array)).sort((a, b) => {
-            // TODO perdaryti ĄČĘ rūšiavimą
-            if (a > b) {
-                return 1;
-            } else if (a < b) {
-                return -1;
-            }
-            return 0;
-        });
     },
     cleanDataForChart(rawVotesData) {
         return rawVotesData.map(function (vote) {
@@ -156,6 +235,16 @@ var DistrictSMresultView = React.createClass({
                 value: vote.voteCount
             }
         })
+    },
+    getCountyOptions() {
+        const array = [5, 10, 20];
+        if (Object.keys(this.state.collection).length > 0) {
+            const max = this.state.collection.countyResults.length + 1;
+            array.push(max);
+            return Array.from(new Set(array.filter(i => { return i <= max })));
+        } else {
+            return array;
+        }
     },
     render() {
         return (
@@ -217,9 +306,9 @@ var DistrictSMresultView = React.createClass({
                 </div>
                 <ReactTable
                     data={this.prepareCountiesData()}
-                    columns={this.getColumns()}
+                    columns={this.getCountyColumns()}
                     defaultPageSize={5}
-                    pageSizeOptions={this.getOptions()}
+                    pageSizeOptions={this.getCountyOptions()}
                     showPageJump={false}
                     previousText='Ankstesnis'
                     nextText='Kitas'
