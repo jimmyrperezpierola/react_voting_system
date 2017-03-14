@@ -68,7 +68,6 @@ var DistrictSMresultView = React.createClass({
         return rows;
     },
     prepareCountiesData() {
-        //TODO code needed
         if (Object.keys(this.state.collection).length == 0) return [];
         var rows = [];
         let totalVoterCount = 0;
@@ -106,9 +105,6 @@ var DistrictSMresultView = React.createClass({
         });
 
         let sortedRows = Helper.sortSMresultDesc(rows);
-
-        /*console.log('percentGrandTotalBallots');
-        console.log(percentGrandTotalBallots);*/
 
         sortedRows.push(
             {
@@ -188,14 +184,14 @@ var DistrictSMresultView = React.createClass({
                     id: 3
                 },
                 {
-                    header: 'Negaliojantys biuleteniai\nskaičius\t%',
+                    header: 'Negaliojantys biuleteniai',
                     accessor: 'spoiledBallotsAndPercent',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
                     id: 4
                 },
                 {
-                    header: 'Galiojantys biuleteniai\nskaičius\t%',
+                    header: 'Galiojantys biuleteniai',
                     accessor: 'validBallotsAndPercent',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
