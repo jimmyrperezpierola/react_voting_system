@@ -229,21 +229,8 @@ var DistrictSMresultView = React.createClass({
         } else {
             return array;
         }
-<<<<<<< HEAD
-=======
-        array.push(max);
-
-        return Array.from(new Set(array)).sort((a, b) => {
-            // TODO perdaryti ĄČĘ rūšiavimą
-            if (a > b) {
-                return 1;
-            } else if (a < b) {
-                return -1;
-            }
-            return 0;
-        });
->>>>>>> 0acadf4593ee548c0022c7642fdabaa8a8b88d34
     },
+
     render() {
         return (
             <div>
