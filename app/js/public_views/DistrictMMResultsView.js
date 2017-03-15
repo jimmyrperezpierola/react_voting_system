@@ -20,10 +20,11 @@ var DistrictMMResultsView = React.createClass({
         return ({ collection: {}, chartData: undefined, chartMetadata: undefined });
     },
     componentWillMount() {
+        var id = this.props.params.id;
         axios.get(
             spring.localHost
                 .concat('/api/results/district/')
-                .concat(1 + '')                       // blogai imamas id  //TODO fix needed
+                .concat(id + '')                       // blogai imamas id  //TODO fix needed
                 .concat('/multi-mandate')
         )
             .then(function(resp) {
@@ -46,12 +47,14 @@ var DistrictMMResultsView = React.createClass({
         if (Object.keys(this.state.collection).length == 0) return [];
         var rows = [];
         let totalPercentageOfTotalBallots = 0.0;
+        var totalPercentageOfValidBallots = 0.0;
 
         this.state.collection.votes.forEach(v => {
             const partyName = <Link to="">{v.party.name}</Link>;
-            const percFromValid = v.voteCount / (this.state.collection.validBallots * 1.0) * 100;
-            const percFromTotal = v.voteCount / (this.state.collection.totalBallots * 1.0) * 100;
-            totalPercentageOfTotalBallots += percFromTotal;
+            const percFromValid = (isNaN(v.voteCount / (this.state.collection.validBallots * 1.0) * 100)) ? 0 : v.voteCount / (this.state.collection.validBallots * 1.0) * 100;
+            const percFromTotal = (isNaN(v.voteCount / (this.state.collection.totalBallots * 1.0) * 100)) ? 0 : v.voteCount / (this.state.collection.totalBallots * 1.0) * 100;
+            totalPercentageOfTotalBallots += (isNaN(percFromTotal)) ? 0.0 : percFromTotal;
+            totalPercentageOfValidBallots += (isNaN(percFromValid)) ? 0.0 : percFromValid;
 
             rows.push(
                 {
@@ -69,7 +72,7 @@ var DistrictMMResultsView = React.createClass({
             {
                 partyName: <strong style={{ float: 'right', marginRight: 10 }}>Iš viso:</strong>,
                 voteCount: <strong>{this.state.collection.validBallots}</strong>,
-                votesFromValid: <strong>{100.00}</strong>,
+                votesFromValid: <strong>{totalPercentageOfValidBallots}</strong>,
                 votesFromTotal: <strong>{totalPercentageOfTotalBallots.toFixed(2)}</strong>
             }
         );
@@ -93,9 +96,9 @@ var DistrictMMResultsView = React.createClass({
         this.state.collection.countyResults.forEach(r => {
             const county = <Link to={"apylinkes-daugiamandaciai-rezultatai/" + r.county.id}>{r.county.name}</Link>;
             const voterCount = r.voterCount;
-            const totalBallotsAndPercent = r.totalBallots + " (" + ((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2)) + "%)";
-            const spoiledBallotsAndPercent = r.spoiledBallots + " (" + ((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
-            const validBallotsAndPercent = r.validBallots + " (" + ((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
+            const totalBallotsAndPercent = ((r.totalBallots == null) ? 0 : r.totalBallots) + " (" + ((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2)) + "%)";
+            const spoiledBallotsAndPercent = ((r.spoiledBallots == null) ? 0 : r.spoiledBallots) + " (" + (isNaN((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) ? 0 : (r.spoiledBallots / (r.totalBallots * 1.0) * 100)).toFixed(2)+ "%)";
+            const validBallotsAndPercent = ((r.validBallots == null) ? 0 : r.validBallots) + " (" + (isNaN((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) ? 0 : (r.validBallots / (r.totalBallots * 1.0) * 100)).toFixed(2)+ "%)";
 
             totalVoterCount += voterCount;
             grandTotalBallots += r.totalBallots;
@@ -164,6 +167,60 @@ var DistrictMMResultsView = React.createClass({
             ]
         );
     },
+
+    getCountyColumns() {
+
+        let data = this.state.collection;
+        console.log(data);
+        let summary = {
+            county: 'Iš viso',
+            voterCount: data.voterCount,
+            totalBallotsAndPercent: data.totalBallots,
+            spoiledBallotsAndPercent: data.spoiledBallots,
+            validBallotsAndPercent: data.validBallots,
+        }
+
+        return (
+            [
+                {
+                    header: 'Apylinkė',
+                    accessor: 'county',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { marginLeft: 5 },
+                    id: 1
+                },
+                {
+                    header: 'Rinkėjų skaičius',
+                    accessor: 'voterCount',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { marginLeft: 5 },
+                    id: 2
+                },
+                {
+                    header: 'Dalyvavo',
+                    accessor: 'totalBallotsAndPercent',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { textAlign: 'center' },
+                    id: 3
+                },
+                {
+                    header: 'Negaliojantys biuleteniai',
+                    accessor: 'spoiledBallotsAndPercent',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { textAlign: 'center' },
+                    id: 4
+                },
+                {
+                    header: 'Galiojantys biuleteniai',
+                    accessor: 'validBallotsAndPercent',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { textAlign: 'center' },
+                    id: 5
+                }
+            ]
+        );
+    },
+
     getDistrictName() {
         return (Object.keys(this.state.collection).length == 0) ?
             '' : this.state.collection.district.name;
@@ -257,7 +314,7 @@ var DistrictMMResultsView = React.createClass({
                 </div>
                 <ReactTable
                     data={this.prepareCountiesData()}
-                    columns={this.getColumns()}
+                    columns={this.getCountyColumns()}
                     defaultPageSize={5}
                     pageSizeOptions={this.getOptions()}
                     showPageJump={false}

@@ -8,6 +8,9 @@ var Helper = require('../utils/Helper');
 var ChartContainer = require('./chart_components/ChartContainer');
 var DataProcessor = require('./chart_components/DataProcessor');
 
+let percentTotalValidBallots = 0.0;
+let percentGrandTotalBallots  = 0.0;
+
 var hide = {
     display: 'none'
 };
@@ -17,10 +20,11 @@ var DistrictSMresultView = React.createClass({
         return ({ collection: {}, chartData: undefined, chartMetadata: undefined });
     },
     componentWillMount() {
+        var id = this.props.params.id;
         axios.get(
                 spring.localHost
                       .concat('/api/results/district/')
-                      .concat(1 + '')                       // blogai imamas id
+                      .concat(id + '')                       // blogai imamas id
                       .concat('/single-mandate')
             )
             .then(function(resp) {
@@ -42,14 +46,16 @@ var DistrictSMresultView = React.createClass({
         if (Object.keys(this.state.collection).length == 0) return [];
         var rows = [];
         let totalPercentageOfTotalBallots = 0.0;
+        var totalPercentageOfValidBallots = 0.0;
 
         this.state.collection.votes.forEach(v => {
             const candName = <Link to="">{v.candidate.firstName.concat(' ').concat(v.candidate.lastName)}</Link>;
             const partyName = (v.candidate.party == null) ?
                 ('Išsikėlęs pats') : (<Link to="">{v.candidate.party.name}</Link>);
-            const percFromValid = v.voteCount / (this.state.collection.validBallots * 1.0) * 100;
-            const percFromTotal = v.voteCount / (this.state.collection.totalBallots * 1.0) * 100;
-            totalPercentageOfTotalBallots += percFromTotal;
+            const percFromValid = (isNaN(v.voteCount / (this.state.collection.validBallots * 1.0) * 100)) ? 0 : v.voteCount / (this.state.collection.validBallots * 1.0) * 100;
+            const percFromTotal = (isNaN(v.voteCount / (this.state.collection.totalBallots * 1.0) * 100)) ? 0 : v.voteCount / (this.state.collection.totalBallots * 1.0) * 100;
+            totalPercentageOfTotalBallots += (isNaN(percFromTotal)) ? 0.0 : percFromTotal;
+            totalPercentageOfValidBallots += (isNaN(percFromValid)) ? 0.0 : percFromValid;
 
             rows.push(
                 {
@@ -75,7 +81,7 @@ var DistrictSMresultView = React.createClass({
         let totalSpoiledBallots = 0;
         let percentTotalSpoiledBallots = 0.0;
         let totalValidBallots = 0;
-        let percentTotalValidBallots = 0.0;
+
 
         this.state.collection.countyResults.forEach(r => {
             const county = <Link to={"apylinkes-vienmandaciai-rezultatai/" + r.county.id}>{r.county.name}</Link>;
@@ -135,8 +141,8 @@ var DistrictSMresultView = React.createClass({
             candidate: '',
             partyName: 'Iš viso:',
             voteCount: data.validBallots,
-            votesFromValid: 100.00,
-            votesFromTotal: this.getPercentage(data.validBallots, data.totalBallots)
+            votesFromValid: percentTotalValidBallots,
+            votesFromTotal: percentGrandTotalBallots
         }
 
         return (
