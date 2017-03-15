@@ -242,13 +242,14 @@ var DistrictMMResultsView = React.createClass({
         array.push(max);
 
         return Array.from(new Set(array)).sort((a, b) => {
-            //TODO perdaryti ĄČĘ rūšiavimą
-            if (a > b) {
-                return 1;
-            } else if (a < b) {
-                return -1;
-            }
-            return 0;
+
+            return a.localeCompare(b);
+            // if (a > b) {
+            //     return 1;
+            // } else if (a < b) {
+            //     return -1;
+            // }
+            // return 0;
         });
     },
     render() {
