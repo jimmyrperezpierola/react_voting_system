@@ -6,6 +6,7 @@ var ReactTable = require('react-table').default;
 var spring = require('../config/SpringConfig');
 var Helper = require('../utils/Helper');
 var ChartContainer = require('./chart_components/ChartContainer');
+var DataProcessor = require('./chart_components/DataProcessor');
 
 var hide = {
     display: 'none'
@@ -25,7 +26,7 @@ var DistrictSMresultView = React.createClass({
             .then(function(resp) {
                 this.setState({ 
                     collection: resp.data,
-                    chartData: this.cleanDataForChart(resp.data.votes),
+                    chartData: DataProcessor.cleanSingleMandateVotingDataForChart(resp.data.votes),
                     chartMetadata: { 
                         total: resp.data.totalBallots,
                         valid: resp.data.validBallots
@@ -61,7 +62,7 @@ var DistrictSMresultView = React.createClass({
             );
         });
 
-        let sortedRows = Helper.sortSMresultDesc(rows);
+        // let sortedRows = Helper.sortSMresultDesc(rows);
 
         return rows;
     },
@@ -143,9 +144,9 @@ var DistrictSMresultView = React.createClass({
                     header: 'Iškėlė',
                     accessor: 'partyName',
                     headerStyle: { fontWeight: 'bold' },
-                    // style: { marginLeft: 5 },
+                    style: { marginLeft: 5 },
                     footer: summary.partyName,
-                    footerStyle: { fontWeight: 'bold', float: 'right'},
+                    footerStyle: { fontWeight: 'bold', float: 'right'},  // KAZKODEL NEKLAUSO
                     id: 2
                 },
                 {
@@ -177,6 +178,16 @@ var DistrictSMresultView = React.createClass({
         );
     },
     getCountyColumns() {
+
+        let data = this.state.collection
+        let summary = {
+            county: 'Iš viso',
+            voterCount: data.voterCount,
+            totalBallotsAndPercent: data.totalBallots,
+            spoiledBallotsAndPercent: data.spoiledBallots,
+            validBallotsAndPercent: data.validBallots,
+        }
+
         return (
             [
                 {
@@ -236,14 +247,6 @@ var DistrictSMresultView = React.createClass({
         } else {
             return array;
         }
-    },
-    cleanDataForChart(rawVotesData) {
-        return rawVotesData.map(function (vote) {
-            return {
-                key: vote.candidate.firstName + ' ' + vote.candidate.lastName,
-                value: vote.voteCount
-            }
-        })
     },
     getCountyOptions() {
         const array = [5, 10, 20];

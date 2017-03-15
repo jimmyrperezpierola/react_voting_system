@@ -5,6 +5,8 @@ var axios = require('axios');
 var ReactTable = require('react-table').default;
 var spring = require('../config/SpringConfig');
 var Helper = require('../utils/Helper');
+var ChartContainer = require('./chart_components/ChartContainer');
+var DataProcessor = require('./chart_components/DataProcessor');
 
 var hide = {
     display: 'none'
@@ -12,7 +14,7 @@ var hide = {
 
 var CountySMresultView = React.createClass({
     getInitialState() {
-        return ({ collection: {} });
+        return ({ collection: {}, chartData: undefined, chartMetadata: undefined });
     },
     componentWillMount() {
         axios.get(
@@ -22,7 +24,14 @@ var CountySMresultView = React.createClass({
                       .concat('/single-mandate')
             )
             .then(function(resp) {
-                this.setState({ collection: resp.data });
+                this.setState({ 
+                    collection: resp.data,
+                    chartData: DataProcessor.cleanSingleMandateVotingDataForChart(resp.data.votes),
+                    chartMetadata: { 
+                        total: resp.data.totalBallots,
+                        valid: resp.data.validBallots
+                    }
+                });
             }.bind(this))
             .catch(err => {
                 console.log(err);
@@ -157,6 +166,16 @@ var CountySMresultView = React.createClass({
                         </p>
                     </div>
                 </div>
+
+                {this.state.chartData 
+                    && 
+                    <ChartContainer 
+                        data={this.state.chartData} 
+                        metadata={this.state.chartMetadata}
+                        showTooltip={true}
+                        showPercent={true}
+                    />
+                }
 
                 <div>
                     <ReactTable
