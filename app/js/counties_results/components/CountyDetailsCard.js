@@ -15,6 +15,7 @@ var CountyDetailsCard = React.createClass({
         return (value.length > truncateLength) ? {cursor: 'pointer'} : {};
     },
     render: function() {
+        console.log(this.props.representative)
         let rep = this.props.representative;
         return (
             <div>
