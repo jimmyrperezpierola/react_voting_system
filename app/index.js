@@ -55,9 +55,10 @@ ReactDOM.render((
             <Route path="apylinkes-vienmandaciai-rezultatai/:id" component={CountySMresultView}/>
             <Route path="apygardos-vienmandaciai-rezultatai/:id" component={DistrictSMresultView}/>
             <Route path="bendri-vienmandaciai-rezultatai" component={AllSMresultView}/>
-            <Route path="bendri-daugimandaciai-rezultatai" component={AllMMResultsView}/>
+            <Route path="bendri-daugiamandaciai-rezultatai" component={AllMMResultsView}/>
             <Route path="apylinkes-daugiamandaciai-rezultatai/:id" component={CountyMMResultsView}/>
             <Route path="apygardos-daugiamandaciai-rezultatai/:id" component={DistrictMMResultsView}/>
+            <Route path="konsoliduoti-rezultatai" component={Tester}/>
 
             <Route path="*" component={NoMatch} />
         </Route>
