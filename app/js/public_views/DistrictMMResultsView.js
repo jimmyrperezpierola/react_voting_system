@@ -88,11 +88,11 @@ var DistrictMMResultsView = React.createClass({
 
             totalVoterCount += voterCount;
             grandTotalBallots += r.totalBallots;
-            percentGrandTotalBallots += parseFloat((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2));
+            percentGrandTotalBallots = parseFloat((grandTotalBallots / (totalVoterCount * 1.0) * 100).toFixed(2));
             totalSpoiledBallots += r.spoiledBallots;
-            percentTotalSpoiledBallots += parseFloat((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            percentTotalSpoiledBallots = parseFloat((totalSpoiledBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
             totalValidBallots += r.validBallots;
-            percentTotalValidBallots += parseFloat((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            percentTotalValidBallots = parseFloat((totalValidBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
 
             rows.push(
                 {
