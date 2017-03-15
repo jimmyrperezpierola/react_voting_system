@@ -8,6 +8,8 @@ var axios = require('axios');
 var ReactTable = require('react-table').default;
 var spring = require('../config/SpringConfig');
 var Helper = require('../utils/Helper');
+var ChartContainer = require('./chart_components/ChartContainer');
+var DataProcessor = require('./chart_components/DataProcessor');
 
 var hide = {
     display: 'none'
@@ -15,7 +17,7 @@ var hide = {
 
 var DistrictMMResultsView = React.createClass({
     getInitialState() {
-        return ({ collection: {} });
+        return ({ collection: {}, chartData: undefined, chartMetadata: undefined });
     },
     componentWillMount() {
         axios.get(
@@ -25,7 +27,14 @@ var DistrictMMResultsView = React.createClass({
                 .concat('/multi-mandate')
         )
             .then(function(resp) {
-                this.setState({ collection: resp.data });
+                this.setState({ 
+                    collection: resp.data,
+                    chartData: DataProcessor.cleanMultiMandateVotingDataForChart(resp.data.votes),
+                    chartMetadata: { 
+                        total: resp.data.totalBallots,
+                        valid: resp.data.validBallots
+                    }
+                });
                 console.log(resp.data)
             }.bind(this))
             .catch(err => {
@@ -88,11 +97,11 @@ var DistrictMMResultsView = React.createClass({
 
             totalVoterCount += voterCount;
             grandTotalBallots += r.totalBallots;
-            percentGrandTotalBallots += parseFloat((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2));
+            percentGrandTotalBallots = parseFloat((grandTotalBallots / (totalVoterCount * 1.0) * 100).toFixed(2));
             totalSpoiledBallots += r.spoiledBallots;
-            percentTotalSpoiledBallots += parseFloat((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            percentTotalSpoiledBallots = parseFloat((totalSpoiledBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
             totalValidBallots += r.validBallots;
-            percentTotalValidBallots += parseFloat((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            percentTotalValidBallots = parseFloat((totalValidBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
 
             rows.push(
                 {
@@ -216,6 +225,15 @@ var DistrictMMResultsView = React.createClass({
                         <h3>Balsavimo rezultatai apygardoje</h3>
                     </div>
                 </div>
+                {this.state.chartData 
+                    && 
+                    <ChartContainer 
+                        data={this.state.chartData} 
+                        metadata={this.state.chartMetadata}
+                        showTooltip={true}
+                        showPercent={true}
+                    />
+                }
                 <ReactTable
                     data={this.prepareData()}
                     columns={this.getColumns()}

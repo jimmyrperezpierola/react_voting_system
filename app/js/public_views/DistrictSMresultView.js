@@ -6,6 +6,7 @@ var ReactTable = require('react-table').default;
 var spring = require('../config/SpringConfig');
 var Helper = require('../utils/Helper');
 var ChartContainer = require('./chart_components/ChartContainer');
+var DataProcessor = require('./chart_components/DataProcessor');
 
 var hide = {
     display: 'none'
@@ -25,7 +26,7 @@ var DistrictSMresultView = React.createClass({
             .then(function(resp) {
                 this.setState({ 
                     collection: resp.data,
-                    chartData: this.cleanDataForChart(resp.data.votes),
+                    chartData: DataProcessor.cleanSingleMandateVotingDataForChart(resp.data.votes),
                     chartMetadata: { 
                         total: resp.data.totalBallots,
                         valid: resp.data.validBallots
@@ -61,17 +62,7 @@ var DistrictSMresultView = React.createClass({
             );
         });
 
-        let sortedRows = Helper.sortSMresultDesc(rows);
-
-        sortedRows.push(
-            {
-                candidate: '',
-                partyName: <strong style={{ float: 'right', marginRight: 10 }}>Iš viso:</strong>,
-                voteCount: <strong>{this.state.collection.validBallots}</strong>,
-                votesFromValid: <strong>{100.00}</strong>,
-                votesFromTotal: <strong>{totalPercentageOfTotalBallots.toFixed(2)}</strong>
-            }
-        );
+        // let sortedRows = Helper.sortSMresultDesc(rows);
 
         return rows;
     },
@@ -95,11 +86,11 @@ var DistrictSMresultView = React.createClass({
 
             totalVoterCount += voterCount;
             grandTotalBallots += r.totalBallots;
-            percentGrandTotalBallots += parseFloat((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2));
+            percentGrandTotalBallots = parseFloat((grandTotalBallots / (totalVoterCount * 1.0) * 100).toFixed(2));
             totalSpoiledBallots += r.spoiledBallots;
-            percentTotalSpoiledBallots += parseFloat((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            percentTotalSpoiledBallots = parseFloat((totalSpoiledBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
             totalValidBallots += r.validBallots;
-            percentTotalValidBallots += parseFloat((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            percentTotalValidBallots = parseFloat((totalValidBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
 
             rows.push(
                 {
@@ -126,7 +117,20 @@ var DistrictSMresultView = React.createClass({
 
         return rows;
     },
+    getPercentage(value, divisor) {
+        return (value * 1.0 / divisor * 1.0) * 100
+    },
     getColumns() {
+        
+        let data = this.state.collection
+        let summary = {
+            candidate: '',
+            partyName: 'Iš viso:',
+            voteCount: data.validBallots,
+            votesFromValid: 100.00,
+            votesFromTotal: this.getPercentage(data.validBallots, data.totalBallots)
+        }
+
         return (
             [
                 {
@@ -141,6 +145,8 @@ var DistrictSMresultView = React.createClass({
                     accessor: 'partyName',
                     headerStyle: { fontWeight: 'bold' },
                     style: { marginLeft: 5 },
+                    footer: summary.partyName,
+                    footerStyle: { fontWeight: 'bold', float: 'right'},  // KAZKODEL NEKLAUSO
                     id: 2
                 },
                 {
@@ -148,6 +154,8 @@ var DistrictSMresultView = React.createClass({
                     accessor: 'voteCount',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
+                    footer: summary.voteCount,
+
                     id: 3
                 },
                 {
@@ -155,6 +163,7 @@ var DistrictSMresultView = React.createClass({
                     accessor: 'votesFromValid',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
+                    footer: summary.votesFromValid,
                     id: 4
                 },
                 {
@@ -162,12 +171,23 @@ var DistrictSMresultView = React.createClass({
                     accessor: 'votesFromTotal',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
+                    footer: summary.votesFromTotal,
                     id: 5
                 }
             ]
         );
     },
     getCountyColumns() {
+
+        let data = this.state.collection
+        let summary = {
+            county: 'Iš viso',
+            voterCount: data.voterCount,
+            totalBallotsAndPercent: data.totalBallots,
+            spoiledBallotsAndPercent: data.spoiledBallots,
+            validBallotsAndPercent: data.validBallots,
+        }
+
         return (
             [
                 {
@@ -227,14 +247,6 @@ var DistrictSMresultView = React.createClass({
         } else {
             return array;
         }
-    },
-    cleanDataForChart(rawVotesData) {
-        return rawVotesData.map(function (vote) {
-            return {
-                key: vote.candidate.firstName + ' ' + vote.candidate.lastName,
-                value: vote.voteCount
-            }
-        })
     },
     getCountyOptions() {
         const array = [5, 10, 20];
