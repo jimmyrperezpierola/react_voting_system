@@ -6,19 +6,26 @@ var SortableBarChart = require('./SortableBarChart');
 var ChartContainer = React.createClass({
     propTypes: {
         data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-        metadata: React.PropTypes.object.isRequired
-    }, 
+        metadata: React.PropTypes.object.isRequired,
+        showPercent: React.PropTypes.bool,
+        showTooltip: React.PropTypes.bool
+    },
+    getDefaultProps() {
+        return {
+            showPercent: false,
+            showTooltip: false,
+            metadata: { total: 0 }
+        }
+    },
     getInitialState: function () {
         return {
             w: 0,
-            data: [],
-            metadata: { total: 0, valid: 0}
-        };
+            data: []
+        }
     },
     componentWillMount() {
         this.setState({ 
-            data: this.sortData(this.props.data, 'abc'),
-            metadata: this.props.metadata
+            data: this.sortData(this.props.data, 'abc')
         });
     },
     componentDidMount() {
@@ -60,18 +67,20 @@ var ChartContainer = React.createClass({
         }
     },
     render() {
-        let data = this.state.data
-        let metadata = this.state.metadata
-        let margin = {left: 170, right: 30, top: 30, bottom: 130}
-        let width = this.state.w
 
-        let height = data.length * 40 + margin.top + margin.bottom
+        let data = this.state.data
+        let margin = {left: 170, right: 60, top: 30, bottom: 130}
+        let width = this.state.w
+        let height = data.length * 40 + margin.top + margin.bottom        
+        
+        let { metadata, showPercent, showTooltip } = this.props
 
         let params = {
             orderBy: 'abc',
             data: data,
             metadata: metadata,
-            showPercent: true,
+            showPercent: showPercent,
+            showTooltip: showTooltip,
             width: width,
             height: height,
             margin: margin,
@@ -79,7 +88,7 @@ var ChartContainer = React.createClass({
         }
 
         return (
-                <div className='row'>
+                <div className='row narrowed'>
                     <div className='col-sm-12'>
                         <SortableBarChart {...params}/>
                     </div>

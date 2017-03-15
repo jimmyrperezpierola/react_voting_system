@@ -11,6 +11,7 @@ var SortableBarChart = React.createClass({
         data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
         metadata: React.PropTypes.object.isRequired,
         showPercent: React.PropTypes.bool.isRequired,
+        showTooltip: React.PropTypes.bool.isRequired,
         width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
         margin: React.PropTypes.object.isRequired,
@@ -64,12 +65,13 @@ var SortableBarChart = React.createClass({
     },
     render: function() {
 
-        let { data, metadata, showPercent, width, height, margin, padding } = this.props
+        let { data, metadata, showPercent, showTooltip, width, height, margin, padding } = this.props
 
         let params = {
             data: data,
             metadata: metadata,
             showPercent: showPercent,
+            showTooltip: showTooltip,
             width: this.innerWidth,
             height: this.innerHeight,
             margin: margin,

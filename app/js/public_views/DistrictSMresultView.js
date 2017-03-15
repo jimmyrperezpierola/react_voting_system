@@ -283,6 +283,8 @@ var DistrictSMresultView = React.createClass({
                     <ChartContainer 
                         data={this.state.chartData} 
                         metadata={this.state.chartMetadata}
+                        showTooltip={true}
+                        showPercent={true}
                     />
                 }
                 <ReactTable
