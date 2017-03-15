@@ -309,6 +309,10 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
     top: -25%;
 }
 
+.remove-representative-tiny {
+    cursor: pointer;
+}
+
 #unit-header {
     display: table;
     width: 100%;
@@ -427,6 +431,11 @@ form div.form-group.browse-button-area, form div.form-group.upload-button-area {
 }
 
 .btn.btn-default.btn-sm.floaters-right {
+    float: right;
+    margin-right: 15px;
+}
+
+.btn.btn-default.btn-xs.floaters-right {
     float: right;
     margin-right: 15px;
 }
