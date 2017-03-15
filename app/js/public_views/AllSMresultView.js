@@ -10,60 +10,84 @@ var hide = { display: 'none' };
 
 var AllSMresultView = React.createClass({
     getInitialState() {
-        return ({ collection: {} });
+        return ({ collection: [] });
     },
     componentWillMount() {
         axios.get(spring.localHost.concat('/api/results/single-mandate/'))
             .then(function(resp) {
-                this.setState({ collection: resp.data, districts: resp.data.length, counties });
+                const calcs = this.calcHeaderData(resp.data);
+                this.setState({
+                    collection: resp.data,
+                    districts: resp.data.length,
+                    counties: calcs[0],
+                    voters: calcs[1],
+                    totalBallots: calcs[2],
+                    percentTotalBallots: calcs[3],
+                    spoiledBallots: calcs[4],
+                    percentSpoiledBallots: calcs[5],
+                    validBallots: calcs[6],
+                    percentValidBallots: calcs[7]
+                });
                 console.log(resp.data)
             }.bind(this))
             .catch(err => {
                 console.log(err);
             });
     },
-    prepareData() {
-        if (Object.keys(this.state.collection).length == 0) return [];
+    calcHeaderData(collection) {
+        let counties = 0;
+        let voters = 0;
+        let totalBallots = 0;
+        let spoiledBallots = 0;
+        let validBallots = 0;
 
-        let totalCounties = 0;                          //visos apylinkes
-        let totalConfirmedCounties = 0;                 //visos apylinkes atsiuntusios balsus
-        let totalVoterCount = 0;                        //visi balsavimo teise turintys gyventojai
-        let grandTotalBallots = 0;                      //visi dalyvave gyventojai
-        let totalSpoiledBallots = 0;                    //visi sugadinti biuleteniai
-        let totalValidBallots = 0;                      //visi galiojantys biuleteniai
-        let totalPercentTotalVoters = 0.0;              //% nuo visu dalyvavusiu rinkeju
-        let totalPercentSpoiledBallots = 0.0;           //% nuo visu sugadintu biuleteiniu
-        let totalPercentValidBallots = 0.0;             //% nuo visu galiojanciu biuleteiniu
-        let districts = this.state.collection.length;   //visos apygardos
-        var rows = [];
+        collection.forEach(d => {
+            counties += d.totalCounties;
+            voters += d.voterCount;
+            totalBallots += d.totalBallots;
+
+        });
+
+        const percentTotalBallots = ((totalBallots / (voters * 1.0)) * 100).toFixed(2);
+        const percentSpoiledBallots = ((spoiledBallots / (totalBallots * 1.0)) * 100).toFixed(2);
+        const percentValidBallots = ((validBallots / (totalBallots * 1.0)) * 100).toFixed(2);
+
+        return [
+            counties,
+            voters,
+            totalBallots,
+            percentTotalBallots,
+            spoiledBallots,
+            percentSpoiledBallots,
+            validBallots,
+            percentValidBallots
+        ];
+    },
+    prepareData() {
+        if (this.state.collection.length == 0) return [];
+
+        let totalConfirmedCounties = 0;
+        let rows = [];
 
         this.state.collection.forEach(d => {
             const percentTotalVoters = (d.totalBallots / (d.voterCount * 1.0) * 100).toFixed(2);
             const percentSpoiledBallots = (d.spoiledBallots / (d.totalBallots * 1.0) * 100).toFixed(2);
             const percentValidBallots = (d.validBallots / (d.totalBallots * 1.0) * 100).toFixed(2);
+            const topCandidate = (d.topCandidate == null) ? 'Nėra' : d.topCandidate.name;
 
-            totalCounties += d.totalCounties;
             totalConfirmedCounties += d.confirmedCountyResults;
-            totalVoterCount += d.voterCount;
-            grandTotalBallots += d.totalBallots;
-            totalSpoiledBallots += d.spoiledBallots;
-            totalValidBallots += d.validBallots;
-            totalPercentTotalVoters += parseFloat(percentTotalVoters);
-            totalPercentSpoiledBallots += parseFloat(percentSpoiledBallots);
-            totalPercentValidBallots += parseFloat(percentValidBallots);
 
             rows.push(
                 {
-                    district: <Link to="">{d.name}</Link>,
+                    district: <Link to="">{d.district.name}</Link>,
                     counties: d.totalCounties,
                     confirmedCounties: d.confirmedCountyResults,
                     voterCount: d.voterCount,
-                    totalVoters: d.totalBallots,
-                    percentTotalVoters: percentTotalVoters,
-                    spoiledBallots: d.spoiledBallots,
-                    percentSpoiledBallots: percentSpoiledBallots,
-                    validBallots: d.validBallots,
-                    percentValidBallots: percentValidBallots
+                    totalBallots: d.totalBallots + " (" + percentTotalVoters + "%)",
+                    spoiledBallots: d.spoiledBallots + " (" + percentSpoiledBallots + "%)",
+                    validBallots: d.validBallots + " (" + percentValidBallots + "%)",
+                    topCandidate: topCandidate,
+                    votesForTopCandidate: d.votesForTopCandidate
                 }
             );
         });
@@ -73,15 +97,14 @@ var AllSMresultView = React.createClass({
         sortedRows.push(
             {
                 district: <strong style={{ float: 'right', marginRight: 10 }}>Iš viso:</strong>,
-                counties: <strong>{totalCounties}</strong>,
+                counties: <strong>{this.state.counties}</strong>,
                 confirmedCounties: <strong>{totalConfirmedCounties}</strong>,
-                voterCount: <strong>{totalVoterCount}</strong>,
-                totalVoters: <strong>{grandTotalBallots}</strong>,
-                percentTotalVoters: <strong>{totalPercentTotalVoters}</strong>,
-                spoiledBallots: <strong>{totalSpoiledBallots}</strong>,
-                percentSpoiledBallots: <strong>{totalPercentSpoiledBallots}</strong>,
-                validBallots: <strong>{totalValidBallots}</strong>,
-                percentValidBallots: <strong>{totalPercentValidBallots}</strong>
+                voterCount: <strong>{this.state.voters}</strong>,
+                totalBallots: <strong>{this.state.totalBallots} ({this.state.percentTotalBallots}%)</strong>,
+                spoiledBallots: <strong>{this.state.spoiledBallots} ({this.state.percentSpoiledBallots}%)</strong>,
+                validBallots: <strong>{this.state.validBallots} ({this.state.percentValidBallots}%)</strong>,
+                topCandidate: '',
+                votesForTopCandidate: ''
             }
         );
 
@@ -101,7 +124,8 @@ var AllSMresultView = React.createClass({
                     header: 'Apylinkių',
                     accessor: 'counties',
                     headerStyle: { fontWeight: 'bold' },
-                    style: { marginLeft: 5 },
+                    style: { textAlign: 'center' },
+                    width: 100,
                     id: 2
                 },
                 {
@@ -120,53 +144,49 @@ var AllSMresultView = React.createClass({
                 },
                 {
                     header: 'Dalyvavo',
-                    accessor: 'totalVoters',
+                    accessor: 'totalBallots',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
+                    width: 100,
                     id: 5
-                },
-                {
-                    header: '%',
-                    accessor: 'percentTotalVoters',
-                    headerStyle: { fontWeight: 'bold' },
-                    style: { textAlign: 'center' },
-                    id: 6
                 },
                 {
                     header: 'Negaliojantys biuleteniai',
                     accessor: 'spoiledBallots',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
-                    id: 7
-                },
-                {
-                    header: '%',
-                    accessor: 'percentSpoiledBallots',
-                    headerStyle: { fontWeight: 'bold' },
-                    style: { textAlign: 'center' },
-                    id: 8
+                    id: 6
                 },
                 {
                     header: 'Galiojantys biuleteniai',
                     accessor: 'validBallots',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
-                    id: 9
+                    id: 7
                 },
                 {
-                    header: '%',
+                    header: 'Lyderis',
                     accessor: 'percentValidBallots',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
-                    id: 10
+                    width: 200,
+                    id: 8
+                },
+                {
+                    header: 'Balsai',
+                    accessor: 'percentValidBallots',
+                    headerStyle: { fontWeight: 'bold' },
+                    style: { textAlign: 'center' },
+                    width: 50,
+                    id: 9
                 }
             ]
         );
     },
     getOptions() {
-        const array = [5, 10, 20, 40];
-        if (Object.keys(this.state.collection).length > 0) {
-            const max = this.state.collection.votes.length + 1;
+        const array = [5, 10, 20];
+        if (this.state.collection.length > 0) {
+            const max = this.state.collection.length + 1;
             array.push(max);
             return Array.from(new Set(array.filter(i => { return i <= max })));
         } else {
@@ -174,26 +194,28 @@ var AllSMresultView = React.createClass({
         }
     },
     render() {
+        console.log(this.state.collection.length)
+        var rows = (this.state.collection.length > 0) ? this.state.collection.length + 1 : 5;
         return (
             <div>
-                {/*<h4 className="h4-election">2017 m. kovo 16 d. Lietuvos Respublikos Seimo rinkimai</h4>
+                <h4 className="h4-election">2017 m. kovo 16 d. Lietuvos Respublikos Seimo rinkimai</h4>
                 <h3>Balsavimo rezultatai vienmandatėse apygardose</h3>
                 <div className="row narrowed" style={{ margin: '30px 0px 30px 0px' }}>
                     <div className="col-md-4"></div>
                     <div className="col-md-5">
-                        <p className="small-p">Apylinkių skaičius - <strong>{111}</strong></p>
-                        <p className="small-p">Apygardų skaičius - <strong>{111}</strong></p>
+                        <p className="small-p">Apylinkių skaičius - <strong>{this.state.counties}</strong></p>
+                        <p className="small-p">Apygardų skaičius - <strong>{this.state.districts}</strong></p>
                         <p className="small-p">Pagal gautus iš apylinkių duomenis:</p>
                         <p className="small-p indented">
-                            rinkėjų sąraše įrašyta rinkėjų – <strong>{this.state.collection.voterCount}</strong>,
-                            rinkimuose dalyvavo – <strong>{this.state.collection.totalBallots}&nbsp;
-                            ({(this.state.collection.totalBallots / (this.state.collection.voterCount * 1.0) * 100).toFixed(2)} %)</strong>
+                            rinkėjų sąraše įrašyta rinkėjų – <strong>{this.state.voters}</strong>,
+                            rinkimuose dalyvavo – <strong>{this.state.totalBallots}&nbsp;
+                            ({this.state.percentTotalBallots}%)</strong>
                         </p>
                         <p className="small-p indented">
-                            negaliojančių biuletenių – <strong>{this.state.collection.spoiledBallots}&nbsp;
-                            ({(this.state.collection.spoiledBallots / (this.state.collection.totalBallots * 1.0) * 100).toFixed(2)} %)</strong>,
-                            galiojančių biuletenių – <strong>{this.state.collection.validBallots}&nbsp;
-                            ({(this.state.collection.validBallots / (this.state.collection.totalBallots * 1.0) * 100).toFixed(2)} %)</strong>
+                            negaliojančių biuletenių – <strong>{this.state.spoiledBallots}&nbsp;
+                            ({this.state.percentSpoiledBallots}%)</strong>,
+                            galiojančių biuletenių – <strong>{this.state.validBallots}&nbsp;
+                            ({this.state.percentValidBallots}%)</strong>
                         </p>
                     </div>
                     <div className="col-md-12">
@@ -209,9 +231,9 @@ var AllSMresultView = React.createClass({
                 <ReactTable
                     data={this.prepareData()}
                     columns={this.getColumns()}
-                    defaultPageSize={5}
-                    pageSizeOptions={this.getOptions()}
+                    defaultPageSize={6}
                     showPageJump={false}
+                    pageSizeOptions={this.getOptions()}
                     previousText='Ankstesnis'
                     nextText='Kitas'
                     loadingText='Kraunama...'
@@ -219,7 +241,7 @@ var AllSMresultView = React.createClass({
                     pageText='Puslapis'
                     ofText='iš '
                     rowsText='eilučių'
-                />*/}
+                />
             </div>
         );
     }
