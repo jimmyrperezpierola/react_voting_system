@@ -16,7 +16,18 @@ function cleanMultiMandateVotingDataForChart(rawVotesData) {
     })
 }
 
+function cleanConsolidatedResultsDataForChart(rawPartyResultsData) {
+    return rawPartyResultsData.map(function (result) {
+        return {
+            key: result.party.name,
+            value: result.mandates
+        }
+    })   
+}
 
 
-
-module.exports = {cleanSingleMandateVotingDataForChart, cleanMultiMandateVotingDataForChart};
+module.exports = {
+    cleanSingleMandateVotingDataForChart, 
+    cleanMultiMandateVotingDataForChart, 
+    cleanConsolidatedResultsDataForChart
+};

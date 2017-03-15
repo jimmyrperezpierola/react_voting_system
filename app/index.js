@@ -27,6 +27,7 @@ var DistrictSMresultView = require('./js/public_views/DistrictSMresultView');
 
 var AllSMresultView = require('./js/public_views/AllSMresultView');
 var AllSMResultsView = require('./js/public_views/AllMMResultsView');
+var ConsolidatedResultsView = require('./js/public_views/ConsolidatedResultsView');
 
 var CountyMMResultsView = require('./js/public_views/CountyMMResultsView');
 var DistrictMMResultsView = require('./js/public_views/DistrictMMResultsView');
@@ -61,6 +62,7 @@ ReactDOM.render((
 
             <Route path="allsmres" component={AllSMresultView}/>
             <Route path="allmmres" component={AllSMResultsView}/>
+            <Route path="suvestine" component={ConsolidatedResultsView}/>
 
             <Route path="apylinkes-daugiamandaciai-rezultatai/:id" component={CountyMMResultsView}/>
             <Route path="apygardos-daugiamandaciai-rezultatai/:id" component={DistrictMMResultsView}/>
