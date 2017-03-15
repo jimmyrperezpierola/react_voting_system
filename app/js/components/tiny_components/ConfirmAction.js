@@ -2,18 +2,8 @@ var React = require('react');
 var Confirm = require('react-confirm-bootstrap');
 
 function ConfirmAction(props) {
-    var confirmText;
-    var cancelText;
-    if(props.confirmText != null){
-        confirmText = props.confirmText;
-    } else {
-        confirmText = "Tęsti veiksmą";
-    }
-    if(props.cancelText != null){
-        cancelText = props.cancelText
-    } else {
-        cancelText = "Nutraukti veiksmą"
-    }
+    let confirmText = props.confirmText ? props.confirmText : "Tęsti";
+    let cancelText = props.cancelText ? props.cancelText : "Atšaukti";
     return (
         <Confirm
             onConfirm={props.onConfirm}

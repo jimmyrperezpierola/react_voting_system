@@ -63,16 +63,6 @@ var DistrictSMresultView = React.createClass({
 
         let sortedRows = Helper.sortSMresultDesc(rows);
 
-        sortedRows.push(
-            {
-                candidate: '',
-                partyName: <strong style={{ float: 'right', marginRight: 10 }}>Iš viso:</strong>,
-                voteCount: <strong>{this.state.collection.validBallots}</strong>,
-                votesFromValid: <strong>{100.00}</strong>,
-                votesFromTotal: <strong>{totalPercentageOfTotalBallots.toFixed(2)}</strong>
-            }
-        );
-
         return rows;
     },
     prepareCountiesData() {
@@ -126,7 +116,20 @@ var DistrictSMresultView = React.createClass({
 
         return rows;
     },
+    getPercentage(value, divisor) {
+        return (value * 1.0 / divisor * 1.0) * 100
+    },
     getColumns() {
+        
+        let data = this.state.collection
+        let summary = {
+            candidate: '',
+            partyName: 'Iš viso:',
+            voteCount: data.validBallots,
+            votesFromValid: 100.00,
+            votesFromTotal: this.getPercentage(data.validBallots, data.totalBallots)
+        }
+
         return (
             [
                 {
@@ -140,7 +143,9 @@ var DistrictSMresultView = React.createClass({
                     header: 'Iškėlė',
                     accessor: 'partyName',
                     headerStyle: { fontWeight: 'bold' },
-                    style: { marginLeft: 5 },
+                    // style: { marginLeft: 5 },
+                    footer: summary.partyName,
+                    footerStyle: { fontWeight: 'bold', float: 'right'},
                     id: 2
                 },
                 {
@@ -148,6 +153,8 @@ var DistrictSMresultView = React.createClass({
                     accessor: 'voteCount',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
+                    footer: summary.voteCount,
+
                     id: 3
                 },
                 {
@@ -155,6 +162,7 @@ var DistrictSMresultView = React.createClass({
                     accessor: 'votesFromValid',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
+                    footer: summary.votesFromValid,
                     id: 4
                 },
                 {
@@ -162,6 +170,7 @@ var DistrictSMresultView = React.createClass({
                     accessor: 'votesFromTotal',
                     headerStyle: { fontWeight: 'bold' },
                     style: { textAlign: 'center' },
+                    footer: summary.votesFromTotal,
                     id: 5
                 }
             ]
