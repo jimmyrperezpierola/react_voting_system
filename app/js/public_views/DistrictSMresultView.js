@@ -5,6 +5,7 @@ var axios = require('axios');
 var ReactTable = require('react-table').default;
 var spring = require('../config/SpringConfig');
 var Helper = require('../utils/Helper');
+var ChartContainer = require('./chart_components/ChartContainer');
 
 var hide = {
     display: 'none'
@@ -12,7 +13,7 @@ var hide = {
 
 var DistrictSMresultView = React.createClass({
     getInitialState() {
-        return ({ collection: {} });
+        return ({ collection: {}, chartData: undefined, chartMetadata: undefined });
     },
     componentWillMount() {
         axios.get(
@@ -22,7 +23,14 @@ var DistrictSMresultView = React.createClass({
                       .concat('/single-mandate')
             )
             .then(function(resp) {
-                this.setState({ collection: resp.data });
+                this.setState({ 
+                    collection: resp.data,
+                    chartData: this.cleanDataForChart(resp.data.votes),
+                    chartMetadata: { 
+                        total: resp.data.totalBallots,
+                        valid: resp.data.validBallots
+                    }
+                });
                 console.log(resp.data)
             }.bind(this))
             .catch(err => {
@@ -220,6 +228,14 @@ var DistrictSMresultView = React.createClass({
             return array;
         }
     },
+    cleanDataForChart(rawVotesData) {
+        return rawVotesData.map(function (vote) {
+            return {
+                key: vote.candidate.firstName + ' ' + vote.candidate.lastName,
+                value: vote.voteCount
+            }
+        })
+    },
     getCountyOptions() {
         const array = [5, 10, 20];
         if (Object.keys(this.state.collection).length > 0) {
@@ -230,7 +246,6 @@ var DistrictSMresultView = React.createClass({
             return array;
         }
     },
-
     render() {
         return (
             <div>
@@ -263,10 +278,17 @@ var DistrictSMresultView = React.createClass({
                         <h3>Balsavimo rezultatai apygardoje</h3>
                     </div>
                 </div>
+                {this.state.chartData 
+                    && 
+                    <ChartContainer 
+                        data={this.state.chartData} 
+                        metadata={this.state.chartMetadata}
+                    />
+                }
                 <ReactTable
                     data={this.prepareData()}
                     columns={this.getColumns()}
-                    defaultPageSize={5}
+                    defaultPageSize={6}
                     pageSizeOptions={this.getOptions()}
                     showPageJump={false}
                     previousText='Ankstesnis'
