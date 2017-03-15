@@ -50,10 +50,10 @@ var CountyMMResultsView = React.createClass({
 
         this.state.collection.votes.forEach(v => {
             const partyName = <Link to="">{v.party.name}</Link>;
-            const percFromValid = v.voteCount / (this.state.collection.validBallots * 1.0) * 100;
-            const percFromTotal = v.voteCount / (this.state.collection.totalBallots * 1.0) * 100;
-            totalPercentageOfTotalBallots += percFromTotal;
-            totalPercentageOfValidBallots += percFromValid;
+            const percFromValid = (isNaN(v.voteCount / (this.state.collection.validBallots * 1.0) * 100)) ? 0 : (v.voteCount / (this.state.collection.validBallots * 1.0) * 100);
+            const percFromTotal = (isNaN(v.voteCount / (this.state.collection.totalBallots * 1.0) * 100)) ? 0 : (v.voteCount / (this.state.collection.totalBallots * 1.0) * 100);
+            totalPercentageOfTotalBallots += (isNaN(percFromTotal)) ? 0 : percFromTotal;
+            totalPercentageOfValidBallots += (isNaN(percFromValid)) ? 0 : percFromValid;
 
             rows.push(
                 {
