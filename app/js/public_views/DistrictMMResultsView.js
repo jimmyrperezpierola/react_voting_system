@@ -69,6 +69,55 @@ var DistrictMMResultsView = React.createClass({
     },
     prepareCountiesData() {
         //TODO code needed
+        if (Object.keys(this.state.collection).length == 0) return [];
+        var rows = [];
+        let totalVoterCount = 0;
+        let grandTotalBallots = 0;
+        let percentGrandTotalBallots  = 0.0;
+        let totalSpoiledBallots = 0;
+        let percentTotalSpoiledBallots = 0.0;
+        let totalValidBallots = 0;
+        let percentTotalValidBallots = 0.0;
+
+        this.state.collection.countyResults.forEach(r => {
+            const county = <Link to={"apylinkes-daugiamandaciai-rezultatai/" + r.county.id}>{r.county.name}</Link>;
+            const voterCount = r.voterCount;
+            const totalBallotsAndPercent = r.totalBallots + " (" + ((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2)) + "%)";
+            const spoiledBallotsAndPercent = r.spoiledBallots + " (" + ((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
+            const validBallotsAndPercent = r.validBallots + " (" + ((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
+
+            totalVoterCount += voterCount;
+            grandTotalBallots += r.totalBallots;
+            percentGrandTotalBallots += parseFloat((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2));
+            totalSpoiledBallots += r.spoiledBallots;
+            percentTotalSpoiledBallots += parseFloat((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+            totalValidBallots += r.validBallots;
+            percentTotalValidBallots += parseFloat((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2));
+
+            rows.push(
+                {
+                    county: county,
+                    voterCount: voterCount,
+                    totalBallotsAndPercent: totalBallotsAndPercent,
+                    spoiledBallotsAndPercent: spoiledBallotsAndPercent,
+                    validBallotsAndPercent: validBallotsAndPercent
+                }
+            );
+        });
+
+        let sortedRows = Helper.sortSMresultDesc(rows);
+
+        sortedRows.push(
+            {
+                county: <strong style={{ float: 'right', marginRight: 10 }}>Iš viso:</strong>,
+                voterCount: <strong>{totalVoterCount}</strong>,
+                totalBallotsAndPercent: <strong>{grandTotalBallots + " / " + percentGrandTotalBallots + "%"}</strong>,
+                spoiledBallotsAndPercent: <strong>{totalSpoiledBallots + " / " + percentTotalSpoiledBallots + "%"}</strong>,
+                validBallotsAndPercent: <strong>{totalValidBallots + " / " + percentTotalValidBallots + "%"}</strong>
+            }
+        );
+
+        return rows;
     },
     getColumns() {
         return (

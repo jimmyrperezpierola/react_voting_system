@@ -79,7 +79,7 @@ var DistrictSMresultView = React.createClass({
         let percentTotalValidBallots = 0.0;
 
         this.state.collection.countyResults.forEach(r => {
-            const county = <Link to="">{r.county.name}</Link>;
+            const county = <Link to={"apylinkes-vienmandaciai-rezultatai/" + r.county.id}>{r.county.name}</Link>;
             const voterCount = r.voterCount;
             const totalBallotsAndPercent = r.totalBallots + " (" + ((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2)) + "%)";
             const spoiledBallotsAndPercent = r.spoiledBallots + " (" + ((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
