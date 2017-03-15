@@ -86,7 +86,7 @@ var CountyDisplayContainer = React.createClass({
                     title={"Norite patvirtinti įkeltus rezultatus? Apygarda: " + this.state.county.district.name + ". Apylinkė: " + this.state.county.name +"."}
                     body="Patvirtintų duomenų atšaukimas neįmanomas."
                     onConfirm={this.confirmResults.bind(this, result.id)}
-                    confirmText={"Pašalinti apylinkės rezultatus"}
+                    confirmText={"Patvirtinti apylinkės rezultatus"}
                 >
 
                     <button
