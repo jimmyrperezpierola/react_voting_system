@@ -88,7 +88,7 @@ var ChartContainer = React.createClass({
         }
 
         return (
-                <div className='row'>
+                <div className='row narrowed'>
                     <div className='col-sm-12'>
                         <SortableBarChart {...params}/>
                     </div>

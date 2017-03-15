@@ -804,3 +804,33 @@ h3, h4 {
     text-align: center;
     margin: 10px 0;
 }
+
+
+
+/* CHARTS */
+
+.bar {
+  fill: steelblue;
+  fill-opacity: .7;
+}
+
+.axis.x text {
+    font: 14px sans-serif;
+}
+
+.axis.y text {
+    font: 16px sans-serif;
+}
+
+.axis.y > path.domain {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+svg {
+    /*background: gray;*/
+    width: 100%;
+}
