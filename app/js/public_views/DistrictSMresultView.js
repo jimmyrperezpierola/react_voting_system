@@ -80,17 +80,25 @@ var DistrictSMresultView = React.createClass({
         this.state.collection.countyResults.forEach(r => {
             const county = <Link to={"apylinkes-vienmandaciai-rezultatai/" + r.county.id}>{r.county.name}</Link>;
             const voterCount = r.voterCount;
-            const totalBallotsAndPercent = r.totalBallots + " (" + ((r.totalBallots / (r.voterCount * 1.0) * 100).toFixed(2)) + "%)";
-            const spoiledBallotsAndPercent = r.spoiledBallots + " (" + ((r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
-            const validBallotsAndPercent = r.validBallots + " (" + ((r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2)) + "%)";
+            var totalBallotsPercent = (isNaN(r.totalBallots / (r.voterCount * 1.0) * 100)) ? 0 : (r.totalBallots / (r.voterCount * 1.0) * 100);
+            var totalBallots = (r.totalBallots == null) ? 0 : r.totalBallots;
+            const totalBallotsAndPercent = totalBallots + " (" + totalBallotsPercent + "%)";
+
+            var spoiledBallotsPercent = (isNaN(r.spoiledBallots / (r.totalBallots * 1.0) * 100)) ? 0 : (r.spoiledBallots / (r.totalBallots * 1.0) * 100).toFixed(2);
+            var spoiledBallots = (r.spoiledBallots == null) ? 0 : r.spoiledBallots;
+            const spoiledBallotsAndPercent = spoiledBallots + " (" + spoiledBallotsPercent + "%)";
+
+            var validBallotsPercent = (isNaN(r.validBallots / (r.totalBallots * 1.0) * 100)) ? 0 : (r.validBallots / (r.totalBallots * 1.0) * 100).toFixed(2);
+            var validBallots = (r.validBallots == null) ? 0 : r.validBallots;
+            const validBallotsAndPercent = validBallots + " (" + validBallotsPercent + "%)";
 
             totalVoterCount += voterCount;
             grandTotalBallots += r.totalBallots;
             percentGrandTotalBallots = parseFloat((grandTotalBallots / (totalVoterCount * 1.0) * 100).toFixed(2));
             totalSpoiledBallots += r.spoiledBallots;
-            percentTotalSpoiledBallots = parseFloat((totalSpoiledBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
+            percentTotalSpoiledBallots = parseFloat((totalSpoiledBallots / (totalVoterCount * 1.0) * 100).toFixed(2));
             totalValidBallots += r.validBallots;
-            percentTotalValidBallots = parseFloat((totalValidBallots / (grandTotalBallots * 1.0) * 100).toFixed(2));
+            percentTotalValidBallots = parseFloat((totalValidBallots / (totalVoterCount * 1.0) * 100).toFixed(2));
 
             rows.push(
                 {

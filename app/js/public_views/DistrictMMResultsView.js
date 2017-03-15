@@ -79,6 +79,8 @@ var DistrictMMResultsView = React.createClass({
     prepareCountiesData() {
         //TODO code needed
         if (Object.keys(this.state.collection).length == 0) return [];
+        console.log(this.state.collection);
+        console.log("test");
         var rows = [];
         let totalVoterCount = 0;
         let grandTotalBallots = 0;
