@@ -17,10 +17,12 @@ var CountySMresultView = React.createClass({
         return ({ collection: {}, chartData: undefined, chartMetadata: undefined });
     },
     componentWillMount() {
+        // console.log(this.props.params.id)
+        var id = this.props.params.id;
         axios.get(
                 spring.localHost
                       .concat('/api/results/county/')
-                      .concat(1 + '')                       // blogai imamas id
+                      .concat(id + '')                       // blogai imamas id
                       .concat('/single-mandate')
             )
             .then(function(resp) {
