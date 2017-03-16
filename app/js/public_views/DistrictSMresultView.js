@@ -24,7 +24,7 @@ var DistrictSMresultView = React.createClass({
         axios.get(
                 spring.localHost
                       .concat('/api/results/district/')
-                      .concat(id + '')                       // blogai imamas id
+                      .concat(id + '')
                       .concat('/single-mandate')
             )
             .then(function(resp) {
@@ -36,7 +36,6 @@ var DistrictSMresultView = React.createClass({
                         valid: resp.data.validBallots
                     }
                 });
-                console.log(resp.data)
             }.bind(this))
             .catch(err => {
                 console.log(err);
