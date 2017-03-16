@@ -24,7 +24,7 @@ var CountyMMResultsView = React.createClass({
         axios.get(
             spring.localHost
                 .concat('/api/results/county/')
-                .concat(id + '')                       // blogai imamas id   //TODO fix needed
+                .concat(id + '')
                 .concat('/multi-mandate')
         )
             .then(function(resp) {

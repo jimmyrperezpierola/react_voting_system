@@ -21,7 +21,6 @@ var ConsolidatedResultsView = React.createClass({
                     results: response.data,
                     chartData: DataProcessor.cleanConsolidatedResultsDataForChart(response.data.partyMandates),
                 });
-                console.log(response.data)
             }.bind(this))
             .catch(err => {
                 console.log(err);
