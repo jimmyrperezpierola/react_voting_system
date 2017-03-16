@@ -133,7 +133,7 @@ var CountyMMResultsView = React.createClass({
             <div>
                 <h4 className="h4-election">2017 m. kovo 16 d. Lietuvos Respublikos Seimo rinkimai</h4>
                 {/*<h3>{this.getDistrictName()} apygarda</h3>*/}
-                <h3>KAZKAIP REIKIA APYGARDA GAUTI?</h3>
+                {/*<h3>KAZKAIP REIKIA APYGARDA GAUTI?</h3>*/}
                 <h4 className="h4-election">apylinkė: {this.getCountyName()}</h4>
                 <div className="row narrowed" style={{ margin: '30px 0px 30px 0px' }}>
                     <div className="col-md-4"></div>
